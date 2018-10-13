@@ -3,16 +3,27 @@
   "description": "Validates a predefined list of backlinks on remote websites that they exist and are correct (for SEO). Simple and Javascript-enabled web engines are used for scraping.",
   "minimum-stability": "stable",
   "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/rvalitov/backlink-checker-php",
   "authors": [
     {
       "name": "Ramil Valitov",
-      "email": "ramilvalitov@gmail.com"
+      "email": "ramilvalitov@gmail.com",
+      "homepage": "https://github.com/rvalitov"
     }
   ],
+  "support": {
+    "issues": "https://github.com/rvalitov/backlink-checker-php/issues",
+    "source": "https://github.com/rvalitov/backlink-checker-php"
+  },
   "require": {
     "php": ">=5.4.0",
     "sunra/php-simple-html-dom-parser": "~v1.5.2",
     "guzzlehttp/guzzle": "~6.3.3",
     "nesk/puphpeteer": "~1.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Valitov\\": "src/"
+    }
   }
 }
