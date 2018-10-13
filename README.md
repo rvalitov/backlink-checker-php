@@ -116,7 +116,7 @@ The function `$result->getBacklinks()` returns an array of objects that describe
 - `getTag` returns `string`, the tag that is used for the backlink, can be `a` or `img`;
 - `getTarget` returns `string`, contents of [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/A#attr-target) attribute of the `href`;
 - `getNoFollow` returns `true` if the backlink has [`nofollow`](https://en.wikipedia.org/wiki/Nofollow) attribute;
-- `getAnchor` returns `string` - anchor of the link, for example, inner text of `<a>` tag.
+- `getAnchor` returns `string` - anchor of the link, for example, inner text of `<a>` tag. This text is returned in a plain text format, all HTML tags are stripped.
 
 The `$response` object supports the following functions:
 
@@ -129,6 +129,9 @@ $base64_image = "data:image/jpeg;base64," . base64_encode($response->getScreensh
 ```
 
 **Note**. If you use function [`json_encode`](http://php.net/manual/en/function.json-encode.php) on object that contains the screenshot, then this screenshot will be converted to [base64](https://en.wikipedia.org/wiki/Data_URI_scheme) format automatically.
+
+# Examples
+Examples are available in a dedicated project on [GitHub](https://github.com/rvalitov/backlink-checker-php-demo).
 
 # System Requirements
 We use dependencies, therefore we need PHP 7.1 and later. 
