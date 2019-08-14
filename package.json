@@ -8,6 +8,6 @@
   "author": "Ramil Valitov",
   "license": "ISC",
   "dependencies": {
-    "@nesk/puphpeteer": "^1.4.0"
+    "@nesk/puphpeteer": "^1.6.0"
   }
 }
