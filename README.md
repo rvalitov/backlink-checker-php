@@ -1,7 +1,7 @@
 # The Idea of Backlink Checker 
-It's a casual task to work with backlinks in SEO. There are several tools to check or search for backlinks. Unlike other tools, we do not scan all possible websites in Internet and does not analyze Google Search results in order to find backlinks to your website. We only validate a list of backlinks that you already know. You recieve a list of backlinks using one of the following ways:
+It's a casual task to work with backlinks in SEO. There are several tools to check or search for backlinks. Unlike other tools, we do not scan all possible websites in Internet and does not analyze Google Search results in order to find backlinks to your website. We only validate a list of backlinks that you already know. You receive a list of backlinks using one of the following ways:
 
-- you buy backlinks and recieve the list of donor web pages
+- you buy backlinks and receive the list of donor web pages
 - you generate the backlinks yourself by posting on forums, 3rd party websites, etc.
 - your SEO expert or company work for you and show you the reports with backlinks as one of the SEO strategies
 
@@ -100,7 +100,7 @@ $response = $result->getResponse();
 if ($response->getSuccess()) {
     $links = $result->getBacklinks();
     if (sizeof($links) > 0)
-    	//Backlinks found
+        //Backlinks found
     else {
         //No backlinks found
     }
