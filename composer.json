@@ -18,7 +18,7 @@
   "require": {
     "php": ">=5.4.0",
     "sunra/php-simple-html-dom-parser": "~v1.5.2",
-    "guzzlehttp/guzzle": "~6.3.3",
+    "guzzlehttp/guzzle": "~6.5.7",
     "nesk/puphpeteer": "~1.6.0"
   },
   "autoload": {
