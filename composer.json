@@ -17,7 +17,7 @@
   },
   "require": {
     "php": ">=7.2.0",
-    "sunra/php-simple-html-dom-parser": "~v1.5.2",
+    "kub-at/php-simple-html-dom-parser": "^1.9.1",
     "guzzlehttp/guzzle": "~6.5.8",
     "nesk/puphpeteer": "~1.6.0",
     "ext-json": "*"
