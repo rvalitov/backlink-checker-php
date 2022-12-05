@@ -24,7 +24,7 @@ class HttpResponse implements JsonSerializable
     protected $statusCode;
 
     /**
-     * @var \string[][] headers of the response
+     * @var string[][] headers of the response
      */
     protected $headers;
 
@@ -52,20 +52,20 @@ class HttpResponse implements JsonSerializable
      * @param boolean $success
      * @param string $screenshot
      */
-    public function __construct($url, $statusCode, $headers, $response, $success, $screenshot)
+    public function __construct(string $url, int $statusCode, array $headers, string $response, bool $success, string $screenshot)
     {
         $this->url = $url;
         $this->statusCode = $statusCode;
         $this->headers = $headers;
         $this->response = $response;
-        $this->success = boolval($success);
+        $this->success = $success;
         $this->screenshot = $screenshot;
     }
 
     /**
      * @return string URL
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -73,7 +73,7 @@ class HttpResponse implements JsonSerializable
     /**
      * @return int HTTP status code
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }
@@ -103,7 +103,7 @@ class HttpResponse implements JsonSerializable
      *     key MUST be a header name, and each value MUST be an array of strings
      *     for that header.
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
@@ -111,7 +111,7 @@ class HttpResponse implements JsonSerializable
     /**
      * @return string response body
      */
-    public function getResponse()
+    public function getResponse(): string
     {
         return $this->response;
     }
@@ -119,7 +119,7 @@ class HttpResponse implements JsonSerializable
     /**
      * @return boolean true, if request succeeded
      */
-    public function getSuccess()
+    public function getSuccess(): bool
     {
         return $this->success;
     }
@@ -127,7 +127,7 @@ class HttpResponse implements JsonSerializable
     /**
      * @return string screenshot in binary format
      */
-    public function getScreenshot()
+    public function getScreenshot(): string
     {
         return $this->screenshot;
     }
@@ -136,11 +136,11 @@ class HttpResponse implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array|null data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): ?array
     {
         $data = get_object_vars($this);
         if (strlen($data["screenshot"]) > 0)

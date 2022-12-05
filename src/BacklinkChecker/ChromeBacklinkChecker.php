@@ -2,8 +2,10 @@
 
 namespace Valitov\BacklinkChecker;
 
+use InvalidArgumentException;
 use Nesk\Puphpeteer\Puppeteer;
 use Nesk\Rialto\Data\JsFunction;
+use RuntimeException;
 
 class ChromeBacklinkChecker extends BacklinkChecker
 {
@@ -12,11 +14,11 @@ class ChromeBacklinkChecker extends BacklinkChecker
      * @param string $url
      * @param boolean $makeScreenshot
      * @return HttpResponse
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      * @todo Add support for response headers
      */
-    protected function browsePage($url, $makeScreenshot)
+    protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
     {
         $puppeteer = new Puppeteer();
         /**

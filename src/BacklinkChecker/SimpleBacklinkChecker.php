@@ -3,6 +3,12 @@
 namespace Valitov\BacklinkChecker;
 
 use GuzzleHttp;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ServerException;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Class SimpleBacklinkChecker
@@ -16,13 +22,11 @@ class SimpleBacklinkChecker extends BacklinkChecker
      * @param string $url
      * @param boolean $makeScreenshot
      * @return HttpResponse
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
-    protected function browsePage($url, $makeScreenshot)
+    protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
     {
-        if (!is_string($url))
-            throw new \InvalidArgumentException("Argument must be string");
         $client = new GuzzleHttp\Client();
         try {
             /** @noinspection SpellCheckingInspection */
@@ -31,17 +35,11 @@ class SimpleBacklinkChecker extends BacklinkChecker
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
                 ]
             ]);
-        } catch (GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException|ServerException|BadResponseException $e) {
             $response = $e->getResponse();
             return new HttpResponse($url, $response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents(), false, "");
-        } catch (GuzzleHttp\Exception\ServerException $e) {
-            $response = $e->getResponse();
-            return new HttpResponse($url, $response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents(), false, "");
-        } catch (GuzzleHttp\Exception\BadResponseException $e) {
-            $response = $e->getResponse();
-            return new HttpResponse($url, $response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents(), false, "");
-        } catch (GuzzleHttp\Exception\GuzzleException $e) {
-            throw new \RuntimeException($e->getMessage());
+        } catch (GuzzleException $e) {
+            throw new RuntimeException($e->getMessage());
         }
         return new HttpResponse($url, $response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents(), true, "");
     }

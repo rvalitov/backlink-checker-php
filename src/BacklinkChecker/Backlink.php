@@ -22,7 +22,6 @@ class Backlink implements JsonSerializable
      */
     protected $Anchor;
 
-    /** @noinspection SpellCheckingInspection */
     /**
      * @var bool true if the backlink has "nofollow" tag
      */
@@ -46,7 +45,7 @@ class Backlink implements JsonSerializable
      * @param string $Target
      * @param string $Tag
      */
-    public function __construct($Backlink, $LinkContents, $NoFollow, $Target, $Tag)
+    public function __construct(string $Backlink, string $LinkContents, bool $NoFollow, string $Target, string $Tag)
     {
         $this->Backlink = $Backlink;
         $this->Anchor = $LinkContents;
@@ -58,7 +57,7 @@ class Backlink implements JsonSerializable
     /**
      * @return string - anchor of the link, for example, inner text of <a> tag
      */
-    public function getAnchor()
+    public function getAnchor(): string
     {
         return $this->Anchor;
     }
@@ -66,7 +65,7 @@ class Backlink implements JsonSerializable
     /**
      * @return boolean true if the backlink has "nofollow" tag
      */
-    public function getNoFollow()
+    public function getNoFollow(): bool
     {
         return $this->NoFollow;
     }
@@ -74,7 +73,7 @@ class Backlink implements JsonSerializable
     /**
      * @return string - contents of target attribute of the href
      */
-    public function getTarget()
+    public function getTarget(): string
     {
         return $this->Target;
     }
@@ -82,7 +81,7 @@ class Backlink implements JsonSerializable
     /**
      * @return string - the tag that is used for the backlink, can be "a" or "img"
      */
-    public function getTag()
+    public function getTag(): string
     {
         return $this->Tag;
     }
@@ -90,7 +89,7 @@ class Backlink implements JsonSerializable
     /**
      * @return string - backlink - exact URL that matches the target domain
      */
-    public function getBacklink()
+    public function getBacklink(): string
     {
         return $this->Backlink;
     }
@@ -98,11 +97,11 @@ class Backlink implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array|null data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): ?array
     {
         return get_object_vars($this);
     }

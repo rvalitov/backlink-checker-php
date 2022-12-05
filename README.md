@@ -90,7 +90,7 @@ try {
 The function `getBacklinks` has the following additional options:
 
 - `$scanBacklinks` - if set to `true`, then it scans for the backlinks (the text of the `href` attribute of [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) tag); otherwise scanning is not performed. 
-- `$scanHotlinks` - if set to `true`, then it scans for the [hotlinking](https://simple.wikipedia.org/wiki/Hotlinking) (the text of the `src` attribute of [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) tag); otherwise scanning is not performed.
+- `$scanHotlinks` - if set to `true`, then it scans for the [hotlink](https://simple.wikipedia.org/wiki/Hotlinking) (the text of the `src` attribute of [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) tag); otherwise scanning is not performed.
 - `$makeScreenshot` - if set to `true`, then we also take a screenshot of the viewport; otherwise screenshot is not made. This option makes sense only for Chromium mode (default viewport size is `800 x 600` px, image format: `JPEG`, image quality: `90`, image encoding: `binary`); for simple mode this option is ignored.
 
 Now we should check the `$result`, if the function succeeded:
@@ -134,7 +134,7 @@ $base64_image = "data:image/jpeg;base64," . base64_encode($response->getScreensh
 Examples are available in a dedicated project on [GitHub](https://github.com/rvalitov/backlink-checker-php-demo).
 
 # System Requirements
-We use dependencies, therefore we need PHP 7.1 and later. 
+We use dependencies, therefore we need PHP 7.2 and later. 
 
 # Feedback
 Your feedback is very appreciated. If you want to see new features in this project, please, post your ideas and feature requests in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
@@ -142,14 +142,7 @@ Your feedback is very appreciated. If you want to see new features in this proje
 # Donations
 This is a free project that I do in my spare time. If you find it useful, then you can support it by donating some amount of money. This will help to keep the project alive and making it better: develop new features, make new releases, fix bugs, and provide at least some minimal technical support.
 
-You can choose any payment method you prefer:
-
-Your Currency | Payment Method
------------- | -------------
-Euro € | [![Card](https://img.shields.io/badge/EURO-Debit/Credit%20Card-6f202b.svg?style=flat)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BJJF3E6DBRYHA) [![PayPal](https://img.shields.io/badge/EURO-PayPal-blue.svg?style=flat)](https://www.paypal.me/valitov/0eur) 
-USD $ | [![Card](https://img.shields.io/badge/USD-Debit/Credit%20Card-6f202b.svg?style=flat)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B8VMNU7SEAU8J) [![PayPal](https://img.shields.io/badge/USD-PayPal-blue.svg?style=flat)](https://www.paypal.me/valitov/0usd) 
-Russian Ruble ₽ | [![Card](https://img.shields.io/badge/RUB-Debit/Credit%20Card-6f202b.svg?style=flat)](https://money.yandex.ru/to/410011424143476) [![PayPal](https://img.shields.io/badge/RUB-PayPal-blue.svg?style=flat)](https://www.paypal.me/valitov/0rub) [![YandexMoney](https://img.shields.io/badge/RUB-YandexMoney-5b0d56.svg?style=flat)](https://money.yandex.ru/to/410011424143476)
-Other | [![Card](https://img.shields.io/badge/OTHER-Debit/Credit%20Card-6f202b.svg?style=flat)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BJJF3E6DBRYHA) [![PayPal](https://img.shields.io/badge/OTHER-PayPal-blue.svg?style=flat)](https://www.paypal.me/valitov)
+[![Card](https://img.shields.io/badge/Donate-USD,EUR,GBR,AUD,BGN,CAD-blue.svg?style=flat)](https://revolut.me/ramildz3f)
 
 # Support or Contact
 Having trouble? May be something has already been reported in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues). If you don't find your problem there, then, please, add your issue there.

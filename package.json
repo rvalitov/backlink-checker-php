@@ -1,6 +1,6 @@
 {
   "name": "backlink-checker-php",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Validates a predefined list of backlinks on remote websites that they exist and are correct (for SEO). Simple and Javascript-enabled web engines are used for scraping.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
