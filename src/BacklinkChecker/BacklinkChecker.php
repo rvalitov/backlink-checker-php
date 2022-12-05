@@ -4,7 +4,7 @@ namespace Valitov\BacklinkChecker;
 
 use InvalidArgumentException;
 use RuntimeException;
-use Sunra\PhpSimple\HtmlDomParser;
+use KubAT\PhpSimple\HtmlDomParser;
 
 /**
  * Class BacklinkChecker
