@@ -24,7 +24,41 @@ We use [Chromium headless mode](https://developers.google.com/web/updates/2017/0
 You must have a [Composer](https://getcomposer.org/) installed. Run the following command:
 
 ```bash
-php composer require rvalitov/backlink-checker-php:~1.0.0
+php composer require rvalitov/backlink-checker-php:^2.0.0
+```
+
+Here we use version 2.0.0 or later that support PHP 8.0 and latest versions of dependencies.
+If you want to use earlier version please check the 1.x.x releases.
+
+Some dependencies from version 1.x.x are not supported anymore.
+Therefore, I had to switch to community driven forks.
+As a result such forks are not published in the composer library and have "dev" status.
+To use them you need to add the following 2 repositories to your `composer.json` file, 
+so that composer knows where to look for them.
+
+```json
+"repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/zoonru/puphpeteer.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/zoonru/rialto.git"
+    }
+  ]
+```
+
+Besides, please add the following config (for example, before or after the "repositories" section) to allow composer to use "dev" versions of the packages:
+```json
+"minimum-stability": "dev",
+"prefer-stable": true
+```
+
+After that run update:
+
+```bash
+php composer update
 ```
 
 ### Step 2. Install the Chromium
