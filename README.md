@@ -139,10 +139,5 @@ We use dependencies, therefore we need PHP 7.2 and later.
 # Feedback
 Your feedback is very appreciated. If you want to see new features in this project, please, post your ideas and feature requests in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
 
-# Donations
-This is a free project that I do in my spare time. If you find it useful, then you can support it by donating some amount of money. This will help to keep the project alive and making it better: develop new features, make new releases, fix bugs, and provide at least some minimal technical support.
-
-[![Card](https://img.shields.io/badge/Donate-USD,EUR,GBR,AUD,BGN,CAD-blue.svg?style=flat)](https://revolut.me/ramildz3f)
-
 # Support or Contact
 Having trouble? May be something has already been reported in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues). If you don't find your problem there, then, please, add your issue there.
