@@ -1,3 +1,7 @@
+![PHP version icon](https://img.shields.io/static/v1?label=PHP&message=7.3%20-%208.0&color=blue)
+![License icon](https://img.shields.io/badge/License-GPL--3-green)
+![Platfrom icon](https://img.shields.io/badge/Platform-Window%2C%20Linux-green)
+
 # The Idea of Backlink Checker 
 It's a casual task to work with backlinks in SEO. There are several tools to check or search for backlinks. Unlike other tools, we do not scan all possible websites in Internet and does not analyze Google Search results in order to find backlinks to your website. We only validate a list of backlinks that you already know. You receive a list of backlinks using one of the following ways:
 
@@ -134,7 +138,8 @@ $base64_image = "data:image/jpeg;base64," . base64_encode($response->getScreensh
 Examples are available in a dedicated project on [GitHub](https://github.com/rvalitov/backlink-checker-php-demo).
 
 # System Requirements
-We use dependencies, therefore we need PHP 7.2 and later. 
+We use dependencies, therefore we need PHP 7.3 and later.
+PHP 8.0 supported. PHP 8.1 not supported.
 
 # Feedback
 Your feedback is very appreciated. If you want to see new features in this project, please, post your ideas and feature requests in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).

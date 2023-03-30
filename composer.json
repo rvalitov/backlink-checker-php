@@ -1,7 +1,8 @@
 {
   "name": "rvalitov/backlink-checker-php",
   "description": "Validates a predefined list of backlinks on remote websites that they exist and are correct (for SEO). Simple and Javascript-enabled web engines are used for scraping.",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/rvalitov/backlink-checker-php",
   "authors": [
@@ -16,12 +17,22 @@
     "source": "https://github.com/rvalitov/backlink-checker-php"
   },
   "require": {
-    "php": ">=7.4.0",
+    "php": "^7.3 || ^8.0",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
     "guzzlehttp/guzzle": "7.*",
-    "nesk/puphpeteer": "2.*",
+    "nesk/puphpeteer": "dev-zoon",
     "ext-json": "*"
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/zoonru/puphpeteer.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/zoonru/rialto.git"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Valitov\\": "src/"
