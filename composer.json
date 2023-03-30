@@ -16,10 +16,10 @@
     "source": "https://github.com/rvalitov/backlink-checker-php"
   },
   "require": {
-    "php": ">=7.2.0",
+    "php": ">=7.4.0",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
-    "guzzlehttp/guzzle": "~6.5.8",
-    "nesk/puphpeteer": "~1.6.0",
+    "guzzlehttp/guzzle": "7.*",
+    "nesk/puphpeteer": "2.*",
     "ext-json": "*"
   },
   "autoload": {
