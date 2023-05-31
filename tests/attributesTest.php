@@ -17,7 +17,7 @@ final class attributesTest extends TestCase
      */
     private $checker;
 
-    const TEST_HOST = "http://localhost:8080/";
+    const TEST_HOST = "http://127.0.0.1:8080/";
 
     public function __construct()
     {
