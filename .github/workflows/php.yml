@@ -11,16 +11,16 @@ permissions:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+        php-versions: [ '7.4', '8.0', '8.1' ]
+        phpunit-versions: [ 9 ]
+        include:
+          - operating-system: 'ubuntu-latest'
+            php-versions: '8.1'
+            phpunit-versions: 10
     runs-on: ${{ matrix.operating-system }}
-      strategy:
-        matrix:
-          operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
-          php-versions: [ '7.4', '8.0', '8.1' ]
-          phpunit-versions: [ 9 ]
-          include:
-            - operating-system: 'ubuntu-latest'
-              php-versions: '8.1'
-              phpunit-versions: 10
 
     steps:
       - name: Setup PHP
