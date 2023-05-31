@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ramil Valitov",
+  "author": "Ramil Valitov <ramil@walitoff.com>",
   "license": "GPL-3.0",
   "dependencies": {
     "@nesk/puphpeteer": "^2.0.0"
