@@ -43,7 +43,7 @@ abstract class BacklinkChecker
                     if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
                         //We found a matching backlink
                         $contents = html_entity_decode(trim($link->plaintext));
-                        $target = $link->_target ?? "";
+                        $target = $link->target ?? "";
                         $noFollow = false;
                         if (isset($link->rel)) {
                             $relList = explode(" ", $link->rel);
