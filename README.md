@@ -1,4 +1,4 @@
-![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=7.3%20-%208.0\&color=blue)
+![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=7.4%20-%208.0\&color=blue)
 ![License icon](https://img.shields.io/badge/License-GPL--3-green)
 ![Platfrom icon](https://img.shields.io/badge/Platform-Window%2C%20Linux-green)
 
@@ -186,7 +186,7 @@ Tests are in `tests` folder.
 
 # System Requirements
 
-We use dependencies, therefore we need PHP 7.3 and later.
+We use dependencies, therefore we need PHP 7.4 and later.
 PHP 8.0 supported. PHP 8.1 not supported.
 Required PHP extensions:
 
