@@ -174,6 +174,9 @@ Examples are available in a dedicated project on [GitHub](https://github.com/rva
 # System Requirements
 We use dependencies, therefore we need PHP 7.3 and later.
 PHP 8.0 supported. PHP 8.1 not supported.
+Required PHP extensions:
+- [`json`](https://www.php.net/manual/en/json.installation.php)
+- [`sockets`](https://www.php.net/manual/en/sockets.installation.php)
 
 # Feedback
 Your feedback is very appreciated. If you want to see new features in this project, please, post your ideas and feature requests in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
