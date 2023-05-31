@@ -21,3 +21,6 @@ vendor/
 node_modules/
 
 *.phar
+*.cache
+coverage
+
