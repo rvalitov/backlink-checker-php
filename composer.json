@@ -1,10 +1,11 @@
 {
   "name": "rvalitov/backlink-checker-php",
   "description": "Validates a predefined list of backlinks on remote websites that they exist and are correct (for SEO). Simple and Javascript-enabled web engines are used for scraping.",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/rvalitov/backlink-checker-php",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
+  },
   "authors": [
     {
       "name": "Ramil Valitov",
@@ -12,10 +13,23 @@
       "homepage": "https://github.com/rvalitov"
     }
   ],
-  "support": {
-    "issues": "https://github.com/rvalitov/backlink-checker-php/issues",
-    "source": "https://github.com/rvalitov/backlink-checker-php"
+  "autoload": {
+    "psr-4": {
+      "Valitov\\": "src/"
+    }
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/zoonru/puphpeteer.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/zoonru/rialto.git"
+    }
+  ],
   "require": {
     "php": "^7.3 || ^8.0.7",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
@@ -28,19 +42,8 @@
     "phpunit/phpunit": "^9",
     "phpunit/php-code-coverage": "^9"
   },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/puphpeteer.git"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/rialto.git"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Valitov\\": "src/"
-    }
+  "support": {
+    "issues": "https://github.com/rvalitov/backlink-checker-php/issues",
+    "source": "https://github.com/rvalitov/backlink-checker-php"
   }
 }
