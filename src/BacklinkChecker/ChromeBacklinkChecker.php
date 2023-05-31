@@ -17,6 +17,7 @@ class ChromeBacklinkChecker extends BacklinkChecker
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @todo Add support for response headers
+     * @noinspection PhpUndefinedFieldInspection
      */
     protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
     {

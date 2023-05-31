@@ -15,32 +15,32 @@ class HttpResponse implements JsonSerializable
     /**
      * @var string URL
      */
-    protected $url;
+    protected string $url;
 
     /**
      * @var int HTTP status code
      */
-    protected $statusCode;
+    protected int $statusCode;
 
     /**
      * @var string[][] headers of the response
      */
-    protected $headers;
+    protected array $headers;
 
     /**
      * @var string response body
      */
-    protected $response;
+    protected string $response;
 
     /**
      * @var bool true, if request succeeded
      */
-    protected $success;
+    protected bool $success;
 
     /**
      * @var string screenshot in binary format
      */
-    protected $screenshot;
+    protected string $screenshot;
 
     /**
      * HttpResponse constructor.
@@ -123,8 +123,18 @@ class HttpResponse implements JsonSerializable
 
     /**
      * @return boolean true, if request succeeded
+     * @deprecated use isSuccess() instead
+     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
     public function getSuccess(): bool
+    {
+        return $this->isSuccess();
+    }
+
+    /**
+     * @return boolean true, if request succeeded
+     */
+    public function isSuccess(): bool
     {
         return $this->success;
     }

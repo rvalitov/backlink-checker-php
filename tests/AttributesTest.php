@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:ignore
 declare(strict_types=1);
 require_once __DIR__ . '/../src/BacklinkChecker/Backlink.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkData.php';
@@ -10,12 +10,12 @@ require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
 
-final class attributesTest extends TestCase
+final class AttributesTest extends TestCase //phpcs:ignore
 {
     /**
      * @var BacklinkChecker\SimpleBacklinkChecker
      */
-    private $checker;
+    private BacklinkChecker\SimpleBacklinkChecker $checker;
 
     const TEST_HOST = "http://127.0.0.1:8080/";
 
@@ -27,7 +27,7 @@ final class attributesTest extends TestCase
 
     public function testLinks()
     {
-        $check_list = [
+        $checkList = [
             [
                 "url" => self::TEST_HOST . "follow.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com$@",
@@ -42,16 +42,16 @@ final class attributesTest extends TestCase
             ],
         ];
 
-        $this->assertNotEmpty($check_list);
+        $this->assertNotEmpty($checkList);
 
-        foreach ($check_list as $check) {
+        foreach ($checkList as $check) {
             $url = $check["url"];
             $pattern = $check["pattern"];
             $this->assertNotEmpty($url);
             $this->assertNotEmpty($pattern);
-            $result = $this->checker->getBacklinks($url, $pattern, true, false, false);
+            $result = $this->checker->getBacklinks($url, $pattern);
             $response = $result->getResponse();
-            $this->assertTrue($response->getSuccess(), "Failed to read webpage $url");
+            $this->assertTrue($response->isSuccess(), "Failed to read webpage $url");
             $this->assertNotEmpty($response->getResponse(), "Failed to get response from $url");
             $this->assertNotEmpty($response->getHeaders(), "Failed to get headers from $url");
 
@@ -60,7 +60,7 @@ final class attributesTest extends TestCase
 
             foreach ($backlinks as $id => $backlink) {
                 $this->assertNotEmpty($backlink->getBacklink(), "Failed to get backlink $id for $url");
-                $this->assertEquals($check["noFollow"], $backlink->getNoFollow());
+                $this->assertEquals($check["noFollow"], $backlink->isNoFollow());
                 $this->assertEquals($check["target"], $backlink->getTarget());
             }
         }

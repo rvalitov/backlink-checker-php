@@ -15,43 +15,48 @@ class Backlink implements JsonSerializable
     /**
      * @var string Backlink - exact URL that matches the target domain
      */
-    protected $Backlink;
+    protected string $backlink;
 
     /**
      * @var string Anchor of the link, for example, inner text of <a> tag
      */
-    protected $Anchor;
+    protected string $anchor;
 
     /**
      * @var bool true if the backlink has "nofollow" tag
      */
-    protected $NoFollow;
+    protected bool $noFollow;
 
     /**
      * @var string Contents of target attribute of the href
      */
-    protected $Target;
+    protected string $target;
 
     /**
      * @var string The tag that is used for the backlink, can be "a" or "img"
      */
-    protected $Tag;
+    protected string $tag;
 
     /**
      * Backlink constructor.
-     * @param string $Backlink
-     * @param string $LinkContents
-     * @param boolean $NoFollow
-     * @param string $Target
-     * @param string $Tag
+     * @param string $backlink
+     * @param string $linkContents
+     * @param boolean $noFollow
+     * @param string $target
+     * @param string $tag
      */
-    public function __construct(string $Backlink, string $LinkContents, bool $NoFollow, string $Target, string $Tag)
-    {
-        $this->Backlink = $Backlink;
-        $this->Anchor = $LinkContents;
-        $this->NoFollow = $NoFollow;
-        $this->Target = $Target;
-        $this->Tag = $Tag;
+    public function __construct(
+        string $backlink,
+        string $linkContents,
+        bool   $noFollow,
+        string $target,
+        string $tag
+    ) {
+        $this->backlink = $backlink;
+        $this->anchor = $linkContents;
+        $this->noFollow = $noFollow;
+        $this->target = $target;
+        $this->tag = $tag;
     }
 
     /**
@@ -59,15 +64,25 @@ class Backlink implements JsonSerializable
      */
     public function getAnchor(): string
     {
-        return $this->Anchor;
+        return $this->anchor;
+    }
+
+    /**
+     * @return boolean true if the backlink has "nofollow" tag
+     * @deprecated use isNoFollow() instead
+     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
+     */
+    public function getNoFollow(): bool
+    {
+        return $this->isNoFollow();
     }
 
     /**
      * @return boolean true if the backlink has "nofollow" tag
      */
-    public function getNoFollow(): bool
+    public function isNoFollow(): bool
     {
-        return $this->NoFollow;
+        return $this->noFollow;
     }
 
     /**
@@ -75,7 +90,7 @@ class Backlink implements JsonSerializable
      */
     public function getTarget(): string
     {
-        return $this->Target;
+        return $this->target;
     }
 
     /**
@@ -83,7 +98,7 @@ class Backlink implements JsonSerializable
      */
     public function getTag(): string
     {
-        return $this->Tag;
+        return $this->tag;
     }
 
     /**
@@ -91,7 +106,7 @@ class Backlink implements JsonSerializable
      */
     public function getBacklink(): string
     {
-        return $this->Backlink;
+        return $this->backlink;
     }
 
     /**

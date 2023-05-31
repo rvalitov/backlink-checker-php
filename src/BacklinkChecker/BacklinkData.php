@@ -15,12 +15,12 @@ class BacklinkData implements JsonSerializable
     /**
      * @var HttpResponse HTTP response
      */
-    protected $response;
+    protected HttpResponse $response;
 
     /**
      * @var Backlink[] found backlinks
      */
-    protected $backlinks;
+    protected array $backlinks;
 
     /**
      * BacklinkData constructor.

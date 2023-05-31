@@ -2,6 +2,7 @@
 
 namespace Valitov\BacklinkChecker;
 
+use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 use KubAT\PhpSimple\HtmlDomParser;
@@ -26,8 +27,16 @@ abstract class BacklinkChecker
     protected function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
         $result = array();
+        $isOk = true;
 
-        if (@preg_match($pattern, null) === false) {
+        try {
+            if (preg_match($pattern, null) === false) {
+                $isOk = false;
+            }
+        } catch (Exception $e) {
+            $isOk = false;
+        }
+        if (!$isOk) {
             throw new InvalidArgumentException("Invalid pattern. Check the RegExp syntax.");
         }
         if (strlen($html) <= 0 || strlen($pattern) <= 0) {
@@ -107,7 +116,7 @@ abstract class BacklinkChecker
     ): BacklinkData {
         $response = $this->browsePage($url, $makeScreenshot);
 
-        if (!$response->getSuccess()) {
+        if (!$response->isSuccess()) {
             $backlinks = [];
         } else {
             $backlinks = $this->getRawBacklink($response->getResponse(), $pattern, $scanLinks, $scanImages);
