@@ -27,13 +27,16 @@ abstract class BacklinkChecker
     {
         $result = array();
 
-        if (@preg_match($pattern, null) === false)
+        if (@preg_match($pattern, null) === false) {
             throw new InvalidArgumentException("Invalid pattern. Check the RegExp syntax.");
-        if (strlen($html) <= 0 || strlen($pattern) <= 0)
+        }
+        if (strlen($html) <= 0 || strlen($pattern) <= 0) {
             return $result;
+        }
         $dom = HtmlDomParser::str_get_html($html);
-        if (empty($dom))
+        if (empty($dom)) {
             throw new RuntimeException("Failed to parse HTML");
+        }
 
         if ($scanLinks) {
             //Searching <a> tags
@@ -49,8 +52,9 @@ abstract class BacklinkChecker
                             $relList = explode(" ", $link->rel);
                             if (is_array($relList)) {
                                 foreach ($relList as $item) {
-                                    if (strtolower(trim($item)) === "nofollow")
+                                    if (strtolower(trim($item)) === "nofollow") {
                                         $noFollow = true;
+                                    }
                                 }
                             }
                         }
@@ -94,14 +98,20 @@ abstract class BacklinkChecker
      * @param boolean $makeScreenshot
      * @return BacklinkData
      */
-    public function getBacklinks(string $url, string $pattern, bool $scanLinks = true, bool $scanImages = false, bool $makeScreenshot = false): BacklinkData
-    {
+    public function getBacklinks(
+        string $url,
+        string $pattern,
+        bool   $scanLinks = true,
+        bool   $scanImages = false,
+        bool   $makeScreenshot = false
+    ): BacklinkData {
         $response = $this->browsePage($url, $makeScreenshot);
 
-        if (!$response->getSuccess())
+        if (!$response->getSuccess()) {
             $backlinks = [];
-        else
+        } else {
             $backlinks = $this->getRawBacklink($response->getResponse(), $pattern, $scanLinks, $scanImages);
+        }
         return new BacklinkData($response, $backlinks);
     }
 }

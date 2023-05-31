@@ -17,6 +17,8 @@ final class attributesTest extends TestCase
      */
     private $checker;
 
+    const TEST_HOST = "http://localhost:8080/";
+
     public function __construct()
     {
         parent::__construct();
@@ -27,13 +29,13 @@ final class attributesTest extends TestCase
     {
         $check_list = [
             [
-                "url" => "http://localhost/follow.html",
+                "url" => self::TEST_HOST . "follow.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com$@",
                 "target" => "",
                 "noFollow" => true,
             ],
             [
-                "url" => "http://localhost/follow.html",
+                "url" => self::TEST_HOST . "follow.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com/new$@",
                 "target" => "_blank",
                 "noFollow" => false,

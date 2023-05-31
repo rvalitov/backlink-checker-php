@@ -1,8 +1,8 @@
 <?php
 
 namespace Valitov\BacklinkChecker;
-use JsonSerializable;
 
+use JsonSerializable;
 
 /**
  * Class Backlink

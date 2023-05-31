@@ -4,7 +4,6 @@ namespace Valitov\BacklinkChecker;
 
 use JsonSerializable;
 
-
 /**
  * Class HttpResponse
  * A response from web request
@@ -52,8 +51,14 @@ class HttpResponse implements JsonSerializable
      * @param boolean $success
      * @param string $screenshot
      */
-    public function __construct(string $url, int $statusCode, array $headers, string $response, bool $success, string $screenshot)
-    {
+    public function __construct(
+        string $url,
+        int    $statusCode,
+        array  $headers,
+        string $response,
+        bool   $success,
+        string $screenshot
+    ) {
         $this->url = $url;
         $this->statusCode = $statusCode;
         $this->headers = $headers;
@@ -143,8 +148,9 @@ class HttpResponse implements JsonSerializable
     public function jsonSerialize(): ?array
     {
         $data = get_object_vars($this);
-        if (strlen($data["screenshot"]) > 0)
+        if (strlen($data["screenshot"]) > 0) {
             $data["screenshot"] = "data:image/jpeg;base64," . base64_encode($data["screenshot"]);
+        }
         return $data;
     }
 }

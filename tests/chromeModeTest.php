@@ -17,6 +17,8 @@ final class chromeModeTest extends TestCase
      */
     private $checker;
 
+    const TEST_HOST = "http://localhost:8080/";
+
     public function __construct()
     {
         parent::__construct();
@@ -27,7 +29,7 @@ final class chromeModeTest extends TestCase
     {
         $check_list = [
             [
-                "url" => "http://localhost/noLinks.html",
+                "url" => self::TEST_HOST . "noLinks.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 0,
                 "scanLinks" => true,
@@ -35,7 +37,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => false,
             ],
             [
-                "url" => "http://localhost/simple.html",
+                "url" => self::TEST_HOST . "simple.html",
                 "pattern" => "@^https://(www\.)?walitoff\.com.*@",
                 "backlinks" => 1,
                 "scanLinks" => true,
@@ -43,7 +45,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => false,
             ],
             [
-                "url" => "http://localhost/simple.html",
+                "url" => self::TEST_HOST . "simple.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 2,
                 "scanLinks" => true,
@@ -51,7 +53,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => false,
             ],
             [
-                "url" => "http://localhost/emptyAnchor.html",
+                "url" => self::TEST_HOST . "emptyAnchor.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 1,
                 "scanLinks" => true,
@@ -59,7 +61,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => true,
             ],
             [
-                "url" => "http://localhost/images.html",
+                "url" => self::TEST_HOST . "images.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 1,
                 "scanLinks" => true,
@@ -67,7 +69,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => true,
             ],
             [
-                "url" => "http://localhost/images.html",
+                "url" => self::TEST_HOST . "images.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 0,
                 "scanLinks" => true,
@@ -75,7 +77,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => true,
             ],
             [
-                "url" => "http://localhost/images.html",
+                "url" => self::TEST_HOST . "images.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 1,
                 "scanLinks" => false,
@@ -83,7 +85,7 @@ final class chromeModeTest extends TestCase
                 "emptyAnchor" => true,
             ],
             [
-                "url" => "http://localhost/noLinks.html",
+                "url" => self::TEST_HOST . "noLinks.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
                 "backlinks" => 0,
                 "scanLinks" => true,

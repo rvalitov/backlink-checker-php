@@ -10,7 +10,7 @@
     "markdown:fix": "remark . --frail --output",
     "phpunit": "php8.0 ./vendor/bin/phpunit",
     "sort": "sort-package-json ./package.json ./composer.json",
-    "start-server": "http-server -a localhost -p 80 tests/data",
+    "start-server": "http-server -a localhost -p 8080 tests/data",
     "test": "npm run markdown && npm run coverage"
   },
   "remarkConfig": {

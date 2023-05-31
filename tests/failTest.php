@@ -17,6 +17,8 @@ final class failTest extends TestCase
      */
     private $checker;
 
+    const TEST_HOST = "http://localhost:8080/";
+
     public function __construct()
     {
         parent::__construct();
@@ -25,13 +27,13 @@ final class failTest extends TestCase
 
     public function testBadRegexp()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->checker->getBacklinks("http://localhost/simple.html", "abc", true, false, false);
+        $this->expectException(InvalidArgumentException::class);
+        $this->checker->getBacklinks(self::TEST_HOST . "simple.html", "abc", true, false, false);
     }
 
     public function testEmptyHtml()
     {
-        $result = $this->checker->getBacklinks("http://localhost/empty.html", "@abc@", true, false, false);
+        $result = $this->checker->getBacklinks(self::TEST_HOST . "empty.html", "@abc@", true, false, false);
         $response = $result->getResponse();
         $this->assertTrue($response->getSuccess());
         $this->assertEquals(200, $response->getStatusCode());
@@ -40,7 +42,7 @@ final class failTest extends TestCase
 
     public function testNotFoundHtml()
     {
-        $result = $this->checker->getBacklinks("http://localhost/404.html", "@abc@", true, false, false);
+        $result = $this->checker->getBacklinks(self::TEST_HOST . "404.html", "@abc@", true, false, false);
         $response = $result->getResponse();
         $this->assertFalse($response->getSuccess());
         $this->assertEquals(404, $response->getStatusCode());
@@ -49,7 +51,7 @@ final class failTest extends TestCase
 
     public function testInvalidProtocol()
     {
-        $this->expectException(\RuntimeException::class);
-        $this->checker->getBacklinks("ppp://localhost/404.html", "@abc@", true, false, false);
+        $this->expectException(RuntimeException::class);
+        $this->checker->getBacklinks("ppp://localhost:8080/404.html", "@abc@", true, false, false);
     }
 }

@@ -32,15 +32,30 @@ class SimpleBacklinkChecker extends BacklinkChecker
             /** @noinspection SpellCheckingInspection */
             $response = $client->request('GET', $url, [
                 'headers' => [
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' .
+                        '(KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
                 ]
             ]);
         } catch (ClientException|ServerException|BadResponseException $e) {
             $response = $e->getResponse();
-            return new HttpResponse($url, $response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents(), false, "");
+            return new HttpResponse(
+                $url,
+                $response->getStatusCode(),
+                $response->getHeaders(),
+                $response->getBody()->getContents(),
+                false,
+                ""
+            );
         } catch (GuzzleException $e) {
             throw new RuntimeException($e->getMessage());
         }
-        return new HttpResponse($url, $response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents(), true, "");
+        return new HttpResponse(
+            $url,
+            $response->getStatusCode(),
+            $response->getHeaders(),
+            $response->getBody()->getContents(),
+            true,
+            ""
+        );
     }
 }

@@ -59,8 +59,9 @@ class ChromeBacklinkChecker extends BacklinkChecker
                 "encoding" => "base64"
             ]);
             $image = base64_decode($image);
-        } else
+        } else {
             $image = "";
+        }
 
         if (!$response->ok) {
             return new HttpResponse($url, $response->_status, array(array()), $response->text, false, $image);
