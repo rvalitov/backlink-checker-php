@@ -2,7 +2,10 @@
 ![License icon](https://img.shields.io/badge/License-GPL--3-green)
 ![Platfrom icon](https://img.shields.io/badge/Platform-Window%2C%20Linux-green)
 
-# The Idea of Backlink Checker 
+# The Idea of Backlink Checker
+
+![Social preview](media/social-preview.jpg)
+
 It's a casual task to work with backlinks in SEO. There are several tools to check or search for backlinks. Unlike other tools, we do not scan all possible websites in Internet and does not analyze Google Search results in order to find backlinks to your website. We only validate a list of backlinks that you already know. You receive a list of backlinks using one of the following ways:
 
 - you buy backlinks and receive the list of donor web pages
