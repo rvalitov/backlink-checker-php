@@ -7,6 +7,12 @@ use Nesk\Puphpeteer\Puppeteer;
 use Nesk\Rialto\Data\JsFunction;
 use RuntimeException;
 
+/**
+ * Class ChromeBacklinkChecker
+ * Perform checks with Chrome headless browser.
+ * @package Valitov\BacklinkChecker
+ * @author Ramil Valitov https://github.com/rvalitov
+ */
 class ChromeBacklinkChecker extends BacklinkChecker
 {
 

@@ -8,7 +8,7 @@ use JsonSerializable;
  * Class HttpResponse
  * A response from web request
  * @package Valitov\BacklinkChecker
- * @author Ramil Valitov ramilvalitov@gmail.com
+ * @author Ramil Valitov https://github.com/rvalitov
  */
 class HttpResponse implements JsonSerializable
 {

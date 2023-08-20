@@ -8,7 +8,7 @@ use JsonSerializable;
  * Class Backlink
  * Contains information about a backlink
  * @package Valitov\BacklinkChecker
- * @author Ramil Valitov ramilvalitov@gmail.com
+ * @author Ramil Valitov https://github.com/rvalitov
  */
 class Backlink implements JsonSerializable
 {

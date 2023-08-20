@@ -14,7 +14,7 @@ use RuntimeException;
  * Class SimpleBacklinkChecker
  * Checks the backlinks using a simple web engine without JavaScript support.
  * @package Valitov\BacklinkChecker
- * @author Ramil Valitov ramilvalitov@gmail.com
+ * @author Ramil Valitov https://github.com/rvalitov
  */
 class SimpleBacklinkChecker extends BacklinkChecker
 {

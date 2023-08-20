@@ -11,7 +11,7 @@ use KubAT\PhpSimple\HtmlDomParser;
  * Class BacklinkChecker
  * Abstract class for checking the backlinks
  * @package Valitov\BacklinkChecker
- * @author Ramil Valitov ramilvalitov@gmail.com
+ * @author Ramil Valitov https://github.com/rvalitov
  */
 abstract class BacklinkChecker
 {
