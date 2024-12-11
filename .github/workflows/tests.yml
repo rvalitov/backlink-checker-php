@@ -17,11 +17,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: ["ubuntu-latest","macos-latest","windows-latest"]
-        php-versions: [ "7.4", "8.0", "8.1", "8.2", "8.3" ]
+        operating-system: ["ubuntu-latest", "macos-latest", "windows-latest"]
+        php-versions: ["8.0", "8.1", "8.2", "8.3"]
         include:
-          - php-versions: "7.4"
-            phpunit-versions: 9
           - php-versions: "8.0"
             phpunit-versions: 9
           - php-versions: "8.1"
@@ -65,7 +63,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Starting local web server
