@@ -6,9 +6,9 @@
   "scripts": {
     "phpcbf": "phpcbf --standard=PSR2 src/",
     "phpcs": "phpcs --standard=PSR2 src/",
-    "phpmd": "phpmd src/ text phpmd.xml",
     "phpcs-fixer": "php-cs-fixer --stop-on-violation --verbose check src",
     "phpcs-fixer:fix": "php-cs-fixer fix src",
+    "phpmd": "phpmd src/ text phpmd.xml",
     "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
   },
   "authors": [

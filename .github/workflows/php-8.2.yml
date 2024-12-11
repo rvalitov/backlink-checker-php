@@ -2,9 +2,9 @@ name: PHP 8.2 Build Test
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 permissions:
   contents: read
@@ -13,9 +13,9 @@ jobs:
   build:
     strategy:
       matrix:
-        operating-system: [ 'ubuntu-latest' ]
-        php-versions: [ '8.2' ]
-        phpunit-versions: [ 10 ]
+        operating-system: ["ubuntu-latest"]
+        php-versions: ["8.2"]
+        phpunit-versions: [10]
     runs-on: ${{ matrix.operating-system }}
 
     steps:
@@ -50,7 +50,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - run: npm ci
       - run: npm run markdown
       - run: npm run start-server &

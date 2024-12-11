@@ -3,7 +3,7 @@ name: Codacy Coverage Reporter
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   # eslint-disable-next-line yml/no-empty-mapping-value
@@ -22,7 +22,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: "8.0"
           extensions: mbstring, intl, xdebug, json, sockets
           ini-values: max_execution_time=360
           coverage: xdebug
@@ -62,4 +62,3 @@ jobs:
           coverage-reports: ./coverage/clover.xml
           # or a comma-separated list for multiple reports
           # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>
-

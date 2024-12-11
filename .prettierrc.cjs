@@ -9,12 +9,12 @@ const config = {
       options: {
         parser: "xml",
         printWidth: 120,
-        plugins: ["@prettier/plugin-xml"]
-      }
-    }
-  ]
+        xmlQuoteAttributes: "double",
+        singleAttributePerLine: true,
+        plugins: ["@prettier/plugin-xml"],
+      },
+    },
+  ],
 };
 
 module.exports = config;
-
-
