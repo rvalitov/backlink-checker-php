@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: ["ubuntu-latest", "macos-latest", "windows-latest"]
-        php-versions: ["8.0", "8.1", "8.2", "8.3"]
+        php-versions: ["8.0", "8.1", "8.2", "8.3", "8.4"]
         include:
           - php-versions: "8.0"
             phpunit-versions: 9
@@ -27,6 +27,8 @@ jobs:
           - php-versions: "8.2"
             phpunit-versions: 11
           - php-versions: "8.3"
+            phpunit-versions: 11
+          - php-versions: "8.4"
             phpunit-versions: 11
     runs-on: ${{ matrix.operating-system }}
 

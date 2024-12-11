@@ -1,6 +1,6 @@
 # Backlink Validator for SEO
 
-![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=8.0%20-%208.3\&color=blue)
+![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=8.0%20-%208.4\&color=blue)
 ![Platform icon](https://img.shields.io/badge/Platform-Windows%2C%20Linux%2C%20Mac-blue)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
