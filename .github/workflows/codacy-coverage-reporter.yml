@@ -3,9 +3,10 @@ name: Codacy Coverage Reporter
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
+  # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
 # Default to bash

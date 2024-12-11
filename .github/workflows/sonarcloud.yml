@@ -33,7 +33,9 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
+
+  # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
 permissions:
