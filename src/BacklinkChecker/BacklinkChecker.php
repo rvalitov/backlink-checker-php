@@ -27,7 +27,7 @@ abstract class BacklinkChecker
      */
     protected static function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
-        $result = array();
+        $result = [];
         $isOk = true;
 
         try {
@@ -49,11 +49,11 @@ abstract class BacklinkChecker
         }
 
         if ($scanLinks) {
-            $result=array_merge($result, self::scanLinks($dom, $pattern));
+            $result = array_merge($result, self::scanLinks($dom, $pattern));
         }
 
         if ($scanImages) {
-            $result=array_merge($result, self::scanImages($dom, $pattern));
+            $result = array_merge($result, self::scanImages($dom, $pattern));
         }
         $dom->clear();
         return $result;
@@ -66,7 +66,7 @@ abstract class BacklinkChecker
      */
     protected static function scanLinks(simple_html_dom $dom, string $pattern): array
     {
-        $result=[];
+        $result = [];
 
         //Searching <a> tags
         $list = $dom->find("a[href]");
@@ -101,7 +101,7 @@ abstract class BacklinkChecker
      */
     protected static function scanImages(simple_html_dom $dom, string $pattern): array
     {
-        $result=[];
+        $result = [];
 
         //Searching <img> tags - image hotlink
         $list = $dom->find("img[src]");
@@ -139,7 +139,7 @@ abstract class BacklinkChecker
         string $pattern,
         bool   $scanLinks = true,
         bool   $scanImages = false,
-        bool   $makeScreenshot = false
+        bool   $makeScreenshot = false,
     ): BacklinkData {
         $response = $this->browsePage($url, $makeScreenshot);
 

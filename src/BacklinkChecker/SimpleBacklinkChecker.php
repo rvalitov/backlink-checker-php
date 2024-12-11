@@ -34,8 +34,8 @@ class SimpleBacklinkChecker extends BacklinkChecker
             $response = $client->request('GET', $url, [
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' .
-                        '(KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
-                ]
+                        '(KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+                ],
             ]);
         } catch (ClientException|ServerException|BadResponseException $e) {
             $response = $e->getResponse();
@@ -45,7 +45,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
                 $response->getHeaders(),
                 $response->getBody()->getContents(),
                 false,
-                ""
+                "",
             );
         } catch (GuzzleException $e) {
             throw new RuntimeException($e->getMessage());
@@ -56,7 +56,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
             $response->getHeaders(),
             $response->getBody()->getContents(),
             true,
-            ""
+            "",
         );
     }
 }

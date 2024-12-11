@@ -1,4 +1,6 @@
-<?php //phpcs:ignore
+<?php
+
+//phpcs:ignore
 declare(strict_types=1);
 require_once __DIR__ . '/../src/BacklinkChecker/Backlink.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkData.php';
@@ -17,9 +19,9 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
      */
     private $checker;
 
-    const TEST_HOST = "http://127.0.0.1:8080/";
+    public const TEST_HOST = "http://127.0.0.1:8080/";
 
-    const URL_LIST = [
+    public const URL_LIST = [
         [
             "url" => self::TEST_HOST . "noLinks.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
@@ -122,16 +124,16 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
             $json = $result->jsonSerialize();
             $this->assertNotEmpty($json, "Failed to get jsonSerialize for $url");
             foreach ([
-                         "backlinks",
-                         "response",
-                     ] as $property) {
+                "backlinks",
+                "response",
+            ] as $property) {
                 $this->assertArrayHasKey($property, $json, "Serialize for $url must contain '$property' property");
             }
             $backlinks = $result->getBacklinks();
             $this->assertCount(
                 $backlinksCount,
                 $backlinks,
-                "Expected $backlinksCount backlinks for $url but got " . count($backlinks)
+                "Expected $backlinksCount backlinks for $url but got " . count($backlinks),
             );
             $this->assertNotEmpty($response->getScreenshot());
             if ($backlinksCount > 0) {
@@ -151,7 +153,7 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
                         $this->assertArrayHasKey(
                             $property,
                             $array,
-                            "Serialize for $url must contain '$property' property"
+                            "Serialize for $url must contain '$property' property",
                         );
                     }
                 }

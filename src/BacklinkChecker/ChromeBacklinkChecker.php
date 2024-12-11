@@ -15,7 +15,6 @@ use RuntimeException;
  */
 class ChromeBacklinkChecker extends BacklinkChecker
 {
-
     /**
      * @param string $url
      * @param boolean $makeScreenshot
@@ -40,8 +39,8 @@ class ChromeBacklinkChecker extends BacklinkChecker
         $browser = $puppeteer->launch([
             "args" => [
                 "--no-sandbox",
-                "--disable-setuid-sandbox"
-            ]
+                "--disable-setuid-sandbox",
+            ],
         ]);
 
         $page = $browser->newPage();
@@ -51,7 +50,7 @@ class ChromeBacklinkChecker extends BacklinkChecker
          * deprecated.
          */
         $response = $page->goto($url, [
-            "waitUntil" => "networkidle2"
+            "waitUntil" => "networkidle2",
         ]);
         if ($makeScreenshot) {
             /**
@@ -63,7 +62,7 @@ class ChromeBacklinkChecker extends BacklinkChecker
             $image = $page->screenshot([
                 "type" => "jpeg",
                 "quality" => 90,
-                "encoding" => "base64"
+                "encoding" => "base64",
             ]);
             $image = base64_decode($image);
         } else {
@@ -72,15 +71,15 @@ class ChromeBacklinkChecker extends BacklinkChecker
 
         if (!$response) {
             $browser->close();
-            return new HttpResponse($url, 500, array(array()), "Failed to fetch data", false, "");
+            return new HttpResponse($url, 500, [[]], "Failed to fetch data", false, "");
         }
         if (!$response->ok) {
             $browser->close();
-            return new HttpResponse($url, $response->status(), array(array()), $response->text, false, $image);
+            return new HttpResponse($url, $response->status(), [[]], $response->text, false, $image);
         }
 
         $data = $page->evaluate(JsFunction::createWithBody('return document.documentElement.outerHTML'));
         $browser->close();
-        return new HttpResponse($url, $response->status(), array(array()), $data, true, $image);
+        return new HttpResponse($url, $response->status(), [[]], $data, true, $image);
     }
 }

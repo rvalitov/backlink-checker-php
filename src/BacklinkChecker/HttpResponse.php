@@ -57,7 +57,7 @@ class HttpResponse implements JsonSerializable
         array  $headers,
         string $response,
         bool   $success,
-        string $screenshot
+        string $screenshot,
     ) {
         $this->url = $url;
         $this->statusCode = $statusCode;

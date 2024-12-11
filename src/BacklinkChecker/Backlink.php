@@ -50,7 +50,7 @@ class Backlink implements JsonSerializable
         string $linkContents,
         bool   $noFollow,
         string $target,
-        string $tag
+        string $tag,
     ) {
         $this->backlink = $backlink;
         $this->anchor = $linkContents;

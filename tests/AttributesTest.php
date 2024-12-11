@@ -1,4 +1,6 @@
-<?php //phpcs:ignore
+<?php
+
+//phpcs:ignore
 declare(strict_types=1);
 require_once __DIR__ . '/../src/BacklinkChecker/Backlink.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkData.php';
@@ -17,7 +19,7 @@ final class AttributesTest extends TestCase //phpcs:ignore
      */
     private BacklinkChecker\SimpleBacklinkChecker $checker;
 
-    const TEST_HOST = "http://127.0.0.1:8080/";
+    public const TEST_HOST = "http://127.0.0.1:8080/";
 
     public function __construct()
     {
