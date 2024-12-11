@@ -13,17 +13,15 @@
     "markdownlint": "markdownlint --config .markdownlint.json \"*.md\"",
     "package": "npx npm-package-json-lint .",
     "phpcs": "php8.0 ./vendor/bin/phpcs --standard=PSR2 src/",
-    "phpcs-fixer": "npm run \"phpcs-fixer:src\" && npm run \"phpcs-fixer:tests\"",
-    "phpcs-fixer:fix": "php8.0 ./vendor/bin/php-cs-fixer fix src && php8.0 ./vendor/bin/php-cs-fixer fix tests",
-    "phpcs-fixer:src": "php8.0 ./vendor/bin/php-cs-fixer --verbose check src",
-    "phpcs-fixer:tests": "php8.0 ./vendor/bin/php-cs-fixer --verbose check tests",
+    "phpcs-fixer": "php8.0 ./vendor/bin/php-cs-fixer --verbose check",
+    "phpcs-fixer:fix": "php8.0 ./vendor/bin/php-cs-fixer fix",
     "phpmd": "php8.0 ./vendor/bin/phpmd src/ text phpmd.xml",
     "phpunit": "php8.0 ./vendor/bin/phpunit",
     "prettier": "prettier --config .prettierrc.cjs --check .",
     "prettier:fix": "prettier --config .prettierrc.cjs --write .",
     "sort": "sort-package-json ./package.json ./composer.json",
     "start-server": "http-server -a 127.0.0.1 -p 8080 tests/data",
-    "test": "npm run markdown && npm run json && npm run package && npm run lint && npm run coverage"
+    "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage"
   },
   "remarkConfig": {
     "plugins": [

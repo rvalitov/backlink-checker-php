@@ -1,0 +1,86 @@
+name: Tests
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: latest
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: ["ubuntu-latest","macos-latest","windows-latest"]
+        php-versions: [ "7.4", "8.0", "8.1", "8.2", "8.3" ]
+        include:
+          - php-versions: "7.4"
+            phpunit-versions: 9
+          - php-versions: "8.0"
+            phpunit-versions: 9
+          - php-versions: "8.1"
+            phpunit-versions: 10
+          - php-versions: "8.2"
+            phpunit-versions: 11
+          - php-versions: "8.3"
+            phpunit-versions: 11
+    runs-on: ${{ matrix.operating-system }}
+
+    steps:
+      - name: Setup PHP ${{ matrix.php-versions }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl, xdebug, json, sockets
+          ini-values: max_execution_time=360
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit:${{ matrix.phpunit-versions }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Install Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Starting local web server
+        run: npm run start-server &
+      - run: sleep 5
+
+      - name: Run test suite
+        run: npm run test
+
+      - name: Codacy coverage reporter
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          # or
+          # api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: ./coverage/clover.xml
+          # or a comma-separated list for multiple reports
+          # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>
