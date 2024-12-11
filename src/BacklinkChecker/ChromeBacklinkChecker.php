@@ -47,7 +47,7 @@ class ChromeBacklinkChecker extends BacklinkChecker
         $page = $browser->newPage();
         /** @noinspection SpellCheckingInspection */
         /**
-         * We must use networkidle2 option to wait that the web page is complete. The networkidle option is now
+         * We must use `networkidle2` option to wait that the web page is complete. The networkidle option is now
          * deprecated.
          */
         $response = $page->goto($url, [
@@ -70,12 +70,17 @@ class ChromeBacklinkChecker extends BacklinkChecker
             $image = "";
         }
 
+        if (!$response) {
+            $browser->close();
+            return new HttpResponse($url, 500, array(array()), "Failed to fetch data", false, "");
+        }
         if (!$response->ok) {
-            return new HttpResponse($url, $response->_status, array(array()), $response->text, false, $image);
+            $browser->close();
+            return new HttpResponse($url, $response->status(), array(array()), $response->text, false, $image);
         }
 
         $data = $page->evaluate(JsFunction::createWithBody('return document.documentElement.outerHTML'));
         $browser->close();
-        return new HttpResponse($url, $response->_status, array(array()), $data, true, $image);
+        return new HttpResponse($url, $response->status(), array(array()), $data, true, $image);
     }
 }
