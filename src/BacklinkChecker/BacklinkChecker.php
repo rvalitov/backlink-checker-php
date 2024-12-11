@@ -6,6 +6,7 @@ use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 use KubAT\PhpSimple\HtmlDomParser;
+use simple_html_dom\simple_html_dom;
 
 /**
  * Class BacklinkChecker
@@ -24,7 +25,7 @@ abstract class BacklinkChecker
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    protected function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
+    protected static function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
         $result = array();
         $isOk = true;
@@ -48,45 +49,71 @@ abstract class BacklinkChecker
         }
 
         if ($scanLinks) {
-            //Searching <a> tags
-            $list = $dom->find("a[href]");
-            if (is_array($list)) {
-                foreach ($list as $link) {
-                    if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
-                        //We found a matching backlink
-                        $contents = html_entity_decode(trim($link->plaintext));
-                        $target = $link->target ?? "";
-                        $noFollow = false;
-                        if (isset($link->rel)) {
-                            $relList = explode(" ", $link->rel);
-                            if (is_array($relList)) {
-                                foreach ($relList as $item) {
-                                    if (strtolower(trim($item)) === "nofollow") {
-                                        $noFollow = true;
-                                    }
-                                }
-                            }
-                        }
-                        $result[] = new Backlink($link->href, $contents, $noFollow, $target, "a");
-                    }
-                }
-            }
+            $result=array_merge($result, self::scanLinks($dom, $pattern));
         }
 
         if ($scanImages) {
-            //Searching <img> tags - image hotlink
-            $list = $dom->find("img[src]");
-            if (is_array($list)) {
-                foreach ($list as $link) {
-                    if (isset($link->src) && preg_match($pattern, $link->src) === 1) {
-                        //We found a matching backlink
-                        $contents = isset($link->alt) ? html_entity_decode(trim($link->alt)) : "";
-                        $result[] = new Backlink($link->src, $contents, false, "", "img");
+            $result=array_merge($result, self::scanImages($dom, $pattern));
+        }
+        $dom->clear();
+        return $result;
+    }
+
+    /**
+     * @param simple_html_dom $dom
+     * @param string $pattern
+     * @return Backlink[]
+     */
+    protected static function scanLinks(simple_html_dom $dom, string $pattern): array
+    {
+        $result=[];
+
+        //Searching <a> tags
+        $list = $dom->find("a[href]");
+        if (is_array($list)) {
+            foreach ($list as $link) {
+                if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
+                    //We found a matching backlink
+                    $contents = html_entity_decode(trim($link->plaintext));
+                    $target = $link->target ?? "";
+                    $noFollow = false;
+                    if (isset($link->rel)) {
+                        $relList = explode(" ", $link->rel);
+                        if (is_array($relList)) {
+                            foreach ($relList as $item) {
+                                if (strtolower(trim($item)) === "nofollow") {
+                                    $noFollow = true;
+                                }
+                            }
+                        }
                     }
+                    $result[] = new Backlink($link->href, $contents, $noFollow, $target, "a");
                 }
             }
         }
-        $dom->clear();
+        return $result;
+    }
+
+    /**
+     * @param simple_html_dom $dom
+     * @param string $pattern
+     * @return Backlink[]
+     */
+    protected static function scanImages(simple_html_dom $dom, string $pattern): array
+    {
+        $result=[];
+
+        //Searching <img> tags - image hotlink
+        $list = $dom->find("img[src]");
+        if (is_array($list)) {
+            foreach ($list as $link) {
+                if (isset($link->src) && preg_match($pattern, $link->src) === 1) {
+                    //We found a matching backlink
+                    $contents = isset($link->alt) ? html_entity_decode(trim($link->alt)) : "";
+                    $result[] = new Backlink($link->src, $contents, false, "", "img");
+                }
+            }
+        }
         return $result;
     }
 
@@ -119,7 +146,7 @@ abstract class BacklinkChecker
         if (!$response->isSuccess()) {
             $backlinks = [];
         } else {
-            $backlinks = $this->getRawBacklink($response->getResponse(), $pattern, $scanLinks, $scanImages);
+            $backlinks = self::getRawBacklink($response->getResponse(), $pattern, $scanLinks, $scanImages);
         }
         return new BacklinkData($response, $backlinks);
     }
