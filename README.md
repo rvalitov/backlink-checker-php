@@ -1,6 +1,6 @@
 # Backlink Validator for SEO
 
-![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=7.4%20-%208.2\&color=blue)
+![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=8.0%20-%208.3\&color=blue)
 ![Platform icon](https://img.shields.io/badge/Platform-Windows%2C%20Linux%2C%20Mac-blue)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
@@ -12,7 +12,6 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![PHP 7.4 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-7.4.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-7.4.yml)
 [![PHP 8.0 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.0.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.0.yml)
 [![PHP 8.1 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.1.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.1.yml)
 [![PHP 8.2 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.2.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.2.yml)
@@ -263,7 +262,7 @@ Tests are in `tests` folder.
 
 ## System Requirements
 
-PHP 7.4+ required with the following extensions:
+PHP 8.0.7+ required with the following extensions:
 
 - [`json`](https://www.php.net/manual/en/json.installation.php)
 - [`sockets`](https://www.php.net/manual/en/sockets.installation.php)
