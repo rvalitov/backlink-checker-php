@@ -21,7 +21,8 @@
     "prettier:fix": "prettier --config .prettierrc.cjs --write .",
     "sort": "sort-package-json ./package.json ./composer.json",
     "start-server": "http-server -a 127.0.0.1 -p 8080 tests/data",
-    "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage"
+    "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage",
+    "test:small": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage"
   },
   "remarkConfig": {
     "plugins": [
