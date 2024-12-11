@@ -31,9 +31,9 @@ and do not analyze Google Search results in order to find backlinks to your webs
 We only validate a list of backlinks that you already know.
 You receive a list of backlinks using one of the following ways:
 
-*   you buy backlinks and receive the list of donor web pages
-*   you generate the backlinks yourself by posting on forums, 3rd party websites, etc.
-*   your SEO expert or company works for you and shows you the reports with backlinks as one of the SEO strategies
+* you buy backlinks and receive the list of donor web pages
+* you generate the backlinks yourself by posting on forums, 3rd party websites, etc.
+* your SEO expert or company works for you and shows you the reports with backlinks as one of the SEO strategies
 
 When you have such list of donor web pages,
 you need to confirm that they actually contain the required backlink to your website.
@@ -56,7 +56,8 @@ for example, websites made with Laravel, Yii, React, etc.
 
 ## Chromium (JavaScript enabled)
 
-We use [Chromium headless mode](https://developers.google.com/web/updates/2017/04/headless-chrome) for JavaScript-enabled browsing.
+We use [Chromium headless mode](https://developers.google.com/web/updates/2017/04/headless-chrome) for
+JavaScript-enabled browsing.
 This approach allows parsing any website, and this is the recommended mode,
 but it uses more resources on the server and requires a little bit more time to configure the server.
 
@@ -81,18 +82,19 @@ so that composer knows where to look for them.
 
 ```json
 "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/puphpeteer.git"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/rialto.git"
-    }
-  ]
+{
+"type": "git",
+"url": "https://github.com/zoonru/puphpeteer.git"
+},
+{
+"type": "git",
+"url": "https://github.com/zoonru/rialto.git"
+}
+]
 ```
 
-Besides, please add the following config (for example, before or after the "repositories" section) to allow composer to use "dev" versions of the packages:
+Besides, please add the following config (for example, before or after the "repositories" section) to allow composer to
+use "dev" versions of the packages:
 
 ```json
 "minimum-stability": "dev",
@@ -118,7 +120,8 @@ apt-get update
 apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 ```
 
-You must have a [Node.Js](https://nodejs.org/) installed. If it's not installed, install it using the official manual. Then run the following command to install the Chromium:
+You must have a [Node.Js](https://nodejs.org/) installed. If it's not installed, install it using the official manual.
+Then run the following command to install the Chromium:
 
 ```bash
 npm install
@@ -175,9 +178,14 @@ try {
 
 The function `getBacklinks` has the following additional options:
 
-*   `$scanBacklinks` - if set to `true`, then it scans for the backlinks (the text of the `href` attribute of [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) tag); otherwise scanning is not performed.
-*   `$scanHotlinks` - if set to `true`, then it scans for the [hotlink](https://simple.wikipedia.org/wiki/Hotlinking) (the text of the `src` attribute of [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) tag); otherwise scanning is not performed.
-*   `$makeScreenshot` - if set to `true`, then we also take a screenshot of the viewport; otherwise screenshot is not made. This option makes sense only for Chromium mode (default viewport size is `800 x 600` px, image format: `JPEG`, image quality: `90`, image encoding: `binary`); for simple mode this option is ignored.
+* `$scanBacklinks` - if set to `true`, then it scans for the backlinks (the text of the `href` attribute of [
+  `<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) tag); otherwise scanning is not performed.
+* `$scanHotlinks` - if set to `true`, then it scans for the [hotlink](https://simple.wikipedia.org/wiki/Hotlinking) (the
+  text of the `src` attribute of [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) tag);
+  otherwise scanning is not performed.
+* `$makeScreenshot` - if set to `true`, then we also take a screenshot of the viewport; otherwise screenshot is not
+  made. This option makes sense only for Chromium mode (default viewport size is `800 x 600` px, image format: `JPEG`,
+  image quality: `90`, image encoding: `binary`); for simple mode this option is ignored.
 
 Now we should check the `$result`, if the function succeeded:
 
@@ -196,25 +204,34 @@ if ($response->getSuccess()) {
 }
 ```
 
-The function `$result->getBacklinks()` returns an array of objects that describe the backlink. Each object supports the following functions:
+The function `$result->getBacklinks()` returns an array of objects that describe the backlink. Each object supports the
+following functions:
 
-*   `getBacklink` returns `string`, a backlink - an exact URL that matches the target domain;
-*   `getTag` returns `string`, the tag that is used for the backlink, can be `a` or `img`;
-*   `getTarget` returns `string`, contents of [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/A#attr-target) attribute of the `href`;
-*   `getNoFollow` returns `true` if the backlink has [`nofollow`](https://en.wikipedia.org/wiki/Nofollow) attribute;
-*   `getAnchor` returns `string` - anchor of the link, for example, inner text of `<a>` tag. This text is returned in a plain text format, all HTML tags are stripped.
+* `getBacklink` returns `string`, a backlink - an exact URL that matches the target domain;
+* `getTag` returns `string`, the tag that is used for the backlink, can be `a` or `img`;
+* `getTarget` returns `string`, contents of [
+  `target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/A#attr-target) attribute of the `href`;
+* `getNoFollow` returns `true` if the backlink has [`nofollow`](https://en.wikipedia.org/wiki/Nofollow) attribute;
+* `getAnchor` returns `string` - anchor of the link, for example, inner text of `<a>` tag. This text is returned in a
+  plain text format, all HTML tags are stripped.
 
 The `$response` object supports the following functions:
 
-*   `getUrl` returns `string`, the URL of that was analyzed
-*   `getStatusCode` returns `int`, the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), or `0` or `-1` if there was a network error.
-*   `getScreenshot` returns `string`, the screenshot in binary format. If the screenshot was not taken or is not available, then the string is empty. If you want to display this screenshot as an image on a web page, then you should first save it to disk and use a link to it, or encode it into [base64](https://en.wikipedia.org/wiki/Data_URI_scheme) and insert into the web page directly. In this case, you can use a function like:
+* `getUrl` returns `string`, the URL of that was analyzed
+* `getStatusCode` returns `int`, the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), or `0`
+  or `-1` if there was a network error.
+* `getScreenshot` returns `string`, the screenshot in binary format. If the screenshot was not taken or is not
+  available, then the string is empty. If you want to display this screenshot as an image on a web page, then you should
+  first save it to disk and use a link to it, or encode it into [base64](https://en.wikipedia.org/wiki/Data_URI_scheme)
+  and insert into the web page directly. In this case, you can use a function like:
 
 ```php
 $base64_image = "data:image/jpeg;base64," . base64_encode($response->getScreenshot());
 ```
 
-**Note**. If you use function [`json_encode`](http://php.net/manual/en/function.json-encode.php) on an object that contains the screenshot, then this screenshot will be converted to [base64](https://en.wikipedia.org/wiki/Data_URI_scheme) format automatically.
+**Note**. If you use function [`json_encode`](http://php.net/manual/en/function.json-encode.php) on an object that
+contains the screenshot, then this screenshot will be converted
+to [base64](https://en.wikipedia.org/wiki/Data_URI_scheme) format automatically.
 
 # Examples
 
@@ -225,17 +242,19 @@ Tests are in `tests` folder.
 
 PHP 7.4+ required with the following extensions:
 
-*   [`json`](https://www.php.net/manual/en/json.installation.php)
-*   [`sockets`](https://www.php.net/manual/en/sockets.installation.php)
+* [`json`](https://www.php.net/manual/en/json.installation.php)
+* [`sockets`](https://www.php.net/manual/en/sockets.installation.php)
 
 # Feedback
 
 Your feedback is very appreciated.
 If you want to see new features in this project,
-please post your ideas and feature requests in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
+please post your ideas and feature requests in
+the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
 
 # Support or Contact
 
 Having trouble?
-Maybe something has already been reported in the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
+Maybe something has already been reported in
+the [issue tracker](https://github.com/rvalitov/backlink-checker-php/issues).
 If you don't find your problem there, then, please, add your issue there.
