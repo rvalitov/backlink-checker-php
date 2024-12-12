@@ -78,7 +78,11 @@ jobs:
       # TODO: the problem is that Prettier does not work properly on Windows. Good to fix this in the future.
       - if: matrix.operating-system == 'windows-latest'
         name: Run small test suite
-        run: npm run test:small
+        run: |
+          ping 127.0.0.1 -n 6 > nul
+          netstat -o -n -a | findstr 8080
+          sleep 5
+          npm run test:small
       - if: matrix.operating-system != 'windows-latest'
         name: Run test suite
         run: npm run test
