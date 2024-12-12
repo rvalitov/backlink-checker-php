@@ -70,10 +70,11 @@ jobs:
         run: npm run start-server &
       - run: sleep 5
 
-      - if: runner.os == 'windows-latest'
+      # TODO: the problem is that Prettier does not work properly on Windows. Good to fix this in the future.
+      - if: matrix.operating-system == 'windows-latest'
         name: Run small test suite
         run: npm run test:small
-      - if: runner.os != 'windows-latest'
+      - if: matrix.operating-system != 'windows-latest'
         name: Run test suite
         run: npm run test
 
