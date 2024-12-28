@@ -8,7 +8,7 @@ require_once __DIR__ . '/../src/BacklinkChecker/BacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/HttpResponse.php';
 require_once __DIR__ . '/../src/BacklinkChecker/SimpleBacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/Config.php';
 
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
