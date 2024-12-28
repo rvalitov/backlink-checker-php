@@ -8,6 +8,7 @@ require_once __DIR__ . '/../src/BacklinkChecker/BacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/HttpResponse.php';
 require_once __DIR__ . '/../src/BacklinkChecker/SimpleBacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
+require_once __DIR__ . '/config.php';
 
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
@@ -19,8 +20,6 @@ final class FailTest extends TestCase //phpcs:ignore
      */
     private BacklinkChecker\SimpleBacklinkChecker $checker;
 
-    public const TEST_HOST = "http://127.0.0.1:8080/";
-
     public function __construct()
     {
         parent::__construct();
@@ -30,12 +29,12 @@ final class FailTest extends TestCase //phpcs:ignore
     public function testBadRegexp()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->checker->getBacklinks(self::TEST_HOST . "simple.html", "abc");
+        $this->checker->getBacklinks(Config::TEST_HOST . "simple.html", "abc");
     }
 
     public function testEmptyHtml()
     {
-        $result = $this->checker->getBacklinks(self::TEST_HOST . "empty.html", "@abc@");
+        $result = $this->checker->getBacklinks(Config::TEST_HOST . "empty.html", "@abc@");
         $response = $result->getResponse();
         $this->assertTrue($response->isSuccess());
         $this->assertEquals(200, $response->getStatusCode());
@@ -44,7 +43,7 @@ final class FailTest extends TestCase //phpcs:ignore
 
     public function testNotFoundHtml()
     {
-        $result = $this->checker->getBacklinks(self::TEST_HOST . "404.html", "@abc@");
+        $result = $this->checker->getBacklinks(Config::TEST_HOST . "404.html", "@abc@");
         $response = $result->getResponse();
         $this->assertFalse($response->isSuccess());
         $this->assertEquals(404, $response->getStatusCode());

@@ -8,6 +8,7 @@ require_once __DIR__ . '/../src/BacklinkChecker/BacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/HttpResponse.php';
 require_once __DIR__ . '/../src/BacklinkChecker/SimpleBacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
+require_once __DIR__ . '/config.php';
 
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
@@ -19,8 +20,6 @@ final class AttributesTest extends TestCase //phpcs:ignore
      */
     private BacklinkChecker\SimpleBacklinkChecker $checker;
 
-    public const TEST_HOST = "http://127.0.0.1:8080/";
-
     public function __construct()
     {
         parent::__construct();
@@ -31,13 +30,13 @@ final class AttributesTest extends TestCase //phpcs:ignore
     {
         $checkList = [
             [
-                "url" => self::TEST_HOST . "follow.html",
+                "url" => Config::TEST_HOST . "follow.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com$@",
                 "target" => "",
                 "noFollow" => true,
             ],
             [
-                "url" => self::TEST_HOST . "follow.html",
+                "url" => Config::TEST_HOST . "follow.html",
                 "pattern" => "@^http(s)?://(www\.)?walitoff\.com/new$@",
                 "target" => "_blank",
                 "noFollow" => false,

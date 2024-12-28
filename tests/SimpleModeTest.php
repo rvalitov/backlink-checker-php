@@ -8,6 +8,7 @@ require_once __DIR__ . '/../src/BacklinkChecker/BacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/HttpResponse.php';
 require_once __DIR__ . '/../src/BacklinkChecker/SimpleBacklinkChecker.php';
 require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
+require_once __DIR__ . '/config.php';
 
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
@@ -19,11 +20,9 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
      */
     private BacklinkChecker\SimpleBacklinkChecker $checker;
 
-    public const TEST_HOST = "http://127.0.0.1:8080/";
-
     public const URL_LIST = [
         [
-            "url" => self::TEST_HOST . "noLinks.html",
+            "url" => Config::TEST_HOST . "noLinks.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 0,
             "scanLinks" => true,
@@ -31,7 +30,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => false,
         ],
         [
-            "url" => self::TEST_HOST . "simple.html",
+            "url" => Config::TEST_HOST . "simple.html",
             "pattern" => "@^https://(www\.)?walitoff\.com.*@",
             "backlinks" => 1,
             "scanLinks" => true,
@@ -39,7 +38,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => false,
         ],
         [
-            "url" => self::TEST_HOST . "simple.html",
+            "url" => Config::TEST_HOST . "simple.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 2,
             "scanLinks" => true,
@@ -47,7 +46,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => false,
         ],
         [
-            "url" => self::TEST_HOST . "emptyAnchor.html",
+            "url" => Config::TEST_HOST . "emptyAnchor.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 1,
             "scanLinks" => true,
@@ -55,7 +54,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => true,
         ],
         [
-            "url" => self::TEST_HOST . "images.html",
+            "url" => Config::TEST_HOST . "images.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 1,
             "scanLinks" => true,
@@ -63,7 +62,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => true,
         ],
         [
-            "url" => self::TEST_HOST . "images.html",
+            "url" => Config::TEST_HOST . "images.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 0,
             "scanLinks" => true,
@@ -71,7 +70,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => true,
         ],
         [
-            "url" => self::TEST_HOST . "images.html",
+            "url" => Config::TEST_HOST . "images.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 1,
             "scanLinks" => false,
@@ -79,7 +78,7 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => true,
         ],
         [
-            "url" => self::TEST_HOST . "noLinks.html",
+            "url" => Config::TEST_HOST . "noLinks.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 0,
             "scanLinks" => true,
