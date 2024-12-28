@@ -20,7 +20,7 @@
     "prettier": "prettier --config .prettierrc.cjs --check .",
     "prettier:fix": "prettier --config .prettierrc.cjs --write .",
     "sort": "sort-package-json ./package.json ./composer.json",
-    "start-server": "http-server -a 127.0.0.1 -p 8080 tests/data",
+    "start-server": "npx http-server -a 127.0.0.1 -p 8080 tests/data && npx wait-on tcp:8080",
     "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage",
     "test:small": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage"
   },
@@ -47,7 +47,8 @@
     "remark-lint-list-item-indent": "^4.0.0",
     "remark-preset-lint-consistent": "^6.0.0",
     "remark-preset-lint-recommended": "^7.0.0",
-    "sort-package-json": "^2.12.0"
+    "sort-package-json": "^2.12.0",
+    "wait-on": "^8.0.1"
   },
   "engines": {
     "node": ">=18.0.0"
