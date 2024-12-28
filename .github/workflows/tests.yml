@@ -77,7 +77,7 @@ jobs:
       - name: Starting local web server
         run: npm run start-server &
       - name: Wait for server to start up
-        run: npx wait-on tcp:3000
+        run: npx wait-on --timeout 15000 http://127.0.0.1:3000
       - name: Server warm up
         run: sleep 5
 
