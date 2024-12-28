@@ -42,6 +42,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: PHP info
+        run: php -v
+
       - name: Set git to use LF
         run: |
           git config --global core.autocrlf false
@@ -72,19 +75,16 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
       - name: Starting local web server
-        shell: bash
         run: npm run start-server &
-      - run: sleep 5
+      - name: Wait for server to start up
+        run: npx wait-on tcp:3000
+      - name: Server warm up
+        run: sleep 5
 
       # TODO: the problem is that Prettier does not work properly on Windows. Good to fix this in the future.
       - if: matrix.operating-system == 'windows-latest'
         name: Run small test suite
-        shell: bash
-        run: |
-          ping 127.0.0.1 -n 6 > nul
-          netstat -o -n -a | findstr 8080
-          sleep 5
-          npm run test:small
+        run: npm run test:small
       - if: matrix.operating-system != 'windows-latest'
         name: Run test suite
         run: npm run test
