@@ -1,5 +1,7 @@
-<?php //phpcs:ignore
+<?php
+
 declare(strict_types=1);
+
 require_once __DIR__ . '/../src/BacklinkChecker/Backlink.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkData.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkChecker.php';
@@ -10,14 +12,11 @@ require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
 
-final class FailTest extends TestCase //phpcs:ignore
+final class FailTest extends TestCase
 {
-    /**
-     * @var BacklinkChecker\SimpleBacklinkChecker
-     */
     private BacklinkChecker\SimpleBacklinkChecker $checker;
 
-    const TEST_HOST = "http://127.0.0.1:8080/";
+    private const TEST_HOST = "http://127.0.0.1:8080/";
 
     public function __construct()
     {
@@ -25,13 +24,13 @@ final class FailTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\SimpleBacklinkChecker();
     }
 
-    public function testBadRegexp()
+    public function testBadRegexp(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->checker->getBacklinks(self::TEST_HOST . "simple.html", "abc");
     }
 
-    public function testEmptyHtml()
+    public function testEmptyHtml(): void
     {
         $result = $this->checker->getBacklinks(self::TEST_HOST . "empty.html", "@abc@");
         $response = $result->getResponse();
@@ -40,7 +39,7 @@ final class FailTest extends TestCase //phpcs:ignore
         $this->assertEmpty($result->getBacklinks());
     }
 
-    public function testNotFoundHtml()
+    public function testNotFoundHtml(): void
     {
         $result = $this->checker->getBacklinks(self::TEST_HOST . "404.html", "@abc@");
         $response = $result->getResponse();
@@ -49,7 +48,7 @@ final class FailTest extends TestCase //phpcs:ignore
         $this->assertEmpty($result->getBacklinks());
     }
 
-    public function testInvalidProtocol()
+    public function testInvalidProtocol(): void
     {
         $this->expectException(RuntimeException::class);
         $this->checker->getBacklinks("ppp://localhost:8080/404.html", "@abc@");

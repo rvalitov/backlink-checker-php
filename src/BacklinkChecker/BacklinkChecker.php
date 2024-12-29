@@ -26,7 +26,7 @@ abstract class BacklinkChecker
      */
     protected function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
-        $result = array();
+        $result = [];
         $isOk = true;
 
         try {
@@ -48,12 +48,12 @@ abstract class BacklinkChecker
         }
 
         if ($scanLinks) {
-            //Searching <a> tags
+            // Searching <a> tags
             $list = $dom->find("a[href]");
             if (is_array($list)) {
                 foreach ($list as $link) {
                     if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
-                        //We found a matching backlink
+                        // We found a matching backlink
                         $contents = html_entity_decode(trim($link->plaintext));
                         $target = $link->target ?? "";
                         $noFollow = false;
@@ -74,12 +74,12 @@ abstract class BacklinkChecker
         }
 
         if ($scanImages) {
-            //Searching <img> tags - image hotlink
+            // Searching <img> tags - image hotlink
             $list = $dom->find("img[src]");
             if (is_array($list)) {
                 foreach ($list as $link) {
                     if (isset($link->src) && preg_match($pattern, $link->src) === 1) {
-                        //We found a matching backlink
+                        // We found a matching backlink
                         $contents = isset($link->alt) ? html_entity_decode(trim($link->alt)) : "";
                         $result[] = new Backlink($link->src, $contents, false, "", "img");
                     }
@@ -92,7 +92,7 @@ abstract class BacklinkChecker
 
     /**
      * @param string $url
-     * @param boolean $makeScreenshot
+     * @param bool $makeScreenshot
      * @return HttpResponse
      * @throws InvalidArgumentException
      * @throws RuntimeException
@@ -104,15 +104,15 @@ abstract class BacklinkChecker
      * @param string $pattern
      * @param bool $scanLinks
      * @param bool $scanImages
-     * @param boolean $makeScreenshot
+     * @param bool $makeScreenshot
      * @return BacklinkData
      */
     public function getBacklinks(
         string $url,
         string $pattern,
-        bool   $scanLinks = true,
-        bool   $scanImages = false,
-        bool   $makeScreenshot = false
+        bool $scanLinks = true,
+        bool $scanImages = false,
+        bool $makeScreenshot = false
     ): BacklinkData {
         $response = $this->browsePage($url, $makeScreenshot);
 

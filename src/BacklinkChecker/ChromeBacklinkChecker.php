@@ -11,14 +11,12 @@ use RuntimeException;
  * Class ChromeBacklinkChecker
  * Perform checks with Chrome headless browser.
  * @package Valitov\BacklinkChecker
- * @author Ramil Valitov https://github.com/rvalitov
  */
 class ChromeBacklinkChecker extends BacklinkChecker
 {
-
     /**
      * @param string $url
-     * @param boolean $makeScreenshot
+     * @param bool $makeScreenshot
      * @return HttpResponse
      * @throws InvalidArgumentException
      * @throws RuntimeException

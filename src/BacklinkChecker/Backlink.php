@@ -41,7 +41,7 @@ class Backlink implements JsonSerializable
      * Backlink constructor.
      * @param string $backlink
      * @param string $linkContents
-     * @param boolean $noFollow
+     * @param bool $noFollow
      * @param string $target
      * @param string $tag
      */
@@ -68,7 +68,7 @@ class Backlink implements JsonSerializable
     }
 
     /**
-     * @return boolean true if the backlink has "nofollow" tag
+     * @return bool true if the backlink has "nofollow" tag
      * @deprecated use isNoFollow() instead
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
@@ -78,7 +78,7 @@ class Backlink implements JsonSerializable
     }
 
     /**
-     * @return boolean true if the backlink has "nofollow" tag
+     * @return bool true if the backlink has "nofollow" tag
      */
     public function isNoFollow(): bool
     {

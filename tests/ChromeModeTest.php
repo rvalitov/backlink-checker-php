@@ -1,5 +1,7 @@
-<?php //phpcs:ignore
+<?php
+
 declare(strict_types=1);
+
 require_once __DIR__ . '/../src/BacklinkChecker/Backlink.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkData.php';
 require_once __DIR__ . '/../src/BacklinkChecker/BacklinkChecker.php';
@@ -10,16 +12,13 @@ require_once __DIR__ . '/../src/BacklinkChecker/ChromeBacklinkChecker.php';
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
 
-final class ChromeModeTest extends TestCase //phpcs:ignore
+final class ChromeModeTest extends TestCase
 {
-    /**
-     * @var BacklinkChecker\SimpleBacklinkChecker
-     */
-    private $checker;
+    private BacklinkChecker\ChromeBacklinkChecker $checker;
 
-    const TEST_HOST = "http://127.0.0.1:8080/";
+    private const TEST_HOST = "http://127.0.0.1:8080/";
 
-    const URL_LIST = [
+    private const URL_LIST = [
         [
             "url" => self::TEST_HOST . "noLinks.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
@@ -92,7 +91,7 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\ChromeBacklinkChecker();
     }
 
-    public function testLinks()
+    public function testLinks(): void
     {
         $this->assertNotEmpty(self::URL_LIST);
 

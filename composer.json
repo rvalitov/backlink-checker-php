@@ -4,10 +4,12 @@
   "homepage": "https://github.com/rvalitov/backlink-checker-php",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "phpcbf": "phpcbf --standard=PSR2 src/",
-    "phpcs": "phpcs --standard=PSR2 src/",
+    "phpcbf": "phpcbf --standard=PSR12 src/",
+    "phpcs": "phpcs --standard=PSR12 src/",
     "phpmd": "phpmd src/ text phpmd.xml",
-    "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
+    "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text",
+    "phpstan": "phpstan analyse src/",
+    "psalm": "psalm"
   },
   "authors": [
     {
@@ -45,7 +47,9 @@
     "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "3.*",
     "phpunit/phpunit": "^9",
-    "phpunit/php-code-coverage": "^9"
+    "phpunit/php-code-coverage": "^9",
+    "phpstan/phpstan": "^1.0",
+    "vimeo/psalm": "^4.0"
   },
   "support": {
     "issues": "https://github.com/rvalitov/backlink-checker-php/issues",
