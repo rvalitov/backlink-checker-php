@@ -92,7 +92,8 @@ jobs:
         name: Run full test suite
         run: npm run test
 
-      - name: Codacy coverage reporter
+      - if: ${{ github.actor != 'dependabot[bot]' }}
+        name: Codacy coverage reporter
         uses: codacy/codacy-coverage-reporter-action@master
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
