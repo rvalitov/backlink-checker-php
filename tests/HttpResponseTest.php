@@ -28,7 +28,7 @@ final class HttpResponseTest extends TestCase //phpcs:ignore
             [["Content-Type" => "text/html"]],
             "Hello, world!",
             true,
-            $testImage
+            $testImage,
         );
         $json = json_encode($response);
         $this->assertNotFalse($json);
@@ -39,7 +39,7 @@ final class HttpResponseTest extends TestCase //phpcs:ignore
         $encodedImage = json_encode($encodedImageBase64);
         //Remove first and last quotes
         $encodedImage = mb_substr($encodedImage, 1, -1);
-        $this->assertStringContainsString($base64PrefixJson.$encodedImage, $json);
+        $this->assertStringContainsString($base64PrefixJson . $encodedImage, $json);
 
         //Reverse the process
         $decoded = json_decode($json, true);

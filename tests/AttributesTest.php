@@ -82,12 +82,12 @@ final class AttributesTest extends TestCase //phpcs:ignore
                 $this->assertEquals(
                     $check["noFollow"],
                     $backlink->isNoFollow(),
-                    "Failed to match 'noFollow' #$id for $url"
+                    "Failed to match 'noFollow' #$id for $url",
                 );
                 $this->assertEquals(
                     $check["target"],
                     $backlink->getTarget(),
-                    "Failed to match 'target' #$id for $url"
+                    "Failed to match 'target' #$id for $url",
                 );
             }
         }
