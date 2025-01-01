@@ -74,12 +74,10 @@ jobs:
           cache: "npm"
       - name: Install Node.js dependencies
         run: npm ci
-      - if: matrix.operating-system == 'windows-latest'
-        name: Starting local web server
+      - name: Starting local web server
+        # bash shell is required for Windows, otherwise the background
+        # server does not start and work properly
         shell: bash
-        run: npm run start-server &
-      - if: matrix.operating-system != 'windows-latest'
-        name: Starting local web server
         run: npm run start-server &
       - name: Wait for server to start up
         run: npx wait-on --timeout 15000 http://127.0.0.1:3000
@@ -88,10 +86,10 @@ jobs:
 
       # TODO: the problem is that Prettier does not work properly on Windows. Good to fix this in the future.
       - if: matrix.operating-system == 'windows-latest'
-        name: Run small test suite
+        name: Run short test suite
         run: npm run test:small
       - if: matrix.operating-system != 'windows-latest'
-        name: Run test suite
+        name: Run full test suite
         run: npm run test
 
       - name: Codacy coverage reporter
