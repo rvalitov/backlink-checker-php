@@ -33,7 +33,7 @@ class Backlink implements JsonSerializable
     protected string $target;
 
     /**
-     * @var string The tag that is used for the backlink, can be "a" or "img"
+     * @var string The tag used for the backlink, can be "a" or "img"
      */
     protected string $tag;
 
@@ -94,7 +94,7 @@ class Backlink implements JsonSerializable
     }
 
     /**
-     * @return string - the tag that is used for the backlink, can be "a" or "img"
+     * @return string - the tag used for the backlink, can be "a" or "img"
      */
     public function getTag(): string
     {
@@ -110,11 +110,9 @@ class Backlink implements JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return array|null data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
+     * Function to serialize the object to JSON
+     * @return array|null array representation of the object
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): ?array
     {

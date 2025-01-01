@@ -16,9 +16,10 @@ use RuntimeException;
 class ChromeBacklinkChecker extends BacklinkChecker
 {
     /**
-     * @param string $url
-     * @param boolean $makeScreenshot
-     * @return HttpResponse
+     * Retrieves the HTML content of the page and makes a screenshot.
+     * @param string $url - the URL of the page
+     * @param boolean $makeScreenshot - if true, a screenshot will be made
+     * @return HttpResponse - the response object
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @todo Add support for response headers

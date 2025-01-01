@@ -18,9 +18,10 @@ use InvalidArgumentException;
 class SimpleBacklinkChecker extends BacklinkChecker
 {
     /**
-     * @param string $url
-     * @param boolean $makeScreenshot
-     * @return HttpResponse
+     * Retrieves the HTML content of the page
+     * @param string $url - the URL of the page
+     * @param boolean $makeScreenshot - this parameter is ignored in this implementation
+     * @return HttpResponse - the response from the page
      * @throws InvalidArgumentException
      * @throws GuzzleException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

@@ -17,15 +17,16 @@ use UnexpectedValueException;
 abstract class BacklinkChecker
 {
     /**
-     * @param string $html
-     * @param string $pattern
-     * @param bool $scanLinks
-     * @param bool $scanImages
-     * @return Backlink[]
+     * Searches for backlinks in the HTML using the specified pattern
+     * @param string $html - the HTML content
+     * @param string $pattern - the pattern (RegExp) to match the backlink URL
+     * @param bool $scanLinks - if true, the <a> tags will be scanned
+     * @param bool $scanImages - if true, the <img> tags will be scanned
+     * @return Backlink[] - array of found Backlink objects that match the pattern
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
      */
-    protected static function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
+    protected static function getRawBacklinks(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
         $result = [];
         $isOk = true;
@@ -34,7 +35,7 @@ abstract class BacklinkChecker
             if (preg_match($pattern, null) === false) {
                 $isOk = false;
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $isOk = false;
         }
         if (!$isOk) {
@@ -60,9 +61,32 @@ abstract class BacklinkChecker
     }
 
     /**
-     * @param simple_html_dom $dom
-     * @param string $pattern
-     * @return Backlink[]
+     * Checks if the rel attribute contains "nofollow"
+     * @param string $rel - value of the rel attribute
+     * @return bool - true if the rel attribute contains "nofollow"
+     */
+    protected static function isNoFollow(string $rel): bool
+    {
+        $relList = explode(" ", $rel);
+        if (!is_array($relList)) {
+            return false;
+        }
+
+        $noFollow = false;
+        foreach ($relList as $item) {
+            if (strtolower(trim($item)) === "nofollow") {
+                $noFollow = true;
+            }
+        }
+
+        return $noFollow;
+    }
+
+    /**
+     * Scans the HTML for the backlinks represented by <a> tags
+     * @param simple_html_dom $dom - the HTML DOM object
+     * @param string $pattern - the pattern (RegExp) to match the backlink URL (href attribute)
+     * @return Backlink[] - array of found Backlink objects that match the pattern
      */
     protected static function scanLinks(simple_html_dom $dom, string $pattern): array
     {
@@ -70,34 +94,27 @@ abstract class BacklinkChecker
 
         //Searching <a> tags
         $list = $dom->find("a[href]");
-        if (is_array($list)) {
-            foreach ($list as $link) {
-                if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
-                    //We found a matching backlink
-                    $contents = html_entity_decode(trim($link->plaintext));
-                    $target = $link->target ?? "";
-                    $noFollow = false;
-                    if (isset($link->rel)) {
-                        $relList = explode(" ", $link->rel);
-                        if (is_array($relList)) {
-                            foreach ($relList as $item) {
-                                if (strtolower(trim($item)) === "nofollow") {
-                                    $noFollow = true;
-                                }
-                            }
-                        }
-                    }
-                    $result[] = new Backlink($link->href, $contents, $noFollow, $target, "a");
-                }
+        if (!is_array($list)) {
+            return $result;
+        }
+
+        foreach ($list as $link) {
+            if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
+                //We found a matching backlink
+                $contents = html_entity_decode(trim($link->plaintext));
+                $target = $link->target ?? "";
+                $noFollow = self::isNoFollow($link->rel);
+                $result[] = new Backlink($link->href, $contents, $noFollow, $target, "a");
             }
         }
         return $result;
     }
 
     /**
-     * @param simple_html_dom $dom
-     * @param string $pattern
-     * @return Backlink[]
+     * Scans the HTML for the backlinks represented by <img> tags
+     * @param simple_html_dom $dom - the HTML DOM object
+     * @param string $pattern - the pattern (RegExp) to match the backlink URL (src attribute)
+     * @return Backlink[] - array of found Backlink objects that match the pattern
      */
     protected static function scanImages(simple_html_dom $dom, string $pattern): array
     {
@@ -118,21 +135,23 @@ abstract class BacklinkChecker
     }
 
     /**
-     * @param string $url
-     * @param boolean $makeScreenshot
-     * @return HttpResponse
+     * Retrieves the HTML content of the page and optionally makes a screenshot
+     * @param string $url - the URL of the page
+     * @param boolean $makeScreenshot - if true, the screenshot will be made
+     * @return HttpResponse - the response object
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
      */
     abstract protected function browsePage(string $url, bool $makeScreenshot): HttpResponse;
 
     /**
-     * @param string $url
-     * @param string $pattern
-     * @param bool $scanLinks
-     * @param bool $scanImages
-     * @param boolean $makeScreenshot
-     * @return BacklinkData
+     * Retrieves the backlinks from the specified URL
+     * @param string $url - the URL of the page
+     * @param string $pattern - the pattern (RegExp) to match the backlink URL
+     * @param bool $scanLinks - if true, the <a> tags will be scanned
+     * @param bool $scanImages - if true, the <img> tags will be scanned
+     * @param boolean $makeScreenshot - if true, the screenshot will be made
+     * @return BacklinkData - the object containing the response and the backlinks
      */
     public function getBacklinks(
         string $url,
@@ -146,7 +165,7 @@ abstract class BacklinkChecker
         if (!$response->isSuccess()) {
             $backlinks = [];
         } else {
-            $backlinks = self::getRawBacklink($response->getResponse(), $pattern, $scanLinks, $scanImages);
+            $backlinks = self::getRawBacklinks($response->getResponse(), $pattern, $scanLinks, $scanImages);
         }
         return new BacklinkData($response, $backlinks);
     }
