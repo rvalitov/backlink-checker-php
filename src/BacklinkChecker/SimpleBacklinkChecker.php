@@ -8,7 +8,6 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Class SimpleBacklinkChecker
@@ -19,11 +18,12 @@ use RuntimeException;
 class SimpleBacklinkChecker extends BacklinkChecker
 {
     /**
-     * @param string $url
-     * @param boolean $makeScreenshot
-     * @return HttpResponse
+     * Retrieves the HTML content of the page
+     * @param string $url - the URL of the page
+     * @param boolean $makeScreenshot - this parameter is ignored in this implementation
+     * @return HttpResponse - the response from the page
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws GuzzleException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
@@ -34,10 +34,10 @@ class SimpleBacklinkChecker extends BacklinkChecker
             $response = $client->request('GET', $url, [
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' .
-                        '(KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
-                ]
+                        '(KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+                ],
             ]);
-        } catch (ClientException|ServerException|BadResponseException $e) {
+        } catch (ClientException | ServerException | BadResponseException $e) {
             $response = $e->getResponse();
             return new HttpResponse(
                 $url,
@@ -45,10 +45,8 @@ class SimpleBacklinkChecker extends BacklinkChecker
                 $response->getHeaders(),
                 $response->getBody()->getContents(),
                 false,
-                ""
+                "",
             );
-        } catch (GuzzleException $e) {
-            throw new RuntimeException($e->getMessage());
         }
         return new HttpResponse(
             $url,
@@ -56,7 +54,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
             $response->getHeaders(),
             $response->getBody()->getContents(),
             true,
-            ""
+            "",
         );
     }
 }

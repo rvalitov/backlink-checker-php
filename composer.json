@@ -4,8 +4,10 @@
   "homepage": "https://github.com/rvalitov/backlink-checker-php",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "phpcbf": "phpcbf --standard=PSR2 src/",
-    "phpcs": "phpcs --standard=PSR2 src/",
+    "phpcbf": "phpcbf",
+    "phpcs": "phpcs -s",
+    "phpcs-fixer": "php-cs-fixer --stop-on-violation --verbose check",
+    "phpcs-fixer:fix": "php-cs-fixer fix",
     "phpmd": "phpmd src/ text phpmd.xml",
     "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
   },
@@ -21,31 +23,20 @@
       "Valitov\\": "src/"
     }
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/puphpeteer.git"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/rialto.git"
-    }
-  ],
   "require": {
-    "php": "^7.4.20 || ^8.0.7",
+    "php": "^8.0.7 || >=8.1",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
     "guzzlehttp/guzzle": "7.*",
-    "nesk/puphpeteer": "dev-zoon",
-    "ext-json": "*"
+    "ext-json": "*",
+    "zoon/puphpeteer": "^2.2"
   },
   "require-dev": {
     "ext-xdebug": "^3.1.0",
     "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "3.*",
     "phpunit/phpunit": "^9",
-    "phpunit/php-code-coverage": "^9"
+    "phpunit/php-code-coverage": "^9",
+    "friendsofphp/php-cs-fixer": "^3.65"
   },
   "support": {
     "issues": "https://github.com/rvalitov/backlink-checker-php/issues",

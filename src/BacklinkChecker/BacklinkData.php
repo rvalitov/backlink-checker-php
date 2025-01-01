@@ -24,8 +24,8 @@ class BacklinkData implements JsonSerializable
 
     /**
      * BacklinkData constructor.
-     * @param HttpResponse $response
-     * @param Backlink[] $backlinks
+     * @param HttpResponse $response HTTP response
+     * @param Backlink[] $backlinks found backlinks
      */
     public function __construct(HttpResponse $response, array $backlinks)
     {
@@ -50,11 +50,9 @@ class BacklinkData implements JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return array|null data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
+     * Function to serialize the object to JSON
+     * @return array|null array representation of the object
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): ?array
     {

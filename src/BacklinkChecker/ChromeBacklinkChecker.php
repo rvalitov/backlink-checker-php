@@ -15,11 +15,11 @@ use RuntimeException;
  */
 class ChromeBacklinkChecker extends BacklinkChecker
 {
-
     /**
-     * @param string $url
-     * @param boolean $makeScreenshot
-     * @return HttpResponse
+     * Retrieves the HTML content of the page and makes a screenshot.
+     * @param string $url - the URL of the page
+     * @param boolean $makeScreenshot - if true, a screenshot will be made
+     * @return HttpResponse - the response object
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @todo Add support for response headers
@@ -40,18 +40,18 @@ class ChromeBacklinkChecker extends BacklinkChecker
         $browser = $puppeteer->launch([
             "args" => [
                 "--no-sandbox",
-                "--disable-setuid-sandbox"
-            ]
+                "--disable-setuid-sandbox",
+            ],
         ]);
 
         $page = $browser->newPage();
         /** @noinspection SpellCheckingInspection */
         /**
-         * We must use networkidle2 option to wait that the web page is complete. The networkidle option is now
+         * We must use `networkidle2` option to wait that the web page is complete. The networkidle option is now
          * deprecated.
          */
         $response = $page->goto($url, [
-            "waitUntil" => "networkidle2"
+            "waitUntil" => "networkidle2",
         ]);
         if ($makeScreenshot) {
             /**
@@ -63,19 +63,24 @@ class ChromeBacklinkChecker extends BacklinkChecker
             $image = $page->screenshot([
                 "type" => "jpeg",
                 "quality" => 90,
-                "encoding" => "base64"
+                "encoding" => "base64",
             ]);
             $image = base64_decode($image);
         } else {
             $image = "";
         }
 
+        if (!$response) {
+            $browser->close();
+            return new HttpResponse($url, 500, [[]], "Failed to fetch data", false, "");
+        }
         if (!$response->ok) {
-            return new HttpResponse($url, $response->_status, array(array()), $response->text, false, $image);
+            $browser->close();
+            return new HttpResponse($url, $response->status(), [[]], $response->text, false, $image);
         }
 
         $data = $page->evaluate(JsFunction::createWithBody('return document.documentElement.outerHTML'));
         $browser->close();
-        return new HttpResponse($url, $response->_status, array(array()), $data, true, $image);
+        return new HttpResponse($url, $response->status(), [[]], $data, true, $image);
     }
 }

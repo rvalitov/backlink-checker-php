@@ -13,7 +13,7 @@ use JsonSerializable;
 class HttpResponse implements JsonSerializable
 {
     /**
-     * @var string URL
+     * @var string URL of the request
      */
     protected string $url;
 
@@ -44,20 +44,20 @@ class HttpResponse implements JsonSerializable
 
     /**
      * HttpResponse constructor.
-     * @param string $url
-     * @param int $statusCode
-     * @param string[][] $headers
-     * @param string $response
-     * @param boolean $success
-     * @param string $screenshot
+     * @param string $url URL of the request
+     * @param int $statusCode HTTP status code
+     * @param string[][] $headers headers of the response
+     * @param string $response response body
+     * @param boolean $success true, if request succeeded
+     * @param string $screenshot screenshot in binary format
      */
     public function __construct(
         string $url,
-        int    $statusCode,
-        array  $headers,
+        int $statusCode,
+        array $headers,
         string $response,
-        bool   $success,
-        string $screenshot
+        bool $success,
+        string $screenshot,
     ) {
         $this->url = $url;
         $this->statusCode = $statusCode;
@@ -68,7 +68,8 @@ class HttpResponse implements JsonSerializable
     }
 
     /**
-     * @return string URL
+     * Returns the URL of the request
+     * @return string URL of the request
      */
     public function getUrl(): string
     {
@@ -76,7 +77,8 @@ class HttpResponse implements JsonSerializable
     }
 
     /**
-     * @return int HTTP status code
+     * Returns the HTTP status code of the response
+     * @return int HTTP status code of the response
      */
     public function getStatusCode(): int
     {
@@ -114,6 +116,7 @@ class HttpResponse implements JsonSerializable
     }
 
     /**
+     * Returns the response body
      * @return string response body
      */
     public function getResponse(): string
@@ -122,16 +125,7 @@ class HttpResponse implements JsonSerializable
     }
 
     /**
-     * @return boolean true, if request succeeded
-     * @deprecated use isSuccess() instead
-     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
-     */
-    public function getSuccess(): bool
-    {
-        return $this->isSuccess();
-    }
-
-    /**
+     * Checks if the request succeeded
      * @return boolean true, if request succeeded
      */
     public function isSuccess(): bool
@@ -140,6 +134,7 @@ class HttpResponse implements JsonSerializable
     }
 
     /**
+     * Returns screenshot in binary format
      * @return string screenshot in binary format
      */
     public function getScreenshot(): string
@@ -149,16 +144,14 @@ class HttpResponse implements JsonSerializable
 
 
     /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return array|null data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
+     * Function to serialize the object to JSON
+     * @return array|null array representation of the object
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): ?array
     {
         $data = get_object_vars($this);
-        if (strlen($data["screenshot"]) > 0) {
+        if (!empty($data["screenshot"])) {
             $data["screenshot"] = "data:image/jpeg;base64," . base64_encode($data["screenshot"]);
         }
         return $data;

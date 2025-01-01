@@ -33,7 +33,7 @@ class Backlink implements JsonSerializable
     protected string $target;
 
     /**
-     * @var string The tag that is used for the backlink, can be "a" or "img"
+     * @var string The tag used for the backlink, can be "a" or "img"
      */
     protected string $tag;
 
@@ -48,9 +48,9 @@ class Backlink implements JsonSerializable
     public function __construct(
         string $backlink,
         string $linkContents,
-        bool   $noFollow,
+        bool $noFollow,
         string $target,
-        string $tag
+        string $tag,
     ) {
         $this->backlink = $backlink;
         $this->anchor = $linkContents;
@@ -65,16 +65,6 @@ class Backlink implements JsonSerializable
     public function getAnchor(): string
     {
         return $this->anchor;
-    }
-
-    /**
-     * @return boolean true if the backlink has "nofollow" tag
-     * @deprecated use isNoFollow() instead
-     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
-     */
-    public function getNoFollow(): bool
-    {
-        return $this->isNoFollow();
     }
 
     /**
@@ -94,7 +84,7 @@ class Backlink implements JsonSerializable
     }
 
     /**
-     * @return string - the tag that is used for the backlink, can be "a" or "img"
+     * @return string - the tag used for the backlink, can be "a" or "img"
      */
     public function getTag(): string
     {
@@ -110,11 +100,9 @@ class Backlink implements JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return array|null data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
+     * Function to serialize the object to JSON
+     * @return array|null array representation of the object
+     * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): ?array
     {
