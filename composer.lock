@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7185002dad9ad7e91092886996ecb940",
+    "content-hash": "b644635b74bce30673d7c8ea22e8e14e",
     "packages": [
         {
             "name": "clue/socket-raw",
@@ -1060,6 +1060,12 @@
                 "url": "https://github.com/zoonru/puphpeteer.git",
                 "reference": "cb8d7d8c035daeec3584dae8d157d9d50cd0d89e"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zoonru/puphpeteer/zipball/cb8d7d8c035daeec3584dae8d157d9d50cd0d89e",
+                "reference": "cb8d7d8c035daeec3584dae8d157d9d50cd0d89e",
+                "shasum": ""
+            },
             "require": {
                 "composer/semver": "^3.0",
                 "ext-json": "*",
@@ -1085,28 +1091,7 @@
                     "Nesk\\Puphpeteer\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Nesk\\Puphpeteer\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "post-install-cmd": [
-                    "npm install"
-                ],
-                "test": [
-                    "./vendor/bin/phpunit"
-                ],
-                "update-docs": [
-                    "php bin/console doc:generate"
-                ],
-                "stan": [
-                    "vendor/bin/phpstan analyze src"
-                ],
-                "format": [
-                    "vendor/bin/php-cs-fixer fix src"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1126,7 +1111,11 @@
                 "testing",
                 "web"
             ],
-            "time": "2024-09-21T00:22:35+00:00"
+            "support": {
+                "issues": "https://github.com/zoonru/puphpeteer/issues",
+                "source": "https://github.com/zoonru/puphpeteer/tree/v2.2.0"
+            },
+            "time": "2024-09-21T00:27:14+00:00"
         },
         {
             "name": "zoon/rialto",
@@ -1135,6 +1124,12 @@
                 "type": "git",
                 "url": "https://github.com/zoonru/rialto.git",
                 "reference": "03dc063cd0fa579270a5c43c3434868d608ae30b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zoonru/rialto/zipball/03dc063cd0fa579270a5c43c3434868d608ae30b",
+                "reference": "03dc063cd0fa579270a5c43c3434868d608ae30b",
+                "shasum": ""
             },
             "require": {
                 "clue/socket-raw": "^1.2",
@@ -1156,19 +1151,7 @@
                     "Nesk\\Rialto\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Nesk\\Rialto\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "post-install-cmd": [
-                    "npm install"
-                ],
-                "test": [
-                    "./vendor/bin/phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1180,13 +1163,16 @@
             ],
             "description": "Manage Node resources from PHP",
             "keywords": [
-                "bridge",
+                "Bridge",
+                "Socket",
                 "communication",
                 "node",
                 "php",
-                "socket",
                 "wrapper"
             ],
+            "support": {
+                "source": "https://github.com/zoonru/rialto/tree/v1.5.3"
+            },
             "time": "2024-09-21T01:08:24+00:00"
         }
     ],
@@ -5530,11 +5516,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "phpmd/phpmd": 0
     },
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.7 || >=8.1",
@@ -5543,5 +5529,5 @@
     "platform-dev": {
         "ext-xdebug": "^3.1.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

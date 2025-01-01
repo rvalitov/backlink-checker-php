@@ -12,12 +12,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![PHP 8.0 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.0.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.0.yml)
-[![PHP 8.1 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.1.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.1.yml)
-[![PHP 8.2 Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.2.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/php-8.2.yml)
-[![Linux Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/linux.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/linux.yml)
-[![Windows Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/windows.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/windows.yml)
-[![Mac Build Test](https://github.com/rvalitov/backlink-checker-php/actions/workflows/mac.yml/badge.svg)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/mac.yml)
+[![Tests](https://github.com/rvalitov/backlink-checker-php/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/tests.yml)
 ![License icon](https://img.shields.io/badge/License-GPL--3-blue)
 
 ![Social preview](media/social-preview.jpg)
@@ -92,39 +87,6 @@ php composer require rvalitov/backlink-checker-php:^2.0.0
 Here we use version 2.0.0 or later that support PHP 8.0 and latest versions of dependencies.
 If you want to use an earlier version, please check the 1.x.x releases.
 
-Some dependencies from version 1.x.x are not supported anymore.
-Therefore, I had to switch to community-driven forks.
-As a result, such forks are not published in the composer library and have `dev` status.
-To use them, you need to add the following two repositories to your `composer.json` file,
-so that composer knows where to look for them.
-
-```json
-"repositories": [
-{
-"type": "git",
-"url": "https://github.com/zoonru/puphpeteer.git"
-},
-{
-"type": "git",
-"url": "https://github.com/zoonru/rialto.git"
-}
-]
-```
-
-Besides, please add the following config (for example, before or after the `repositories` section) to allow composer to
-use `dev` versions of the packages:
-
-```json
-"minimum-stability": "dev",
-"prefer-stable": true
-```
-
-After that run update:
-
-```bash
-php composer update
-```
-
 ### Step 2. Install the Chromium
 
 **Note:** You can skip this step if you don't need the Chromium mode.
@@ -138,7 +100,7 @@ apt-get update
 apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 ```
 
-You must have a [Node.Js](https://nodejs.org/) installed.
+You must have a [Node.js](https://nodejs.org/) installed.
 If it's not installed, install it using the official manual.
 Then run the following command to install the Chromium:
 
@@ -183,7 +145,7 @@ Make a scan of the desired URL with a desired pattern
 
 ```php
 $url = "https://example.com";
-$pattern = "@https?://(www\.)?mywebsite\.com.*@";
+$pattern = "@https?://(www\.)?website\.com.*@";
 $scanBacklinks = true;
 $scanHotlinks = false;
 $makeScreenshot = true;

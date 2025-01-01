@@ -23,18 +23,6 @@
       "Valitov\\": "src/"
     }
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/puphpeteer.git"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/zoonru/rialto.git"
-    }
-  ],
   "require": {
     "php": "^8.0.7 || >=8.1",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
