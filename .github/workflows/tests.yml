@@ -92,7 +92,7 @@ jobs:
         name: Run full test suite
         run: npm run test
 
-      - if: ${{ github.actor != 'dependabot[bot]' }}
+      - if: github.actor != 'dependabot[bot]'
         name: Codacy coverage reporter
         uses: codacy/codacy-coverage-reporter-action@master
         with:
