@@ -145,13 +145,13 @@ class HttpResponse implements JsonSerializable
 
     /**
      * Function to serialize the object to JSON
-     * @return array|null array representation of the object
+     * @return array<mixed> array representation of the object
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize(): ?array
+    public function jsonSerialize(): array
     {
         $data = get_object_vars($this);
-        if (!empty($data["screenshot"])) {
+        if (!empty($data["screenshot"]) && is_string($data["screenshot"])) {
             $data["screenshot"] = "data:image/jpeg;base64," . base64_encode($data["screenshot"]);
         }
         return $data;

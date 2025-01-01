@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use Nesk\Puphpeteer\Puppeteer;
 use Nesk\Rialto\Data\JsFunction;
 use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * Class ChromeBacklinkChecker
@@ -21,7 +22,7 @@ class ChromeBacklinkChecker extends BacklinkChecker
      * @param boolean $makeScreenshot - if true, a screenshot will be made
      * @return HttpResponse - the response object
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws UnexpectedValueException
      * @todo Add support for response headers
      * @noinspection PhpUndefinedFieldInspection
      */
@@ -65,6 +66,10 @@ class ChromeBacklinkChecker extends BacklinkChecker
                 "quality" => 90,
                 "encoding" => "base64",
             ]);
+            if (!$image || !is_string($image)) {
+                $browser->close();
+                throw new UnexpectedValueException("Failed to make a screenshot");
+            }
             $image = base64_decode($image);
         } else {
             $image = "";
@@ -74,13 +79,18 @@ class ChromeBacklinkChecker extends BacklinkChecker
             $browser->close();
             return new HttpResponse($url, 500, [[]], "Failed to fetch data", false, "");
         }
+        // @phpstan-ignore property.notFound
         if (!$response->ok) {
             $browser->close();
-            return new HttpResponse($url, $response->status(), [[]], $response->text, false, $image);
+            return new HttpResponse($url, intval($response->status()), [[]], $response->text(), false, $image);
         }
 
+        // @phpstan-ignore method.staticCall
         $data = $page->evaluate(JsFunction::createWithBody('return document.documentElement.outerHTML'));
         $browser->close();
-        return new HttpResponse($url, $response->status(), [[]], $data, true, $image);
+        if (!is_string($data)) {
+            throw new UnexpectedValueException("Failed to get the page content");
+        }
+        return new HttpResponse($url, intval($response->status()), [[]], $data, true, $image);
     }
 }

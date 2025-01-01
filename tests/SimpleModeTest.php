@@ -93,10 +93,8 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\SimpleBacklinkChecker();
     }
 
-    public function testLinks()
+    public function testLinks(): void
     {
-        $this->assertNotEmpty(self::URL_LIST);
-
         $properties = [
             "backlink",
             "anchor",
@@ -106,10 +104,21 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
         ];
 
         foreach (self::URL_LIST as $check) {
+            $this->assertArrayHasKey("url", $check);
             $url = $check["url"];
+            $this->assertArrayHasKey("pattern", $check);
             $pattern = $check["pattern"];
+            $this->assertArrayHasKey("backlinks", $check);
             $backlinksCount = $check["backlinks"];
+            // @phpstan-ignore method.alreadyNarrowedType
             $this->assertNotEmpty($url);
+            // @phpstan-ignore method.alreadyNarrowedType
+            $this->assertIsString($pattern);
+            // @phpstan-ignore method.alreadyNarrowedType
+            $this->assertIsInt($backlinksCount);
+            // @phpstan-ignore method.alreadyNarrowedType
+            $this->assertIsString($url);
+            // @phpstan-ignore method.alreadyNarrowedType
             $this->assertNotEmpty($pattern);
             $this->assertGreaterThanOrEqual(0, $backlinksCount);
             $result = $this->checker->getBacklinks($url, $pattern, $check["scanLinks"], $check["scanImages"]);

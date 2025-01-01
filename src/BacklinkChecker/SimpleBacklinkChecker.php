@@ -24,7 +24,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
      * @return HttpResponse - the response from the page
      * @throws InvalidArgumentException
      * @throws GuzzleException
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
     {

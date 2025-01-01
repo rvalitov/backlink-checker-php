@@ -26,7 +26,7 @@ final class AttributesTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\SimpleBacklinkChecker();
     }
 
-    public function testLinks()
+    public function testLinks(): void
     {
         $checkList = [
             [
@@ -61,12 +61,14 @@ final class AttributesTest extends TestCase //phpcs:ignore
             ],
         ];
 
-        $this->assertNotEmpty($checkList);
-
         foreach ($checkList as $id => $check) {
+            $this->assertArrayHasKey("url", $check);
+            $this->assertArrayHasKey("pattern", $check);
             $url = $check["url"];
             $pattern = $check["pattern"];
+            // @phpstan-ignore method.alreadyNarrowedType
             $this->assertNotEmpty($url);
+            // @phpstan-ignore method.alreadyNarrowedType
             $this->assertNotEmpty($pattern);
             $result = $this->checker->getBacklinks($url, $pattern);
             $response = $result->getResponse();
