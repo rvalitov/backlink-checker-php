@@ -1,14 +1,24 @@
-<?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+<?xml version="1.0" ?>
+<ruleset
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  name="PHP_CodeSniffer"
+  xsi:noNamespaceSchemaLocation="phpcs.xsd"
+>
     <description>The coding standard for repository.</description>
 
     <file>src</file>
     <file>tests</file>
 
-    <arg name="basepath" value="."/>
-    <arg name="colors"/>
-    <arg name="parallel" value="75"/>
-    <arg value="np"/>
+    <arg
+    name="basepath"
+    value="."
+  />
+    <arg name="colors" />
+    <arg
+    name="parallel"
+    value="75"
+  />
+    <arg value="np" />
 
     <!-- Don't hide tokenizer exceptions -->
     <rule ref="Internal.Tokenizer.Exception">
@@ -22,12 +32,30 @@
     <!-- Ban some functions -->
     <rule ref="Generic.PHP.ForbiddenFunctions">
         <properties>
-            <property name="forbiddenFunctions" type="array">
-                <element key="sizeof" value="count"/>
-                <element key="delete" value="unset"/>
-                <element key="print" value="echo"/>
-                <element key="is_null" value="null"/>
-                <element key="create_function" value="null"/>
+            <property
+        name="forbiddenFunctions"
+        type="array"
+      >
+                <element
+          key="sizeof"
+          value="count"
+        />
+                <element
+          key="delete"
+          value="unset"
+        />
+                <element
+          key="print"
+          value="echo"
+        />
+                <element
+          key="is_null"
+          value="null"
+        />
+                <element
+          key="create_function"
+          value="null"
+        />
             </property>
         </properties>
     </rule>
