@@ -4,10 +4,10 @@
   "homepage": "https://github.com/rvalitov/backlink-checker-php",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "phpcbf": "phpcbf --standard=PSR2 src/ && phpcbf --standard=PSR2 tests/",
-    "phpcs": "phpcs --standard=PSR2 src/ && phpcs --standard=PSR2 tests/",
-    "phpcs-fixer": "php-cs-fixer --stop-on-violation --verbose check src && php-cs-fixer --stop-on-violation --verbose check tests",
-    "phpcs-fixer:fix": "php-cs-fixer fix src && php-cs-fixer fix tests",
+    "phpcbf": "phpcbf",
+    "phpcs": "phpcs -s",
+    "phpcs-fixer": "php-cs-fixer --stop-on-violation --verbose check",
+    "phpcs-fixer:fix": "php-cs-fixer fix",
     "phpmd": "phpmd src/ text phpmd.xml",
     "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
   },

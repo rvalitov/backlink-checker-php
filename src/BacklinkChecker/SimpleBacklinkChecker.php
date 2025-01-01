@@ -37,7 +37,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
                         '(KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
                 ],
             ]);
-        } catch (ClientException|ServerException|BadResponseException $e) {
+        } catch (ClientException | ServerException | BadResponseException $e) {
             $response = $e->getResponse();
             return new HttpResponse(
                 $url,

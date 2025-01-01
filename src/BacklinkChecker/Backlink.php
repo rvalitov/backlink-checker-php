@@ -48,7 +48,7 @@ class Backlink implements JsonSerializable
     public function __construct(
         string $backlink,
         string $linkContents,
-        bool   $noFollow,
+        bool $noFollow,
         string $target,
         string $tag,
     ) {

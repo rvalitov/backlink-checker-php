@@ -122,10 +122,12 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
 
             $json = $result->jsonSerialize();
             $this->assertNotEmpty($json, "Failed to get jsonSerialize for $url");
-            foreach ([
+            foreach (
+                [
                 "backlinks",
                 "response",
-            ] as $property) {
+                ] as $property
+            ) {
                 $this->assertArrayHasKey($property, $json, "Serialize for $url must contain '$property' property");
             }
             $backlinks = $result->getBacklinks();

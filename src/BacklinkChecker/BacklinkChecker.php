@@ -149,9 +149,9 @@ abstract class BacklinkChecker
     public function getBacklinks(
         string $url,
         string $pattern,
-        bool   $scanLinks = true,
-        bool   $scanImages = false,
-        bool   $makeScreenshot = false,
+        bool $scanLinks = true,
+        bool $scanImages = false,
+        bool $makeScreenshot = false,
     ): BacklinkData {
         $response = $this->browsePage($url, $makeScreenshot);
 

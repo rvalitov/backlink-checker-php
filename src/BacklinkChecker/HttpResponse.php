@@ -53,10 +53,10 @@ class HttpResponse implements JsonSerializable
      */
     public function __construct(
         string $url,
-        int    $statusCode,
-        array  $headers,
+        int $statusCode,
+        array $headers,
         string $response,
-        bool   $success,
+        bool $success,
         string $screenshot,
     ) {
         $this->url = $url;
