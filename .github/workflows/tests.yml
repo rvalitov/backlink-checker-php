@@ -76,7 +76,7 @@ jobs:
         run: npm ci
       - if: matrix.operating-system == 'windows-latest'
         name: Starting local web server
-        shell: cmd
+        shell: bash
         run: npm run start-server &
       - if: matrix.operating-system != 'windows-latest'
         name: Starting local web server
