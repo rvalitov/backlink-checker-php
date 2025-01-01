@@ -8,7 +8,6 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Class SimpleBacklinkChecker
@@ -23,7 +22,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
      * @param boolean $makeScreenshot
      * @return HttpResponse
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws GuzzleException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
@@ -47,8 +46,6 @@ class SimpleBacklinkChecker extends BacklinkChecker
                 false,
                 "",
             );
-        } catch (GuzzleException $e) {
-            throw new RuntimeException($e->getMessage());
         }
         return new HttpResponse(
             $url,

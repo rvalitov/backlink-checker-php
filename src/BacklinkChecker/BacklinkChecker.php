@@ -4,9 +4,9 @@ namespace Valitov\BacklinkChecker;
 
 use Exception;
 use InvalidArgumentException;
-use RuntimeException;
 use KubAT\PhpSimple\HtmlDomParser;
 use simple_html_dom\simple_html_dom;
+use UnexpectedValueException;
 
 /**
  * Class BacklinkChecker
@@ -23,7 +23,7 @@ abstract class BacklinkChecker
      * @param bool $scanImages
      * @return Backlink[]
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws UnexpectedValueException
      */
     protected static function getRawBacklink(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
@@ -45,7 +45,7 @@ abstract class BacklinkChecker
         }
         $dom = HtmlDomParser::str_get_html($html);
         if (empty($dom)) {
-            throw new RuntimeException("Failed to parse HTML");
+            throw new UnexpectedValueException("Failed to parse HTML");
         }
 
         if ($scanLinks) {
@@ -122,7 +122,7 @@ abstract class BacklinkChecker
      * @param boolean $makeScreenshot
      * @return HttpResponse
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws UnexpectedValueException
      */
     abstract protected function browsePage(string $url, bool $makeScreenshot): HttpResponse;
 
