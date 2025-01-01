@@ -69,16 +69,6 @@ class Backlink implements JsonSerializable
 
     /**
      * @return boolean true if the backlink has "nofollow" tag
-     * @deprecated use isNoFollow() instead
-     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
-     */
-    public function getNoFollow(): bool
-    {
-        return $this->isNoFollow();
-    }
-
-    /**
-     * @return boolean true if the backlink has "nofollow" tag
      */
     public function isNoFollow(): bool
     {

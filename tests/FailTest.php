@@ -43,7 +43,7 @@ final class FailTest extends TestCase //phpcs:ignore
 
     public function testNotFoundHtml()
     {
-        $result = $this->checker->getBacklinks(Config::TEST_HOST . "404.html", "@abc@");
+        $result = $this->checker->getBacklinks(Config::TEST_HOST . "missing", "@abc@");
         $response = $result->getResponse();
         $this->assertFalse($response->isSuccess());
         $this->assertEquals(404, $response->getStatusCode());
@@ -53,6 +53,6 @@ final class FailTest extends TestCase //phpcs:ignore
     public function testInvalidProtocol()
     {
         $this->expectException(RuntimeException::class);
-        $this->checker->getBacklinks("ppp://localhost:8080/404.html", "@abc@");
+        $this->checker->getBacklinks("ppp://localhost:8080/missing", "@abc@");
     }
 }

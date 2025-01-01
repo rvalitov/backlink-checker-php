@@ -68,10 +68,6 @@ abstract class BacklinkChecker
     protected static function isNoFollow(string $rel): bool
     {
         $relList = explode(" ", $rel);
-        if (!is_array($relList)) {
-            return false;
-        }
-
         $noFollow = false;
         foreach ($relList as $item) {
             if (strtolower(trim($item)) === "nofollow") {
@@ -94,9 +90,6 @@ abstract class BacklinkChecker
 
         //Searching <a> tags
         $list = $dom->find("a[href]");
-        if (!is_array($list)) {
-            return $result;
-        }
 
         foreach ($list as $link) {
             if (isset($link->href) && preg_match($pattern, $link->href) === 1) {

@@ -125,16 +125,6 @@ class HttpResponse implements JsonSerializable
     }
 
     /**
-     * @return boolean true, if request succeeded
-     * @deprecated use isSuccess() instead
-     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
-     */
-    public function getSuccess(): bool
-    {
-        return $this->isSuccess();
-    }
-
-    /**
      * Checks if the request succeeded
      * @return boolean true, if request succeeded
      */
@@ -161,7 +151,7 @@ class HttpResponse implements JsonSerializable
     public function jsonSerialize(): ?array
     {
         $data = get_object_vars($this);
-        if (strlen($data["screenshot"]) > 0) {
+        if (!empty($data["screenshot"])) {
             $data["screenshot"] = "data:image/jpeg;base64," . base64_encode($data["screenshot"]);
         }
         return $data;

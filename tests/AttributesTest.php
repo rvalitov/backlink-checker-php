@@ -31,21 +31,39 @@ final class AttributesTest extends TestCase //phpcs:ignore
         $checkList = [
             [
                 "url" => Config::TEST_HOST . "follow.html",
-                "pattern" => "@^http(s)?://(www\.)?walitoff\.com$@",
+                "pattern" => "@^http(s)?://(www\.)?walitoff\.com/test1$@",
                 "target" => "",
                 "noFollow" => true,
             ],
             [
                 "url" => Config::TEST_HOST . "follow.html",
-                "pattern" => "@^http(s)?://(www\.)?walitoff\.com/new$@",
+                "pattern" => "@^http(s)?://(www\.)?walitoff\.com/test2$@",
                 "target" => "_blank",
+                "noFollow" => false,
+            ],
+            [
+                "url" => Config::TEST_HOST . "follow.html",
+                "pattern" => "@^http(s)?://(www\.)?walitoff\.com/test3$@",
+                "target" => "_blank",
+                "noFollow" => false,
+            ],
+            [
+                "url" => Config::TEST_HOST . "follow.html",
+                "pattern" => "@^http(s)?://(www\.)?walitoff\.com/test4$@",
+                "target" => "",
+                "noFollow" => false,
+            ],
+            [
+                "url" => Config::TEST_HOST . "follow.html",
+                "pattern" => "@^http(s)?://(www\.)?walitoff\.com/test5$@",
+                "target" => "",
                 "noFollow" => false,
             ],
         ];
 
         $this->assertNotEmpty($checkList);
 
-        foreach ($checkList as $check) {
+        foreach ($checkList as $id => $check) {
             $url = $check["url"];
             $pattern = $check["pattern"];
             $this->assertNotEmpty($url);
@@ -59,10 +77,18 @@ final class AttributesTest extends TestCase //phpcs:ignore
             $backlinks = $result->getBacklinks();
             $this->assertCount(1, $backlinks, "Expected 1 backlinks for $url but got " . count($backlinks));
 
-            foreach ($backlinks as $id => $backlink) {
-                $this->assertNotEmpty($backlink->getBacklink(), "Failed to get backlink $id for $url");
-                $this->assertEquals($check["noFollow"], $backlink->isNoFollow());
-                $this->assertEquals($check["target"], $backlink->getTarget());
+            foreach ($backlinks as $backlink) {
+                $this->assertNotEmpty($backlink->getBacklink(), "Failed to get backlink #$id for $url");
+                $this->assertEquals(
+                    $check["noFollow"],
+                    $backlink->isNoFollow(),
+                    "Failed to match 'noFollow' #$id for $url"
+                );
+                $this->assertEquals(
+                    $check["target"],
+                    $backlink->getTarget(),
+                    "Failed to match 'target' #$id for $url"
+                );
             }
         }
     }

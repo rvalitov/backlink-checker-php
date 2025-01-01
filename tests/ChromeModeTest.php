@@ -16,9 +16,9 @@ use Valitov\BacklinkChecker;
 final class ChromeModeTest extends TestCase //phpcs:ignore
 {
     /**
-     * @var BacklinkChecker\SimpleBacklinkChecker
+     * @var BacklinkChecker\ChromeBacklinkChecker
      */
-    private $checker;
+    private BacklinkChecker\ChromeBacklinkChecker $checker;
 
     public const URL_LIST = [
         [
@@ -158,5 +158,25 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
                 }
             }
         }
+    }
+
+    public function testAboutBlank()
+    {
+        $backlinks = $this->checker->getBacklinks("about:blank", "@abc@");
+        $this->assertNotEmpty($backlinks);
+        $this->assertEmpty($backlinks->getBacklinks());
+    }
+
+    public function testEmptyURL()
+    {
+        $this->expectException(Nesk\Rialto\Exceptions\Node\FatalException::class);
+        $this->checker->getBacklinks("", "@abc@");
+    }
+
+    public function testMissingURL()
+    {
+        $backlinks = $this->checker->getBacklinks(Config::TEST_HOST . "missing", "@abc@");
+        $this->assertNotEmpty($backlinks);
+        $this->assertEmpty($backlinks->getBacklinks());
     }
 }
