@@ -35,6 +35,7 @@ class BacklinkData implements JsonSerializable
 
     /**
      * @return HttpResponse HTTP response
+     * @psalm-api
      */
     public function getResponse(): HttpResponse
     {
@@ -43,6 +44,7 @@ class BacklinkData implements JsonSerializable
 
     /**
      * @return Backlink[] found backlinks
+     * @psalm-api
      */
     public function getBacklinks(): array
     {

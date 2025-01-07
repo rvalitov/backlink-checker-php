@@ -70,6 +70,7 @@ class HttpResponse implements JsonSerializable
     /**
      * Returns the URL of the request
      * @return string URL of the request
+     * @psalm-api
      */
     public function getUrl(): string
     {
@@ -79,6 +80,7 @@ class HttpResponse implements JsonSerializable
     /**
      * Returns the HTTP status code of the response
      * @return int HTTP status code of the response
+     * @psalm-api
      */
     public function getStatusCode(): int
     {
@@ -109,6 +111,7 @@ class HttpResponse implements JsonSerializable
      * @return string[][] Returns an associative array of the message's headers. Each
      *     key MUST be a header name, and each value MUST be an array of strings
      *     for that header.
+     * @psalm-api
      */
     public function getHeaders(): array
     {
@@ -136,6 +139,7 @@ class HttpResponse implements JsonSerializable
     /**
      * Returns screenshot in binary format
      * @return string screenshot in binary format
+     * @psalm-api
      */
     public function getScreenshot(): string
     {
@@ -151,7 +155,10 @@ class HttpResponse implements JsonSerializable
     public function jsonSerialize(): array
     {
         $data = get_object_vars($this);
-        if (!empty($data["screenshot"]) && is_string($data["screenshot"])) {
+        if ($data["screenshot"] !== "") {
+            /**
+             * @phpstan-ignore argument.type
+             */
             $data["screenshot"] = "data:image/jpeg;base64," . base64_encode($data["screenshot"]);
         }
         return $data;

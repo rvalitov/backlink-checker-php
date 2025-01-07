@@ -46,6 +46,14 @@ final class SimpleModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => false,
         ],
         [
+            "url" => Config::TEST_HOST . "single.html",
+            "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
+            "backlinks" => 1,
+            "scanLinks" => true,
+            "scanImages" => false,
+            "emptyAnchor" => false,
+        ],
+        [
             "url" => Config::TEST_HOST . "emptyAnchor.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 1,

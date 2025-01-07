@@ -14,6 +14,7 @@ use InvalidArgumentException;
  * Checks the backlinks using a simple web engine without JavaScript support.
  * @package Valitov\BacklinkChecker
  * @author Ramil Valitov https://github.com/rvalitov
+ * @psalm-api
  */
 class SimpleBacklinkChecker extends BacklinkChecker
 {

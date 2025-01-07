@@ -29,6 +29,10 @@ abstract class BacklinkChecker
         $result = [];
         $isOk = true;
 
+        if (empty($pattern)) {
+            throw new InvalidArgumentException("Pattern is empty.");
+        }
+
         try {
             if (preg_match($pattern, "") === false) {
                 $isOk = false;
@@ -39,7 +43,7 @@ abstract class BacklinkChecker
         if (!$isOk) {
             throw new InvalidArgumentException("Invalid pattern. Check the RegExp syntax.");
         }
-        if (strlen($html) <= 0 || strlen($pattern) <= 0) {
+        if (strlen($html) <= 0) {
             return $result;
         }
 
@@ -83,14 +87,21 @@ abstract class BacklinkChecker
     {
         $result = [];
 
-        //Searching <a> tags
-        $list = $dom->find("a[href]");
+        if (empty($pattern)) {
+            return $result;
+        }
+
+        /**
+         * Searching <a> tags
+         * @psalm-suppress TooManyTemplateParams
+         */
+        $list = $dom->findMulti("a[href]");
 
         foreach ($list as $link) {
             $href = $link->getAttribute("href");
             if (!empty($href) && preg_match($pattern, $href) === 1) {
                 //We found a matching backlink
-                $contents = html_entity_decode(trim($link->plaintext));
+                $contents = html_entity_decode(trim($link->text()));
                 $target = $link->hasAttribute("target") ? $link->getAttribute("target") : "";
                 $noFollow = $link->hasAttribute("rel") && self::isNoFollow($link->getAttribute("rel"));
                 $result[] = new Backlink($href, $contents, $noFollow, $target, "a");
@@ -109,8 +120,15 @@ abstract class BacklinkChecker
     {
         $result = [];
 
-        //Searching <img> tags - image hotlink
-        $list = $dom->find("img[src]");
+        if (empty($pattern)) {
+            return $result;
+        }
+
+        /**
+         * Searching <img> tags - image hotlink
+         * @psalm-suppress TooManyTemplateParams
+         */
+        $list = $dom->findMulti("img[src]");
 
         foreach ($list as $link) {
             $src = $link->getAttribute("src");
@@ -142,6 +160,7 @@ abstract class BacklinkChecker
      * @param bool $scanImages - if true, the <img> tags will be scanned
      * @param boolean $makeScreenshot - if true, the screenshot will be made
      * @return BacklinkData - the object containing the response and the backlinks
+     * @psalm-api
      */
     public function getBacklinks(
         string $url,

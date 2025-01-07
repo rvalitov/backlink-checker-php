@@ -10,7 +10,7 @@
     "phpcs-fixer:fix": "php-cs-fixer fix",
     "phpmd": "phpmd src/ text phpmd.xml",
     "phpstan": "phpstan analyse --level max src tests",
-    "psalm": "psalm",
+    "psalm": "psalm --show-info=true",
     "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
   },
   "authors": [
@@ -40,7 +40,7 @@
     "phpunit/php-code-coverage": "^9",
     "friendsofphp/php-cs-fixer": "^3.65",
     "phpstan/phpstan": "^2.1",
-    "vimeo/psalm": "^0.3.14"
+    "vimeo/psalm": "^5.26.1"
   },
   "support": {
     "issues": "https://github.com/rvalitov/backlink-checker-php/issues",

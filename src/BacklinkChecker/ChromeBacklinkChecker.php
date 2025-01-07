@@ -13,6 +13,7 @@ use UnexpectedValueException;
  * Perform checks with Chrome headless browser.
  * @package Valitov\BacklinkChecker
  * @author Ramil Valitov https://github.com/rvalitov
+ * @psalm-api
  */
 class ChromeBacklinkChecker extends BacklinkChecker
 {
@@ -85,7 +86,10 @@ class ChromeBacklinkChecker extends BacklinkChecker
             return new HttpResponse($url, intval($response->status()), [[]], $response->text(), false, $image);
         }
 
-        // @phpstan-ignore method.staticCall
+        /**
+         * @psalm-suppress InvalidStaticInvocation
+         * @phpstan-ignore method.staticCall
+         */
         $data = $page->evaluate(JsFunction::createWithBody('return document.documentElement.outerHTML'));
         $browser->close();
         if (!is_string($data)) {

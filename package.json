@@ -19,10 +19,11 @@
     "phpunit": "php ./vendor/bin/phpunit",
     "prettier": "prettier --config .prettierrc.cjs --check .",
     "prettier:fix": "prettier --config .prettierrc.cjs --write .",
+    "psalm": "php ./vendor/bin/psalm --show-info=true",
     "sort": "sort-package-json ./package.json ./composer.json",
     "start-server": "npx serve -n tests/data",
-    "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage",
-    "test:small": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run coverage"
+    "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run psalm && npm run coverage",
+    "test:small": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run psalm && npm run coverage"
   },
   "remarkConfig": {
     "plugins": [
