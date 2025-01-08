@@ -35,6 +35,7 @@ class BacklinkData implements JsonSerializable
 
     /**
      * @return HttpResponse HTTP response
+     * @psalm-api
      */
     public function getResponse(): HttpResponse
     {
@@ -43,6 +44,7 @@ class BacklinkData implements JsonSerializable
 
     /**
      * @return Backlink[] found backlinks
+     * @psalm-api
      */
     public function getBacklinks(): array
     {
@@ -51,7 +53,7 @@ class BacklinkData implements JsonSerializable
 
     /**
      * Function to serialize the object to JSON
-     * @return array|null array representation of the object
+     * @return array<mixed> array representation of the object
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): ?array

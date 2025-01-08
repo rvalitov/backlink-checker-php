@@ -26,13 +26,13 @@ final class FailTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\SimpleBacklinkChecker();
     }
 
-    public function testBadRegexp()
+    public function testBadRegexp(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->checker->getBacklinks(Config::TEST_HOST . "simple.html", "abc");
     }
 
-    public function testEmptyHtml()
+    public function testEmptyHtml(): void
     {
         $result = $this->checker->getBacklinks(Config::TEST_HOST . "empty.html", "@abc@");
         $response = $result->getResponse();
@@ -41,7 +41,7 @@ final class FailTest extends TestCase //phpcs:ignore
         $this->assertEmpty($result->getBacklinks());
     }
 
-    public function testNotFoundHtml()
+    public function testNotFoundHtml(): void
     {
         $result = $this->checker->getBacklinks(Config::TEST_HOST . "missing", "@abc@");
         $response = $result->getResponse();
@@ -50,7 +50,7 @@ final class FailTest extends TestCase //phpcs:ignore
         $this->assertEmpty($result->getBacklinks());
     }
 
-    public function testInvalidProtocol()
+    public function testInvalidProtocol(): void
     {
         $this->expectException(RuntimeException::class);
         $this->checker->getBacklinks("ppp://localhost:8080/missing", "@abc@");

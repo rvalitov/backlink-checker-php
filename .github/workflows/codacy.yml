@@ -55,3 +55,20 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
+  codacy-analysis-cli:
+    name: Codacy Analysis CLI
+    runs-on: ${{ vars.UBUNTU_VERSION }}
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
+        with:
+          verbose: true
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          # or
+          # api-token: ${{ secrets.CODACY_API_TOKEN }}
+          upload: true
+          max-allowed-issues: 2147483647
