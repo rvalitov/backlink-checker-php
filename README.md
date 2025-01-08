@@ -2,6 +2,8 @@
 
 ![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=8.0%20-%208.3\&color=blue)
 ![Platform icon](https://img.shields.io/badge/Platform-Windows%2C%20Linux%2C%20Mac-blue)
+![Packagist Downloads](https://img.shields.io/packagist/dt/rvalitov/backlink-checker-php)
+![Packagist Stars](https://img.shields.io/packagist/stars/rvalitov/backlink-checker-php)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
@@ -13,7 +15,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Tests](https://github.com/rvalitov/backlink-checker-php/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/tests.yml)
-![License icon](https://img.shields.io/badge/License-GPL--3-blue)
+![GitHub License](https://img.shields.io/github/license/rvalitov/backlink-checker-php?color=blue)
 
 ![Social preview](media/social-preview.jpg)
 
@@ -81,11 +83,11 @@ You must have a [Composer](https://getcomposer.org/) installed.
 Run the following command:
 
 ```bash
-php composer require rvalitov/backlink-checker-php:^2.0.0
+php composer require rvalitov/backlink-checker-php
 ```
 
-Here we use version 2.0.0 or later that support PHP 8.0 and latest versions of dependencies.
-If you want to use an earlier version, please check the 1.x.x releases.
+- Versions starting from 2.0.0 support PHP 8.0 and later.
+- If you need to use an earlier version of PHP, please use the 1.x.x releases.
 
 ### Step 2. Install the Chromium
 
@@ -152,21 +154,21 @@ $makeScreenshot = true;
 
 try {
     $result = $checker->getBacklinks($url, $pattern, $scanBacklinks, $scanHotlinks, $makeScreenshot);
-} catch (RuntimeException $e) {
+} catch (\Exception $e) {
     die("Error: " . $e->getMessage());
 }
 ```
 
 The function `getBacklinks` has the following additional options:
 
--`$scanBacklinks` - if set to `true`,
+- `$scanBacklinks` - if set to `true`,
   then it scans for the backlinks
   (the text of the `href` attribute of [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) tag);
   otherwise scanning is not performed.
--`$scanHotlinks` - if set to `true`, then it scans for the [hotlink](https://simple.wikipedia.org/wiki/Hotlinking) (the
+- `$scanHotlinks` - if set to `true`, then it scans for the [hotlink](https://simple.wikipedia.org/wiki/Hotlinking) (the
   text of the `src` attribute of [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) tag);
   otherwise scanning is not performed.
--`$makeScreenshot` - if set to `true`, then we also take a screenshot of the viewport; otherwise screenshot is not
+- `$makeScreenshot` - if set to `true`, then we also take a screenshot of the viewport; otherwise screenshot is not
   made.
   This option makes sense only for Chromium mode (default viewport size is `800 x 600` px, image format: `JPEG`,
   image quality: `90`, image encoding: `binary`); for simple mode this option is ignored.
@@ -175,7 +177,7 @@ Now we should check the `$result`, if the function succeeded:
 
 ```php
 $response = $result->getResponse();
-if ($response->getSuccess()) {
+if ($response->isSuccess()) {
     $links = $result->getBacklinks();
     if (sizeof($links) > 0)
         //Backlinks found
@@ -191,20 +193,20 @@ if ($response->getSuccess()) {
 The function `$result->getBacklinks()` returns an array of objects that describe the backlink. Each object supports the
 following functions:
 
--`getBacklink` returns `string`, a backlink - an exact URL that matches the target domain;
--`getTag` returns `string`, the tag that is used for the backlink, can be `a` or `img`;
--`getTarget` returns `string`, contents of
+- `getBacklink` returns `string`, a backlink - an exact URL that matches the target domain;
+- `getTag` returns `string`, the tag that is used for the backlink, can be `a` or `img`;
+- `getTarget` returns `string`, contents of
   [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/A#attr-target) attribute of the `href`;
--`getNoFollow` returns `true` if the backlink has [`nofollow`](https://en.wikipedia.org/wiki/Nofollow) attribute;
--`getAnchor` returns `string` - anchor of the link, for example, inner text of `<a>` tag. This text is returned in a
+- `getNoFollow` returns `true` if the backlink has [`nofollow`](https://en.wikipedia.org/wiki/Nofollow) attribute;
+- `getAnchor` returns `string` - anchor of the link, for example, inner text of `<a>` tag. This text is returned in a
   plain text format, all HTML tags are stripped.
 
 The `$response` object supports the following functions:
 
--`getUrl` returns `string`, the URL of that was analyzed
--`getStatusCode` returns `int`, the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), or `0`
+- `getUrl` returns `string`, the URL of that was analyzed
+- `getStatusCode` returns `int`, the [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes), or `0`
   or `-1` if there was a network error.
--`getScreenshot` returns `string`, the screenshot in binary format. If the screenshot was not taken or is not
+- `getScreenshot` returns `string`, the screenshot in binary format. If the screenshot was not taken or is not
   available, then the string is empty. If you want to display this screenshot as an image on a web page, then you should
   first save it to disk and use a link to it, or encode it into [base64](https://en.wikipedia.org/wiki/Data_URI_scheme)
   and insert into the web page directly. In this case, you can use a function like:
