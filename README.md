@@ -86,8 +86,8 @@ Run the following command:
 php composer require rvalitov/backlink-checker-php
 ```
 
-- Versions starting from 2.0.0 support PHP 8.0 and later.
-- If you need to use an earlier version of PHP, please use the 1.x.x releases.
+- Versions starting from 3.0.0 support PHP 8.0 and later.
+- If you need to use an earlier version of PHP, please use the 1.x.x or 2.x.x releases.
 
 ### Step 2. Install the Chromium
 
