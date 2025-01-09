@@ -17,10 +17,3 @@ sentimentBotToxicityThreshold: .7
 # *Required* Comment to reply with
 sentimentBotReplyComment: >
   Please be respectful of other users. cc/ @rvalitov
-
-lockThreads:
-  toxicityThreshold: .7
-  numComments: 2
-  setTimeInHours: 48
-  replyComment: >
-    This thread is being locked due to exceeding the toxicity minimums. cc/ @rvalitov
