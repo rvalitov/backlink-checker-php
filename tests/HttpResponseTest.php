@@ -9,11 +9,12 @@ use Valitov\BacklinkChecker;
 
 final class HttpResponseTest extends TestCase //phpcs:ignore
 {
-    public function testJSON()
+    public function testJSON(): void
     {
         $testImageFilename = __DIR__ . "/data/test.jpg";
         $base64Prefix = "data:image/jpeg;base64,";
         $base64PrefixJson = json_encode($base64Prefix);
+        $this->assertNotFalse($base64PrefixJson);
         //Remove first and last quotes
         $base64PrefixJson = mb_substr($base64PrefixJson, 1, -1);
 
@@ -37,6 +38,7 @@ final class HttpResponseTest extends TestCase //phpcs:ignore
         //Test that the screenshot is included in the JSON in base64 format
         $encodedImageBase64 = base64_encode($testImage);
         $encodedImage = json_encode($encodedImageBase64);
+        $this->assertNotFalse($encodedImage);
         //Remove first and last quotes
         $encodedImage = mb_substr($encodedImage, 1, -1);
         $this->assertStringContainsString($base64PrefixJson . $encodedImage, $json);

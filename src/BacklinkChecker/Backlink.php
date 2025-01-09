@@ -61,6 +61,7 @@ class Backlink implements JsonSerializable
 
     /**
      * @return string - anchor of the link, for example, inner text of <a> tag
+     * @psalm-api
      */
     public function getAnchor(): string
     {
@@ -69,6 +70,7 @@ class Backlink implements JsonSerializable
 
     /**
      * @return boolean true if the backlink has "nofollow" tag
+     * @psalm-api
      */
     public function isNoFollow(): bool
     {
@@ -77,6 +79,7 @@ class Backlink implements JsonSerializable
 
     /**
      * @return string - contents of target attribute of the href
+     * @psalm-api
      */
     public function getTarget(): string
     {
@@ -85,6 +88,7 @@ class Backlink implements JsonSerializable
 
     /**
      * @return string - the tag used for the backlink, can be "a" or "img"
+     * @psalm-api
      */
     public function getTag(): string
     {
@@ -93,6 +97,7 @@ class Backlink implements JsonSerializable
 
     /**
      * @return string - backlink - exact URL that matches the target domain
+     * @psalm-api
      */
     public function getBacklink(): string
     {
@@ -101,10 +106,10 @@ class Backlink implements JsonSerializable
 
     /**
      * Function to serialize the object to JSON
-     * @return array|null array representation of the object
+     * @return array<mixed> array representation of the object
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize(): ?array
+    public function jsonSerialize(): array
     {
         return get_object_vars($this);
     }

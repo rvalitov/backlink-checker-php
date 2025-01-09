@@ -4,8 +4,7 @@ namespace Valitov\BacklinkChecker;
 
 use Exception;
 use InvalidArgumentException;
-use KubAT\PhpSimple\HtmlDomParser;
-use simple_html_dom\simple_html_dom;
+use voku\helper\HtmlDomParser;
 use UnexpectedValueException;
 
 /**
@@ -24,15 +23,18 @@ abstract class BacklinkChecker
      * @param bool $scanImages - if true, the <img> tags will be scanned
      * @return Backlink[] - array of found Backlink objects that match the pattern
      * @throws InvalidArgumentException
-     * @throws UnexpectedValueException
      */
     protected static function getRawBacklinks(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
         $result = [];
         $isOk = true;
 
+        if (empty($pattern)) {
+            throw new InvalidArgumentException("Pattern is empty.");
+        }
+
         try {
-            if (preg_match($pattern, null) === false) {
+            if (preg_match($pattern, "") === false) {
                 $isOk = false;
             }
         } catch (Exception) {
@@ -41,13 +43,11 @@ abstract class BacklinkChecker
         if (!$isOk) {
             throw new InvalidArgumentException("Invalid pattern. Check the RegExp syntax.");
         }
-        if (strlen($html) <= 0 || strlen($pattern) <= 0) {
+        if (strlen($html) <= 0) {
             return $result;
         }
+
         $dom = HtmlDomParser::str_get_html($html);
-        if (empty($dom)) {
-            throw new UnexpectedValueException("Failed to parse HTML");
-        }
 
         if ($scanLinks) {
             $result = array_merge($result, self::scanLinks($dom, $pattern));
@@ -56,7 +56,6 @@ abstract class BacklinkChecker
         if ($scanImages) {
             $result = array_merge($result, self::scanImages($dom, $pattern));
         }
-        $dom->clear();
         return $result;
     }
 
@@ -80,24 +79,32 @@ abstract class BacklinkChecker
 
     /**
      * Scans the HTML for the backlinks represented by <a> tags
-     * @param simple_html_dom $dom - the HTML DOM object
+     * @param HtmlDomParser $dom - the HTML DOM object
      * @param string $pattern - the pattern (RegExp) to match the backlink URL (href attribute)
      * @return Backlink[] - array of found Backlink objects that match the pattern
      */
-    protected static function scanLinks(simple_html_dom $dom, string $pattern): array
+    protected static function scanLinks(HtmlDomParser $dom, string $pattern): array
     {
         $result = [];
 
-        //Searching <a> tags
-        $list = $dom->find("a[href]");
+        if (empty($pattern)) {
+            return $result;
+        }
+
+        /**
+         * Searching <a> tags
+         * @psalm-suppress TooManyTemplateParams
+         */
+        $list = $dom->findMulti("a[href]");
 
         foreach ($list as $link) {
-            if (isset($link->href) && preg_match($pattern, $link->href) === 1) {
+            $href = $link->getAttribute("href");
+            if (!empty($href) && preg_match($pattern, $href) === 1) {
                 //We found a matching backlink
-                $contents = html_entity_decode(trim($link->plaintext));
-                $target = $link->target ?? "";
-                $noFollow = self::isNoFollow($link->rel);
-                $result[] = new Backlink($link->href, $contents, $noFollow, $target, "a");
+                $contents = html_entity_decode(trim($link->text()));
+                $target = $link->hasAttribute("target") ? $link->getAttribute("target") : "";
+                $noFollow = $link->hasAttribute("rel") && self::isNoFollow($link->getAttribute("rel"));
+                $result[] = new Backlink($href, $contents, $noFollow, $target, "a");
             }
         }
         return $result;
@@ -105,23 +112,31 @@ abstract class BacklinkChecker
 
     /**
      * Scans the HTML for the backlinks represented by <img> tags
-     * @param simple_html_dom $dom - the HTML DOM object
+     * @param HtmlDomParser $dom - the HTML DOM object
      * @param string $pattern - the pattern (RegExp) to match the backlink URL (src attribute)
      * @return Backlink[] - array of found Backlink objects that match the pattern
      */
-    protected static function scanImages(simple_html_dom $dom, string $pattern): array
+    protected static function scanImages(HtmlDomParser $dom, string $pattern): array
     {
         $result = [];
 
-        //Searching <img> tags - image hotlink
-        $list = $dom->find("img[src]");
-        if (is_array($list)) {
-            foreach ($list as $link) {
-                if (isset($link->src) && preg_match($pattern, $link->src) === 1) {
-                    //We found a matching backlink
-                    $contents = isset($link->alt) ? html_entity_decode(trim($link->alt)) : "";
-                    $result[] = new Backlink($link->src, $contents, false, "", "img");
-                }
+        if (empty($pattern)) {
+            return $result;
+        }
+
+        /**
+         * Searching <img> tags - image hotlink
+         * @psalm-suppress TooManyTemplateParams
+         */
+        $list = $dom->findMulti("img[src]");
+
+        foreach ($list as $link) {
+            $src = $link->getAttribute("src");
+            if (!empty($src) && preg_match($pattern, $src) === 1) {
+                //We found a matching backlink
+                $alt = $link->getAttribute("alt");
+                $contents = html_entity_decode(trim($alt));
+                $result[] = new Backlink($src, $contents, false, "", "img");
             }
         }
         return $result;
@@ -145,6 +160,7 @@ abstract class BacklinkChecker
      * @param bool $scanImages - if true, the <img> tags will be scanned
      * @param boolean $makeScreenshot - if true, the screenshot will be made
      * @return BacklinkData - the object containing the response and the backlinks
+     * @psalm-api
      */
     public function getBacklinks(
         string $url,

@@ -19,6 +19,7 @@
     "phpunit": "php ./vendor/bin/phpunit",
     "prettier": "prettier --config .prettierrc.cjs --check .",
     "prettier:fix": "prettier --config .prettierrc.cjs --write .",
+    "psalm": "php ./vendor/bin/psalm --show-info=true",
     "sort": "sort-package-json ./package.json ./composer.json",
     "start-server": "npx serve -n tests/data",
     "style": "npm run style:windows && npm run prettier",

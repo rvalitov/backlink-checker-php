@@ -46,6 +46,14 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
             "emptyAnchor" => false,
         ],
         [
+            "url" => Config::TEST_HOST . "single.html",
+            "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
+            "backlinks" => 1,
+            "scanLinks" => true,
+            "scanImages" => false,
+            "emptyAnchor" => false,
+        ],
+        [
             "url" => Config::TEST_HOST . "emptyAnchor.html",
             "pattern" => "@^http(s)?://(www\.)?walitoff\.com.*@",
             "backlinks" => 1,
@@ -93,8 +101,9 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\ChromeBacklinkChecker();
     }
 
-    public function testLinks()
+    public function testLinks(): void
     {
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertNotEmpty(self::URL_LIST);
 
         $properties = [
@@ -106,10 +115,15 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
         ];
 
         foreach (self::URL_LIST as $check) {
+            $this->assertArrayHasKey("url", $check);
+            $this->assertArrayHasKey("pattern", $check);
+            $this->assertArrayHasKey("backlinks", $check);
             $url = $check["url"];
             $pattern = $check["pattern"];
             $backlinksCount = $check["backlinks"];
+            // @phpstan-ignore method.alreadyNarrowedType
             $this->assertNotEmpty($url);
+            // @phpstan-ignore method.alreadyNarrowedType
             $this->assertNotEmpty($pattern);
             $this->assertGreaterThanOrEqual(0, $backlinksCount);
             $result = $this->checker->getBacklinks($url, $pattern, $check["scanLinks"], $check["scanImages"], true);
@@ -162,23 +176,21 @@ final class ChromeModeTest extends TestCase //phpcs:ignore
         }
     }
 
-    public function testAboutBlank()
+    public function testAboutBlank(): void
     {
         $backlinks = $this->checker->getBacklinks("about:blank", "@abc@");
-        $this->assertNotEmpty($backlinks);
         $this->assertEmpty($backlinks->getBacklinks());
     }
 
-    public function testEmptyURL()
+    public function testEmptyURL(): void
     {
         $this->expectException(Nesk\Rialto\Exceptions\Node\FatalException::class);
         $this->checker->getBacklinks("", "@abc@");
     }
 
-    public function testMissingURL()
+    public function testMissingURL(): void
     {
         $backlinks = $this->checker->getBacklinks(Config::TEST_HOST . "missing", "@abc@");
-        $this->assertNotEmpty($backlinks);
         $this->assertEmpty($backlinks->getBacklinks());
     }
 }

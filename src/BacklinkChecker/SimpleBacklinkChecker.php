@@ -14,6 +14,7 @@ use InvalidArgumentException;
  * Checks the backlinks using a simple web engine without JavaScript support.
  * @package Valitov\BacklinkChecker
  * @author Ramil Valitov https://github.com/rvalitov
+ * @psalm-api
  */
 class SimpleBacklinkChecker extends BacklinkChecker
 {
@@ -24,7 +25,7 @@ class SimpleBacklinkChecker extends BacklinkChecker
      * @return HttpResponse - the response from the page
      * @throws InvalidArgumentException
      * @throws GuzzleException
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function browsePage(string $url, bool $makeScreenshot): HttpResponse
     {
