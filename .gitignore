@@ -22,6 +22,4 @@ node_modules/
 
 *.phar
 *.cache
-coverage/*
-!coverage/.gitkeep
-
+coverage
