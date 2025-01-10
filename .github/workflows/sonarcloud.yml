@@ -20,6 +20,8 @@ permissions:
 
 env:
   NODE_VERSION: latest
+  PHP_VERSION: 8.3
+  PHPUNIT_VERSION: 11
 
 jobs:
   sonarqube:
@@ -27,6 +29,19 @@ jobs:
     runs-on: ${{ vars.UBUNTU_VERSION }}
 
     steps:
+      - name: Setup PHP ${{ env.PHP_VERSION }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, intl, xdebug, json, sockets
+          ini-values: max_execution_time=360
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit:${{ env.PHPUNIT_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: PHP info
+        run: php -v
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
