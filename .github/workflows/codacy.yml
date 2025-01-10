@@ -88,6 +88,13 @@ jobs:
       - name: Server warm up
         run: sleep 5
 
+      - name: Check the coverage directory
+        run: |
+          if [ ! -d ./coverage ]; then
+            echo "No coverage directory found. Creating it."
+            mkdir coverage            
+          fi
+          echo "Coverage directory found. Directory size: $(du -h ./coverage | cut -f1)"
       - name: Test coverage
         run: composer run-script test
 
