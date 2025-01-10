@@ -91,14 +91,3 @@ jobs:
       - if: matrix.operating-system != 'windows-latest'
         name: Run full test suite
         run: npm run test
-
-      - if: github.actor != 'dependabot[bot]'
-        name: Codacy coverage reporter
-        uses: codacy/codacy-coverage-reporter-action@master
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          # or
-          # api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: ./coverage/clover.xml
-          # or a comma-separated list for multiple reports
-          # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>

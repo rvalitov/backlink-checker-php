@@ -10,16 +10,19 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: ["master"]
+    branches: ["master", "main"]
+
   # Allows you to run this workflow manually from the Actions tab
   # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
 permissions:
   contents: read
+
+env:
+  NODE_VERSION: latest
 
 jobs:
   codacy-security-scan:
@@ -36,7 +39,7 @@ jobs:
 
       # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
+        uses: codacy/codacy-analysis-cli-action@v4.4.5
         with:
           # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
           # You can also omit the token and run the tools that support default configurations
@@ -55,20 +58,43 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
-  codacy-analysis-cli:
-    name: Codacy Analysis CLI
+
+  codacy-coverage-reporter:
+    name: Codacy Coverage Reporter
     runs-on: ${{ vars.UBUNTU_VERSION }}
-    if: github.event_name == 'push'
     steps:
       - name: Checkout code
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
 
-      - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4.1.0
         with:
-          verbose: true
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+
+      - name: Starting local web server
+        # bash shell is required for Windows, otherwise the background
+        # server does not start and work properly
+        shell: bash
+        run: npm run start-server &
+      - name: Wait for server to start up
+        run: npx wait-on --timeout 15000 http://127.0.0.1:3000
+      - name: Server warm up
+        run: sleep 5
+
+      - name: Test coverage
+        run: npm run coverage
+
+      - name: Codacy coverage reporter
+        uses: codacy/codacy-coverage-reporter-action@1.3.0
+        with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           # or
           # api-token: ${{ secrets.CODACY_API_TOKEN }}
-          upload: true
-          max-allowed-issues: 2147483647
+          coverage-reports: ./coverage/clover.xml
+          # or a comma-separated list for multiple reports
+          # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>
