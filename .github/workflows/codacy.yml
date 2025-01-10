@@ -93,11 +93,11 @@ jobs:
 
       - name: Check coverage file
         run: |
-          if [ ! -f coverage/clover.xml ]; then
+          if [ ! -f ./coverage/clover.xml ]; then
             echo "No coverage file found"
             exit 1
           fi
-          echo "Coverage file found. File size: $(du -h coverage/clover.xml | cut -f1)"
+          echo "Coverage file found. File size: $(du -h ./coverage/clover.xml | cut -f1)"
 
       - name: Codacy coverage reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
