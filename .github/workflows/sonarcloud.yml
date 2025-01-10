@@ -45,7 +45,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4.1.0
@@ -71,7 +72,10 @@ jobs:
         run: npm run coverage
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        with:
+          args: >
+            -Dsonar.verbose=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
