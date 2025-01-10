@@ -6,11 +6,12 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    branches: ["master"]
+    branches: ["master", "main"]
     types: [opened, synchronize, reopened]
 
+  # Allows you to run this workflow manually from the Actions tab
   # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
@@ -19,6 +20,8 @@ permissions:
 
 env:
   NODE_VERSION: latest
+  PHP_VERSION: 8.3
+  PHPUNIT_VERSION: 11
 
 jobs:
   sonarqube:
@@ -26,21 +29,53 @@ jobs:
     runs-on: ${{ vars.UBUNTU_VERSION }}
 
     steps:
+      - name: Setup PHP ${{ env.PHP_VERSION }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, intl, xdebug, json, sockets
+          ini-values: max_execution_time=360
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit:${{ env.PHPUNIT_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: PHP info
+        run: php -v
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
+
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v4.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+
+      - name: Starting local web server
+        # bash shell is required for Windows, otherwise the background
+        # server does not start and work properly
+        shell: bash
+        run: npm run start-server &
+      - name: Wait for server to start up
+        run: npx wait-on --timeout 15000 http://127.0.0.1:3000
+      - name: Server warm up
+        run: sleep 5
+
       - name: Test coverage
         run: npm run coverage
+
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        with:
+          args: >
+            -Dsonar.verbose=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

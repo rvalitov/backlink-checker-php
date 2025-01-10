@@ -11,7 +11,7 @@
     "phpmd": "phpmd src/ text phpmd.xml",
     "phpstan": "phpstan analyse --level max src tests",
     "psalm": "psalm --show-info=true",
-    "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text"
+    "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text --log-junit ./coverage/execution.xml"
   },
   "authors": [
     {
