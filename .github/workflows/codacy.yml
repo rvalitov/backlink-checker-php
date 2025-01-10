@@ -71,6 +71,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
       - name: Install Node.js dependencies
@@ -87,7 +89,7 @@ jobs:
         run: sleep 5
 
       - name: Test coverage
-        run: npm run coverage
+        run: composer run-script test
 
       - name: Codacy coverage reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
