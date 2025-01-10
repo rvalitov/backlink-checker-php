@@ -96,10 +96,15 @@ jobs:
           fi
           echo "Coverage directory found. Directory size: $(du -h ./coverage | cut -f1)"
       - name: Test coverage
-        run: composer run-script test
+        run: |
+          export XDEBUG_MODE=coverage
+          composer run-script test
 
       - name: Check coverage file
         run: |
+          echo "Coverage directory listing: $(ls -la ./coverage)"
+          echo "Current path: $(pwd)"
+          echo "Current listing: $(ls -la .)"
           if [ ! -f ./coverage/clover.xml ]; then
             echo "No coverage file found"
             exit 1
