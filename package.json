@@ -5,7 +5,7 @@
   "license": "GPL-3.0",
   "author": "Ramil Valitov <ramil@walitoff.com>",
   "scripts": {
-    "coverage": "php ./vendor/bin/phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text",
+    "coverage": "php ./vendor/bin/phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text --log-junit ./coverage/execution.xml",
     "json": "jsonlint -q ./*.json",
     "lint": "eslint .",
     "markdown": "remark . --frail",
