@@ -107,7 +107,7 @@ If it's not installed, install it using the official manual.
 Then run the following command to install the Chromium:
 
 ```bash
-npm install
+npm install https://github.com/zoonru/rialto
 ```
 
 ### Step 3. Use Autoload
