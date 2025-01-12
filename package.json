@@ -12,6 +12,7 @@
     "markdown:fix": "remark . --frail --output",
     "markdownlint": "markdownlint --config .markdownlint.json \"*.md\"",
     "package": "npx npm-package-json-lint .",
+    "php": "npm run phpcs && npm run phpmd && npm run phpcs-fixer",
     "phpcs": "php ./vendor/bin/phpcs --standard=PSR2 src/",
     "phpcs-fixer": "php ./vendor/bin/php-cs-fixer --verbose check",
     "phpcs-fixer:fix": "php ./vendor/bin/php-cs-fixer fix",
@@ -24,7 +25,6 @@
     "start-server": "npx serve -n tests/data",
     "style": "npm run style:windows && npm run prettier",
     "style:windows": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint",
-    "php": "npm run phpcs && npm run phpmd && npm run phpcs-fixer",
     "test": "npm run style && npm run php && npm run coverage",
     "test:small": "npm run style:windows && npm run php && npm run coverage"
   },
