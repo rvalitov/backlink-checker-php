@@ -98,11 +98,11 @@ abstract class BacklinkChecker
         $list = $dom->findMulti("a[href]");
 
         foreach ($list as $link) {
-            $href = $link->getAttribute("href");
+            $href = trim($link->getAttribute("href"));
             if (!empty($href) && preg_match($pattern, $href) === 1) {
                 //We found a matching backlink
                 $contents = html_entity_decode(trim($link->text()));
-                $target = $link->hasAttribute("target") ? $link->getAttribute("target") : "";
+                $target = $link->hasAttribute("target") ? trim($link->getAttribute("target")) : "";
                 $noFollow = $link->hasAttribute("rel") && self::isNoFollow($link->getAttribute("rel"));
                 $result[] = new Backlink($href, $contents, $noFollow, $target, "a");
             }
@@ -131,10 +131,10 @@ abstract class BacklinkChecker
         $list = $dom->findMulti("img[src]");
 
         foreach ($list as $link) {
-            $src = $link->getAttribute("src");
+            $src = trim($link->getAttribute("src"));
             if (!empty($src) && preg_match($pattern, $src) === 1) {
                 //We found a matching backlink
-                $alt = $link->getAttribute("alt");
+                $alt = trim($link->getAttribute("alt"));
                 $contents = html_entity_decode(trim($alt));
                 $result[] = new Backlink($src, $contents, false, "", "img");
             }
