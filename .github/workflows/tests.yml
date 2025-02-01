@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    branches: ["master"]
+    branches: ["master", "main"]
 
 permissions:
   contents: read
@@ -64,6 +64,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
@@ -91,14 +93,3 @@ jobs:
       - if: matrix.operating-system != 'windows-latest'
         name: Run full test suite
         run: npm run test
-
-      - if: github.actor != 'dependabot[bot]'
-        name: Codacy coverage reporter
-        uses: codacy/codacy-coverage-reporter-action@master
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          # or
-          # api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: ./coverage/clover.xml
-          # or a comma-separated list for multiple reports
-          # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>

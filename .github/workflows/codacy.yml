@@ -10,16 +10,21 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: ["master"]
+    branches: ["master", "main"]
+
   # Allows you to run this workflow manually from the Actions tab
   # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
 permissions:
   contents: read
+
+env:
+  NODE_VERSION: latest
+  PHP_VERSION: 8.3
+  PHPUNIT_VERSION: 11
 
 jobs:
   codacy-security-scan:
@@ -28,7 +33,7 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     name: Codacy Security Scan
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.UBUNTU_VERSION }}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout code
@@ -36,7 +41,7 @@ jobs:
 
       # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
+        uses: codacy/codacy-analysis-cli-action@v4.4.5
         with:
           # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
           # You can also omit the token and run the tools that support default configurations
@@ -55,20 +60,57 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
-  codacy-analysis-cli:
-    name: Codacy Analysis CLI
-    runs-on: ${{ vars.UBUNTU_VERSION }}
-    if: github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@main
 
-      - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
+  codacy-coverage-reporter:
+    name: Codacy Coverage Reporter
+    runs-on: ${{ vars.UBUNTU_VERSION }}
+    steps:
+      - name: Setup PHP ${{ env.PHP_VERSION }}
+        uses: shivammathur/setup-php@v2
         with:
-          verbose: true
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, intl, xdebug, json, sockets
+          ini-values: max_execution_time=360
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit:${{ env.PHPUNIT_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: PHP info
+        run: php -v
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+
+      - name: Starting local web server
+        # bash shell is required for Windows, otherwise the background
+        # server does not start and work properly
+        shell: bash
+        run: npm run start-server &
+      - name: Wait for server to start up
+        run: npx wait-on --timeout 15000 http://127.0.0.1:3000
+      - name: Server warm up
+        run: sleep 5
+
+      - name: Test coverage
+        run: npm run coverage
+      - name: Codacy coverage reporter
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           # or
           # api-token: ${{ secrets.CODACY_API_TOKEN }}
-          upload: true
-          max-allowed-issues: 2147483647
+          coverage-reports: coverage/clover.xml
+          # or a comma-separated list for multiple reports
+          # coverage-reports: <PATH_TO_REPORT>, <PATH_TO_REPORT>

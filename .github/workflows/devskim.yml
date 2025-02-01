@@ -7,9 +7,10 @@ name: DevSkim
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    branches: ["master"]
+    branches: ["master", "main"]
+
   # Allows you to run this workflow manually from the Actions tab
   # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
@@ -17,7 +18,7 @@ on:
 jobs:
   lint:
     name: DevSkim
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.UBUNTU_VERSION }}
     permissions:
       actions: read
       contents: read

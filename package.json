@@ -5,13 +5,14 @@
   "license": "GPL-3.0",
   "author": "Ramil Valitov <ramil@walitoff.com>",
   "scripts": {
-    "coverage": "php ./vendor/bin/phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text",
+    "coverage": "php ./vendor/bin/phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text --log-junit ./coverage/execution.xml",
     "json": "jsonlint -q ./*.json",
     "lint": "eslint .",
     "markdown": "remark . --frail",
     "markdown:fix": "remark . --frail --output",
     "markdownlint": "markdownlint --config .markdownlint.json \"*.md\"",
     "package": "npx npm-package-json-lint .",
+    "php": "npm run phpcs && npm run phpmd && npm run phpcs-fixer",
     "phpcs": "php ./vendor/bin/phpcs --standard=PSR2 src/",
     "phpcs-fixer": "php ./vendor/bin/php-cs-fixer --verbose check",
     "phpcs-fixer:fix": "php ./vendor/bin/php-cs-fixer fix",
@@ -22,8 +23,10 @@
     "psalm": "php ./vendor/bin/psalm --show-info=true",
     "sort": "sort-package-json ./package.json ./composer.json",
     "start-server": "npx serve -n tests/data",
-    "test": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run prettier && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run psalm && npm run coverage",
-    "test:small": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint && npm run phpcs && npm run phpmd && npm run phpcs-fixer && npm run psalm && npm run coverage"
+    "style": "npm run style:windows && npm run prettier",
+    "style:windows": "npm run markdown && npm run markdownlint && npm run json && npm run package && npm run lint",
+    "test": "npm run style && npm run php && npm run coverage",
+    "test:small": "npm run style:windows && npm run php && npm run coverage"
   },
   "remarkConfig": {
     "plugins": [
