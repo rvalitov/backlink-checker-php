@@ -6,7 +6,6 @@
 ![Packagist Stars](https://img.shields.io/packagist/stars/rvalitov/backlink-checker-php)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_grade)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)

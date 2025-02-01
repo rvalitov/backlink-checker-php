@@ -8,7 +8,7 @@
     "phpcs": "phpcs -s",
     "phpcs-fixer": "php-cs-fixer --stop-on-violation --verbose check",
     "phpcs-fixer:fix": "php-cs-fixer fix",
-    "phpmd": "phpmd src/ text phpmd.xml",
+    "phpmd": "phpmd src/,tests/ text phpmd.xml",
     "phpstan": "phpstan analyse --level max src tests",
     "psalm": "psalm --show-info=true",
     "test": "phpunit --coverage-clover ./coverage/clover.xml --coverage-html ./coverage/html --coverage-xml ./coverage/xml --coverage-text --log-junit ./coverage/execution.xml"
