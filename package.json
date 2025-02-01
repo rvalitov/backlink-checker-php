@@ -16,7 +16,7 @@
     "phpcs": "php ./vendor/bin/phpcs --standard=PSR2 src/",
     "phpcs-fixer": "php ./vendor/bin/php-cs-fixer --verbose check",
     "phpcs-fixer:fix": "php ./vendor/bin/php-cs-fixer fix",
-    "phpmd": "php ./vendor/bin/phpmd src/ text phpmd.xml",
+    "phpmd": "php ./vendor/bin/phpmd src/,tests/ text phpmd.xml",
     "phpunit": "php ./vendor/bin/phpunit",
     "prettier": "prettier --config .prettierrc.cjs --check .",
     "prettier:fix": "prettier --config .prettierrc.cjs --write .",
