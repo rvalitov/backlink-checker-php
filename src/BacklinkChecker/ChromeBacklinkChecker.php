@@ -80,10 +80,11 @@ class ChromeBacklinkChecker extends BacklinkChecker
             $browser->close();
             return new HttpResponse($url, 500, [[]], "Failed to fetch data", false, "");
         }
-        // @phpstan-ignore property.notFound
-        if (!$response->ok) {
+
+        $status = intval($response->status());
+        if (!$response->ok()) {
             $browser->close();
-            return new HttpResponse($url, intval($response->status()), [[]], $response->text(), false, $image);
+            return new HttpResponse($url, $status, [[]], $response->statusText(), false, $image);
         }
 
         /**
@@ -95,6 +96,6 @@ class ChromeBacklinkChecker extends BacklinkChecker
         if (!is_string($data)) {
             throw new UnexpectedValueException("Failed to get the page content");
         }
-        return new HttpResponse($url, intval($response->status()), [[]], $data, true, $image);
+        return new HttpResponse($url, $status, [[]], $data, true, $image);
     }
 }
