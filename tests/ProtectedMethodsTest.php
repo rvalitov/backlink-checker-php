@@ -27,9 +27,15 @@ final class ProtectedMethodsTest extends TestCase //phpcs:ignore
         $this->checker = new BacklinkChecker\SimpleBacklinkChecker();
     }
 
-    public function testGetRawBacklinks(): void
+    /**
+     * Test the protected method getRawBacklinks with simple regular expressions
+     * @return void
+     * @throws ReflectionException
+     * @SuppressWarnings("PHPMD.MissingImport")
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    public function testGetRawBacklinksRegex(): void
     {
-        // Test the protected method getRawBacklinks
         $reflection = new ReflectionClass($this->checker);
         $method = $reflection->getMethod('getRawBacklinks');
         $method->setAccessible(true);
@@ -66,16 +72,21 @@ final class ProtectedMethodsTest extends TestCase //phpcs:ignore
             $this->assertEmpty($result, "Failed to match invalid regex: $regex");
         }
 
-        // Test with valid regex
+        // Test with valid regex, syntax:
+        // 1st line: regex
+        // 2nd line: HTML that provides a match for the regex
+        // 3rd line: HTML that provides a zero match for the regex
         $validRegex = [
             [
                 // Match any URL
                 "/https?:\/\/[^\s]+/",
-                "<a href='https://example.com'>Example</a>"
+                "<a href='https://example.com'>Example</a>",
+                "<a href='https://example2.com'>Example</a>"
             ],
             [
                 // Match specific domain
                 "/https?:\/\/(www\.)?example\.com/",
+                "<a href='https://example.com'>Example</a>",
                 "<a href='https://example.com'>Example</a>"
             ],
             [
@@ -86,62 +97,50 @@ final class ProtectedMethodsTest extends TestCase //phpcs:ignore
             [
                 // Match URLs with fragments
                 "/https?:\/\/[^\s]+#[^\s]+/",
-                "<a href='https://example.com#help'>Example</a>"
-            ],
-            [
-                // Match relative URLs
-                "/^\/[^\s]+/",
-                "<a href='/example'>Example</a>"
-            ]
-        ];
-
-        foreach ($validRegex as $item) {
-            $regex = $item[0];
-            $html = $item[1];
-            $result = $method->invokeArgs($this->checker, [
-                $html,
-                $regex,
-                true,
-                false,
-            ]);
-            $this->assertNotEmpty($result, "Failed to match valid regex: $regex");
-        }
-
-        // Test with valid regex
-        $validRegex = [
-            [
-                // Match specific domain
-                "/https?:\/\/(www\.)?example\.com/",
-                "<a href='https://example2.com'>Example</a>"
-            ],
-            [
-                // Match URLs with query parameters
-                "/https?:\/\/[^\s]+\?[^\s]+/",
-                "<a href='https://example.com'>Example</a>"
-            ],
-            [
-                // Match URLs with fragments
-                "/https?:\/\/[^\s]+#[^\s]+/",
+                "<a href='https://example.com#help'>Example</a>",
                 "<a href='https://example.com'>Example</a>"
             ],
             [
                 // Match relative URLs
                 "/^\/[^\s]+/",
+                "<a href='/example'>Example</a>",
                 "<a href='https://example.com'>Example</a>"
             ]
         ];
 
         foreach ($validRegex as $item) {
             $regex = $item[0];
-            $html = $item[1];
+            $htmlMatch = $item[1];
+            $htmlNoMatch = $item[2];
             $result = $method->invokeArgs($this->checker, [
-                $html,
+                $htmlMatch,
                 $regex,
                 true,
                 false,
             ]);
-            $this->assertEmpty($result, "Failed to match valid regex: $regex");
+            $this->assertNotEmpty($result, "Failed to find a match for regex: $regex");
+            $result = $method->invokeArgs($this->checker, [
+                $htmlNoMatch,
+                $regex,
+                true,
+                false,
+            ]);
+            $this->assertEmpty($result, "Match must not be detected for regex: $regex");
         }
+    }
+
+    /**
+     * Test the protected method getRawBacklinks with HTML expressions
+     * @return void
+     * @throws ReflectionException
+     * @SuppressWarnings("PHPMD.MissingImport")
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    public function testGetRawBacklinksHtml(): void
+    {
+        $reflection = new ReflectionClass($this->checker);
+        $method = $reflection->getMethod('getRawBacklinks');
+        $method->setAccessible(true);
 
         // Test with different HTML content
         $htmlContents = [
@@ -209,9 +208,15 @@ final class ProtectedMethodsTest extends TestCase //phpcs:ignore
         }
     }
 
+    /**
+     * Test the protected method scanLinks
+     * @return void
+     * @throws ReflectionException
+     * @SuppressWarnings("PHPMD.MissingImport")
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
     public function testScanLinks(): void
     {
-        // Test the protected method scanLinks
         $reflection = new ReflectionClass($this->checker);
         $method = $reflection->getMethod('scanLinks');
         $method->setAccessible(true);
@@ -238,9 +243,15 @@ final class ProtectedMethodsTest extends TestCase //phpcs:ignore
         }
     }
 
+    /**
+     * Test the protected method scanImages
+     * @return void
+     * @throws ReflectionException
+     * @SuppressWarnings("PHPMD.MissingImport")
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
     public function testScanImages(): void
     {
-        // Test the protected method scanImages
         $reflection = new ReflectionClass($this->checker);
         $method = $reflection->getMethod('scanImages');
         $method->setAccessible(true);
