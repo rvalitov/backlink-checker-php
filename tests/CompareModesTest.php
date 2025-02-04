@@ -18,18 +18,18 @@ final class CompareModesTest extends TestCase //phpcs:ignore
     /**
      * @var BacklinkChecker\ChromeBacklinkChecker
      */
-    private BacklinkChecker\ChromeBacklinkChecker $chromeBacklinkChecker;
+    private BacklinkChecker\ChromeBacklinkChecker $chromeChecker;
 
     /**
      * @var BacklinkChecker\SimpleBacklinkChecker
      */
-    private BacklinkChecker\SimpleBacklinkChecker $simpleBacklinkChecker;
+    private BacklinkChecker\SimpleBacklinkChecker $simpleChecker;
 
     public function __construct()
     {
         parent::__construct();
-        $this->chromeBacklinkChecker = new BacklinkChecker\ChromeBacklinkChecker();
-        $this->simpleBacklinkChecker = new BacklinkChecker\SimpleBacklinkChecker();
+        $this->chromeChecker = new BacklinkChecker\ChromeBacklinkChecker();
+        $this->simpleChecker = new BacklinkChecker\SimpleBacklinkChecker();
     }
 
     /**
@@ -43,7 +43,7 @@ final class CompareModesTest extends TestCase //phpcs:ignore
         $pattern = "@.*@";
 
         // Chrome mode should detect two backlinks
-        $result = $this->chromeBacklinkChecker->getBacklinks($url, $pattern, true, false, false);
+        $result = $this->chromeChecker->getBacklinks($url, $pattern, true, false, false);
         $response = $result->getResponse();
         $this->assertTrue($response->isSuccess(), "Failed to read webpage $url");
         $this->assertNotEmpty($response->getResponse(), "Failed to get response from $url");
@@ -59,7 +59,7 @@ final class CompareModesTest extends TestCase //phpcs:ignore
         );
 
         // Simple mode should detect only one backlink
-        $result = $this->simpleBacklinkChecker->getBacklinks($url, $pattern, true, false, false);
+        $result = $this->simpleChecker->getBacklinks($url, $pattern, true, false, false);
         $backlinks = $result->getBacklinks();
         $backlinksCount = count($backlinks);
         $this->assertCount(
