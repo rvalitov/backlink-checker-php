@@ -13,7 +13,7 @@ require_once __DIR__ . '/Config.php';
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
 
-final class CompareModesTest extends TestCase //phpcs:ignore
+final class CombinedTest extends TestCase //phpcs:ignore
 {
     /**
      * @var BacklinkChecker\ChromeBacklinkChecker
@@ -44,28 +44,67 @@ final class CompareModesTest extends TestCase //phpcs:ignore
 
         // Chrome mode should detect two backlinks
         $result = $this->chromeChecker->getBacklinks($url, $pattern, true, false, false);
-        $response = $result->getResponse();
+        $this->checkChromeResponse($result, $url, 2);
+
+        // Simple mode should detect only one backlink
+        $result = $this->simpleChecker->getBacklinks($url, $pattern, true, false, false);
+        $this->checkSimpleResponse($result, $url, 1);
+    }
+
+    /**
+     * Makes tests on the domain example.com
+     * @return void
+     */
+    public function testExampleDomain()
+    {
+        $url = "https://example.com";
+        $pattern = "@.*@";
+
+        // All modes should detect 1 link
+        $result = $this->chromeChecker->getBacklinks($url, $pattern, true, false, false);
+        $this->checkChromeResponse($result, $url, 1);
+
+        $result = $this->simpleChecker->getBacklinks($url, $pattern, true, false, false);
+        $this->checkSimpleResponse($result, $url, 1);
+    }
+
+    /**
+     * Checks the response of the Chrome mode
+     * @param BacklinkChecker\BacklinkData $data The response data
+     * @param string $url The expected URL
+     * @param int $expectedCount The expected number of backlinks
+     * @return void
+     */
+    private function checkChromeResponse(BacklinkChecker\BacklinkData $data, string $url, int $expectedCount): void
+    {
+        $response = $data->getResponse();
         $this->assertTrue($response->isSuccess(), "Failed to read webpage $url");
         $this->assertNotEmpty($response->getResponse(), "Failed to get response from $url");
         $this->assertNotEmpty($response->getHeaders(), "Failed to get headers from $url");
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals($url, $response->getUrl());
-        $backlinks = $result->getBacklinks();
-        $backlinksCount = count($backlinks);
+        $backlinks = $data->getBacklinks();
         $this->assertCount(
-            2,
+            $expectedCount,
             $backlinks,
-            "Expected $backlinksCount backlinks for $url but got " . count($backlinks),
+            "Expected $expectedCount backlinks for $url",
         );
+    }
 
-        // Simple mode should detect only one backlink
-        $result = $this->simpleChecker->getBacklinks($url, $pattern, true, false, false);
-        $backlinks = $result->getBacklinks();
-        $backlinksCount = count($backlinks);
+    /**
+     * Checks the response of the Simple mode
+     * @param BacklinkChecker\BacklinkData $data The response data
+     * @param string $url The expected URL
+     * @param int $expectedCount The expected number of backlinks
+     * @return void
+     */
+    private function checkSimpleResponse(BacklinkChecker\BacklinkData $data, string $url, int $expectedCount): void
+    {
+        $backlinks = $data->getBacklinks();
         $this->assertCount(
-            1,
+            $expectedCount,
             $backlinks,
-            "Expected $backlinksCount backlinks for $url but got " . count($backlinks),
+            "Expected $expectedCount backlinks for $url",
         );
     }
 }
