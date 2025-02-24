@@ -72,7 +72,7 @@ jobs:
         run: npm run coverage
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
           args: >
             -Dsonar.verbose=true
