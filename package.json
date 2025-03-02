@@ -51,7 +51,7 @@
     "remark-preset-lint-consistent": "^6.0.1",
     "remark-preset-lint-recommended": "^7.0.1",
     "serve": "^14.2.4",
-    "sort-package-json": "^2.14.0",
+    "sort-package-json": "^2.15.1",
     "wait-on": "^8.0.2"
   },
   "engines": {
