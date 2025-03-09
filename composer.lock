@@ -1150,16 +1150,16 @@
         },
         {
             "name": "zoon/puphpeteer",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zoonru/puphpeteer.git",
-                "reference": "cb8d7d8c035daeec3584dae8d157d9d50cd0d89e"
+                "reference": "0935443efe4b61d9baff7d48a02f869106657658"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoonru/puphpeteer/zipball/cb8d7d8c035daeec3584dae8d157d9d50cd0d89e",
-                "reference": "cb8d7d8c035daeec3584dae8d157d9d50cd0d89e",
+                "url": "https://api.github.com/repos/zoonru/puphpeteer/zipball/0935443efe4b61d9baff7d48a02f869106657658",
+                "reference": "0935443efe4b61d9baff7d48a02f869106657658",
                 "shasum": ""
             },
             "require": {
@@ -1209,9 +1209,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zoonru/puphpeteer/issues",
-                "source": "https://github.com/zoonru/puphpeteer/tree/v2.2.0"
+                "source": "https://github.com/zoonru/puphpeteer/tree/v2.3.0"
             },
-            "time": "2024-09-21T00:27:14+00:00"
+            "time": "2025-03-07T00:24:04+00:00"
         },
         {
             "name": "zoon/rialto",
