@@ -23,25 +23,24 @@ abstract class BacklinkChecker
      * @param bool $scanImages - if true, the <img> tags will be scanned
      * @return Backlink[] - array of found Backlink objects that match the pattern
      * @throws InvalidArgumentException
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected static function getRawBacklinks(string $html, string $pattern, bool $scanLinks, bool $scanImages): array
     {
         $result = [];
-        $isOk = true;
 
         if (empty($pattern)) {
             throw new InvalidArgumentException("Pattern is empty.");
         }
 
-        try {
-            if (preg_match($pattern, "") === false) {
-                $isOk = false;
-            }
-        } catch (Exception) {
-            $isOk = false;
+        $errorMessage = null;
+        // Check if the pattern is valid
+        if (@preg_match($pattern, "") === false) {
+            $errorMessage = preg_last_error_msg();
         }
-        if (!$isOk) {
-            throw new InvalidArgumentException("Invalid pattern. Check the RegExp syntax.");
+
+        if ($errorMessage) {
+            throw new InvalidArgumentException("Invalid pattern. Check the RegExp syntax. " . $errorMessage);
         }
         if (strlen($html) <= 0) {
             return $result;

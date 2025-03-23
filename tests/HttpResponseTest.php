@@ -2,14 +2,111 @@
 
 //phpcs:ignore
 declare(strict_types=1);
-require_once __DIR__ . '/../src/BacklinkChecker/HttpResponse.php';
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Valitov\BacklinkChecker;
 
+#[Group('offline')]
+#[CoversClass(BacklinkChecker\HttpResponse::class)]
 final class HttpResponseTest extends TestCase //phpcs:ignore
 {
-    public function testJSON(): void
+    private string $testUrl = 'https://example.com';
+    private int $testStatusCode = 200;
+    private array $testHeaders = [
+        'Content-Type' => ['application/json'],
+        'Cache-Control' => ['no-cache']
+    ];
+    private string $testResponse = '{"status":"ok"}';
+    private bool $testSuccess = true;
+    private string $testScreenshot = 'binary_data';
+
+    public function testConstructorAndGetters()
+    {
+        $response = new BacklinkChecker\HttpResponse(
+            $this->testUrl,
+            $this->testStatusCode,
+            $this->testHeaders,
+            $this->testResponse,
+            $this->testSuccess,
+            $this->testScreenshot
+        );
+
+        $this->assertEquals($this->testUrl, $response->getUrl());
+        $this->assertEquals($this->testStatusCode, $response->getStatusCode());
+        $this->assertEquals($this->testHeaders, $response->getHeaders());
+        $this->assertEquals($this->testResponse, $response->getResponse());
+        $this->assertEquals($this->testSuccess, $response->isSuccess());
+        $this->assertEquals($this->testScreenshot, $response->getScreenshot());
+    }
+
+    public function testJsonSerializeWithScreenshot()
+    {
+        $response = new BacklinkChecker\HttpResponse(
+            $this->testUrl,
+            $this->testStatusCode,
+            $this->testHeaders,
+            $this->testResponse,
+            $this->testSuccess,
+            $this->testScreenshot
+        );
+
+        $expected = [
+            'url' => $this->testUrl,
+            'statusCode' => $this->testStatusCode,
+            'headers' => $this->testHeaders,
+            'response' => $this->testResponse,
+            'success' => $this->testSuccess,
+            'screenshot' => 'data:image/jpeg;base64,' . base64_encode($this->testScreenshot)
+        ];
+
+        $this->assertEquals($expected, $response->jsonSerialize());
+    }
+
+    public function testJsonSerializeWithoutScreenshot()
+    {
+        $response = new BacklinkChecker\HttpResponse(
+            $this->testUrl,
+            $this->testStatusCode,
+            $this->testHeaders,
+            $this->testResponse,
+            $this->testSuccess,
+            ''
+        );
+
+        $expected = [
+            'url' => $this->testUrl,
+            'statusCode' => $this->testStatusCode,
+            'headers' => $this->testHeaders,
+            'response' => $this->testResponse,
+            'success' => $this->testSuccess,
+            'screenshot' => ''
+        ];
+
+        $this->assertEquals($expected, $response->jsonSerialize());
+    }
+
+    public function testFailedRequest()
+    {
+        $response = new BacklinkChecker\HttpResponse(
+            $this->testUrl,
+            404,
+            $this->testHeaders,
+            'Not Found',
+            false,
+            ''
+        );
+
+        $this->assertEquals($this->testUrl, $response->getUrl());
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals($this->testHeaders, $response->getHeaders());
+        $this->assertEquals('Not Found', $response->getResponse());
+        $this->assertFalse($response->isSuccess());
+        $this->assertEquals('', $response->getScreenshot());
+    }
+
+    public function testJsonSerializeComprehensive(): void
     {
         $testImageFilename = __DIR__ . "/data/test.jpg";
         $base64Prefix = "data:image/jpeg;base64,";
