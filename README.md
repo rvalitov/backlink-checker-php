@@ -1,18 +1,18 @@
 # Backlink Validator for SEO
 
-![PHP version icon](https://img.shields.io/static/v1?label=PHP\&message=8.0%20-%208.3\&color=blue)
+![PHP version icon](https://img.shields.io/static/v1?label=PHP&message=7.4%20-%208.4%20&color=blue)
 ![Platform icon](https://img.shields.io/badge/Platform-Windows%2C%20Linux%2C%20Mac-blue)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/rvalitov/backlink-checker-php)
 ![Packagist Stars](https://img.shields.io/packagist/stars/rvalitov/backlink-checker-php)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_coverage)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh\&utm_medium=referral\&utm_content=\&utm_campaign=Badge_grade)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=bugs)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php\&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/328e8eae9a494098b8a8ee66d602f781)](https://app.codacy.com/gh/rvalitov/backlink-checker-php/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=bugs)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=rvalitov_backlink-checker-php&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=rvalitov_backlink-checker-php)
 [![Tests](https://github.com/rvalitov/backlink-checker-php/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/rvalitov/backlink-checker-php/actions/workflows/tests.yml)
 ![GitHub License](https://img.shields.io/github/license/rvalitov/backlink-checker-php?color=blue)
 
@@ -85,8 +85,10 @@ Run the following command:
 php composer require rvalitov/backlink-checker-php
 ```
 
-* Versions starting from 3.0.0 support PHP 8.0 and later.
-* If you need to use an earlier version of PHP, please use the 1.x.x or 2.x.x releases.
+Required PHP extensions:
+
+* [`json`](https://www.php.net/manual/en/json.installation.php)
+* [`sockets`](https://www.php.net/manual/en/sockets.installation.php)
 
 ### Step 2. Install the Chromium
 
@@ -103,10 +105,17 @@ apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 li
 
 You must have a [Node.js](https://nodejs.org/) installed.
 If it's not installed, install it using the official manual.
-Then run the following command to install the Chromium:
+
+If you use PHP 8.0 or later, you need to install the following package:
 
 ```bash
 npm install https://github.com/zoonru/rialto
+```
+
+If you use PHP 7.4, you need to install the following package:
+
+```bash
+npm install @nesk/rialto 
 ```
 
 ### Step 3. Use Autoload
@@ -222,10 +231,3 @@ to [base64](https://en.wikipedia.org/wiki/Data_URI_scheme) format automatically.
 
 Examples are available in a dedicated project on [GitHub](https://github.com/rvalitov/backlink-checker-php-demo).
 Tests are in `tests` folder.
-
-## System Requirements
-
-PHP 8.0.7+ required with the following extensions:
-
-* [`json`](https://www.php.net/manual/en/json.installation.php)
-* [`sockets`](https://www.php.net/manual/en/sockets.installation.php)
