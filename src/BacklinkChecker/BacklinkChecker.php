@@ -166,7 +166,7 @@ abstract class BacklinkChecker
         string $pattern,
         bool $scanLinks = true,
         bool $scanImages = false,
-        bool $makeScreenshot = false,
+        bool $makeScreenshot = false
     ): BacklinkData {
         $response = $this->browsePage($url, $makeScreenshot);
 

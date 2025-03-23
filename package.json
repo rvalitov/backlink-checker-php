@@ -35,6 +35,7 @@
     ]
   },
   "dependencies": {
+    "@nesk/rialto": "^1.4.0",
     "@zoon/puphpeteer": "https://github.com/zoonru/puphpeteer/tarball/zoon"
   },
   "devDependencies": {

@@ -114,7 +114,7 @@ class BacklinkCheckerTest extends TestCase //phpcs:ignore
                     true,
                     false,
                 );
-            } catch (\Exception) {
+            } catch (\Exception $ex) {
                 $exceptionFired = true;
             }
             $this->assertTrue($exceptionFired, "Failed to match invalid regex: $regex");

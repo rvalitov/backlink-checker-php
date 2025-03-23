@@ -5,7 +5,6 @@ namespace Valitov\BacklinkChecker;
 use InvalidArgumentException;
 use Nesk\Puphpeteer\Puppeteer;
 use Nesk\Rialto\Data\JsFunction;
-use RuntimeException;
 use UnexpectedValueException;
 
 /**
@@ -24,7 +23,6 @@ class ChromeBacklinkChecker extends BacklinkChecker
      * @return HttpResponse - the response object
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
-     * @todo Add support for response headers
      * @noinspection PhpUndefinedFieldInspection
      */
     protected function browsePage(string $url, bool $makeScreenshot): HttpResponse

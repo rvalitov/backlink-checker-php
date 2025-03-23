@@ -57,7 +57,7 @@ class HttpResponse implements JsonSerializable
         array $headers,
         string $response,
         bool $success,
-        string $screenshot,
+        string $screenshot
     ) {
         $this->url = $url;
         $this->statusCode = $statusCode;
@@ -149,7 +149,7 @@ class HttpResponse implements JsonSerializable
 
     /**
      * Function to serialize the object to JSON
-     * @return array<mixed> array representation of the object
+     * @return array array representation of the object
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): array

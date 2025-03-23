@@ -190,7 +190,7 @@ final class FinalBacklinkCheckersTest extends TestCase //phpcs:ignore
             $exceptionFired = false;
             try {
                 $checker->getBacklinks(Config::TEST_HOST . "simple.html", "abc");
-            } catch (\InvalidArgumentException) {
+            } catch (\InvalidArgumentException $ex) {
                 $exceptionFired = true;
             }
             $this->assertTrue($exceptionFired, "InvalidArgumentException was not thrown for invalid pattern in $type checker");
@@ -225,7 +225,7 @@ final class FinalBacklinkCheckersTest extends TestCase //phpcs:ignore
             $exceptionFired = false;
             try {
                 $checker->getBacklinks("ppp://localhost:8080/missing", "@abc@");
-            } catch (RuntimeException) {
+            } catch (RuntimeException $ex) {
                 $exceptionFired = true;
             }
             $this->assertTrue($exceptionFired, "RuntimeException was not thrown for invalid protocol in $type checker");
@@ -387,13 +387,17 @@ final class FinalBacklinkCheckersTest extends TestCase //phpcs:ignore
         }
     }
 
+    /**
+     * @return void
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
     public function testEmptyUrl(): void
     {
         foreach ($this->checkers as $type => $checker) {
             $exceptionFired = false;
             try {
-                $checker->getBacklinks("", "@abc@");
-            } catch (\Exception) {
+                @$checker->getBacklinks("", "@abc@");
+            } catch (\Exception $ex) {
                 $exceptionFired = true;
             }
             $this->assertTrue($exceptionFired, "Exception was not thrown for empty URL in $type checker");

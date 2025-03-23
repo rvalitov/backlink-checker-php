@@ -50,7 +50,7 @@ class Backlink implements JsonSerializable
         string $linkContents,
         bool $noFollow,
         string $target,
-        string $tag,
+        string $tag
     ) {
         $this->backlink = $backlink;
         $this->anchor = $linkContents;
@@ -106,7 +106,7 @@ class Backlink implements JsonSerializable
 
     /**
      * Function to serialize the object to JSON
-     * @return array<mixed> array representation of the object
+     * @return array array representation of the object
      * @see http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize(): array
