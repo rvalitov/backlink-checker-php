@@ -15,10 +15,13 @@ on:
   # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
+env:
+  UBUNTU_VERSION: ubuntu-latest
+
 jobs:
   lint:
     name: DevSkim
-    runs-on: ${{ vars.UBUNTU_VERSION }}
+    runs-on: ${{ env.UBUNTU_VERSION }}
     permissions:
       actions: read
       contents: read

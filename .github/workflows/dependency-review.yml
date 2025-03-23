@@ -9,13 +9,20 @@ on: [pull_request]
 
 permissions:
   contents: read
+  pull-requests: write
+
+env:
+  UBUNTU_VERSION: ubuntu-latest
 
 jobs:
   dependency-review:
     name: Dependency Review
-    runs-on: ${{ vars.UBUNTU_VERSION }}
+    runs-on: ${{ env.UBUNTU_VERSION }}
     steps:
       - name: "Checkout Repository"
         uses: actions/checkout@v4
       - name: "Dependency Review"
         uses: actions/dependency-review-action@v4
+        with:
+          comment-summary-in-pr: always
+          fail-on-severity: high

@@ -19,6 +19,7 @@ permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 env:
+  UBUNTU_VERSION: ubuntu-latest
   NODE_VERSION: latest
   PHP_VERSION: 8.3
   PHPUNIT_VERSION: 11
@@ -26,7 +27,7 @@ env:
 jobs:
   sonarqube:
     name: SonarQube
-    runs-on: ${{ vars.UBUNTU_VERSION }}
+    runs-on: ${{ env.UBUNTU_VERSION }}
 
     steps:
       - name: Setup PHP ${{ env.PHP_VERSION }}
