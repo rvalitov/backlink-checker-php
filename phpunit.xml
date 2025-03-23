@@ -2,10 +2,19 @@
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-  cacheResultFile=".phpunit.cache"
+  cacheDirectory=".cache"
+  bootstrap="vendor/autoload.php"
   executionOrder="depends,defects"
   beStrictAboutOutputDuringTests="true"
+  displayDetailsOnTestsThatTriggerDeprecations="true"
+  displayDetailsOnTestsThatTriggerErrors="true"
+  displayDetailsOnTestsThatTriggerNotices="true"
+  displayDetailsOnTestsThatTriggerWarnings="true"
+  displayDetailsOnPhpunitDeprecations="true"
   colors="true"
+  testdox="true"
+  requireCoverageMetadata="true"
+  beStrictAboutCoverageMetadata="true"
 >
     <testsuites>
         <testsuite name="default">
@@ -13,10 +22,23 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <include>
             <directory suffix=".php">src</directory>
         </include>
+    </source>
+
+    <coverage>
+        <report>
+            <clover outputFile="coverage/clover.xml" />
+            <html outputDirectory="coverage/html" />
+            <text outputFile="coverage/coverage.txt" />
+            <xml outputDirectory="coverage/xml" />
+        </report>
     </coverage>
+
+    <logging>
+        <junit outputFile="coverage/execution.xml" />
+    </logging>
 
 </phpunit>
