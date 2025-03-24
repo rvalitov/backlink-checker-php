@@ -32,10 +32,9 @@ jobs:
             phpunit-versions: 12
           - php-versions: "8.4"
             phpunit-versions: 12
-            env:
-              - PHP_CS_FIXER_IGNORE_ENV: 1
+
     runs-on: ${{ matrix.operating-system }}
-    name: OS ${{ operating-system }} | PHP ${{ matrix.php-versions }}
+    name: OS ${{ matrix.operating-system }} | PHP ${{ matrix.php-versions }}
 
     steps:
       - name: Setup PHP ${{ matrix.php-versions }}
@@ -91,10 +90,12 @@ jobs:
       - name: Server warm up
         run: sleep 5
 
-      # TODO: the problem is that Prettier does not work properly on Windows. Good to fix this in the future.
-      - if: matrix.operating-system == 'windows-latest'
-        name: Run short test suite
-        run: npm run test:small
-      - if: matrix.operating-system != 'windows-latest'
-        name: Run full test suite
+      - if: matrix.php-versions != '8.4'
+        name: Run test suite
+        shell: bash
         run: npm run test
+
+      - if: matrix.php-versions == '8.4'
+        name: Run test suite for PHP 8.4
+        shell: bash
+        run: npm run test:8.4
