@@ -32,7 +32,10 @@ jobs:
             phpunit-versions: 12
           - php-versions: "8.4"
             phpunit-versions: 12
+            env:
+              - PHP_CS_FIXER_IGNORE_ENV: 1
     runs-on: ${{ matrix.operating-system }}
+    name: OS ${{ operating-system }} | PHP ${{ matrix.php-versions }}
 
     steps:
       - name: Setup PHP ${{ matrix.php-versions }}
