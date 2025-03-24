@@ -22,7 +22,6 @@ permissions:
   contents: read
 
 env:
-  UBUNTU_VERSION: ubuntu-latest
   NODE_VERSION: latest
   PHP_VERSION: 8.3
   PHPUNIT_VERSION: 11
@@ -34,7 +33,7 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     name: Codacy Security Scan
-    runs-on: ${{ env.UBUNTU_VERSION }}
+    runs-on: ubuntu-latest
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout code
@@ -64,7 +63,7 @@ jobs:
 
   codacy-coverage-reporter:
     name: Codacy Coverage Reporter
-    runs-on: ${{ env.UBUNTU_VERSION }}
+    runs-on: ubuntu-latest
     steps:
       - name: Setup PHP ${{ env.PHP_VERSION }}
         uses: shivammathur/setup-php@v2
