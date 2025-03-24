@@ -232,6 +232,10 @@ final class FinalBacklinkCheckersTest extends TestCase //phpcs:ignore
         }
     }
 
+    /**
+     * @return void
+     * @SuppressWarnings("PHPMD.ExcessiveMethodLength")
+     */
     public function testBasicLinksTest(): void
     {
         $testData = [

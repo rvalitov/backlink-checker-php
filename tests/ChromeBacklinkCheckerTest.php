@@ -46,6 +46,10 @@ final class ChromeBacklinkCheckerTest extends TestCase //phpcs:ignore
         $this->assertEmpty($backlinks->getBacklinks());
     }
 
+    /**
+     * @return void
+     * @SuppressWarnings("PHPMD.MissingImport")
+     */
     public function testMakeScreenshot(): void
     {
         $checker = new TestChromeBacklinkChecker();
