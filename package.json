@@ -41,8 +41,8 @@
   "devDependencies": {
     "@prantlf/jsonlint": "^16.0.0",
     "@prettier/plugin-xml": "^3.4.1",
-    "eslint": "^9.21.0",
-    "eslint-plugin-yml": "^1.17.0",
+    "eslint": "^9.26.0",
+    "eslint-plugin-yml": "^1.18.0",
     "markdownlint-cli": "^0.44.0",
     "npm-package-json-lint": "^8.0.0",
     "npm-package-json-lint-config-default": "^7.0.1",
@@ -52,7 +52,7 @@
     "remark-preset-lint-consistent": "^6.0.1",
     "remark-preset-lint-recommended": "^7.0.1",
     "serve": "^14.2.4",
-    "sort-package-json": "^3.0.0",
+    "sort-package-json": "^3.2.0",
     "wait-on": "^8.0.2"
   },
   "engines": {
